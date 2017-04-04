@@ -11,5 +11,6 @@ aggregate_prevalence_to_England <- function(prevalence_data) {
   England_prevalence <- 100*(England_count / England_pop)
   return(England_prevalence)
 }
+
 #Run function, specifying dataset to use
 aggregate_prevalence_to_England(CCG_prevalence)
