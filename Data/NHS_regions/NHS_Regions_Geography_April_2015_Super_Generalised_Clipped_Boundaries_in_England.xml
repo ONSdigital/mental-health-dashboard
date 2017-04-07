@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><gmd:MD_Metadata xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <gmd:fileIdentifier>
-<gco:CharacterString>8d3a9e6e7bd445e2bdcc26cdf007eac7</gco:CharacterString>
+<gco:CharacterString>3abcaed22a4c49f6ac4645532b905998</gco:CharacterString>
 </gmd:fileIdentifier>
 <gmd:language>
 <gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/php/code_list.php" codeListValue="eng" codeSpace="ISO639-2">eng</gmd:LanguageCode>
@@ -36,7 +36,7 @@
 </gmd:CI_ResponsibleParty>
 </gmd:contact>
 <dateStamp>
-<gco:Date>2016-08-19</gco:Date>
+<gco:Date>2016-09-29</gco:Date>
 </dateStamp>
 <gmd:metadataStandardName>
 <gco:CharacterString>INSPIRE Metadata Implementing Rules: Technical Guidelines based on EN ISO 19115 and EN ISO 19119</gco:CharacterString>
@@ -49,12 +49,12 @@
 <gmd:citation>
 <gmd:CI_Citation>
 <gmd:title>
-<gco:CharacterString>Region (December 2015) Boundaries</gco:CharacterString>
+<gco:CharacterString>NHS Region Geography (April 2015) Boundaries</gco:CharacterString>
 </gmd:title>
 <gmd:date>
 <gmd:CI_Date>
 <date>
-<gco:Date>2015-12-31</gco:Date>
+<gco:Date>2015-04-30</gco:Date>
 </date>
 <gmd:dateType>
 <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation" codeSpace="ISOTC211/19115">creation</gmd:CI_DateTypeCode>
@@ -64,7 +64,7 @@
 <gmd:date>
 <gmd:CI_Date>
 <date>
-<gco:Date>2016-08-19</gco:Date>
+<gco:Date>2016-09-29</gco:Date>
 </date>
 <gmd:dateType>
 <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication" codeSpace="ISOTC211/19115">publication</gmd:CI_DateTypeCode>
@@ -74,14 +74,14 @@
 <gmd:identifier>
 <gmd:MD_Identifier>
 <gmd:code>
-<gco:CharacterString>8d3a9e6e7bd445e2bdcc26cdf007eac7</gco:CharacterString>
+<gco:CharacterString>3abcaed22a4c49f6ac4645532b905998</gco:CharacterString>
 </gmd:code>
 </gmd:MD_Identifier>
 </gmd:identifier>
 </gmd:CI_Citation>
 </gmd:citation>
 <gmd:abstract>
-<gco:CharacterString>This file contains the digital vector boundaries for regions in England as at 31 December 2015. The boundaries available are:Full resolution - extent of the realm (usually this is the Mean Low Water mark but in some cases boundaries extend beyond this to include off shore islands)Full resolution - clipped to the coastline (Mean High Water mark)Generalised (20m) - clipped to the coastline (Mean High Water mark)Super generalised (200m) - clipped to the coastline (Mean High Water mark)Ultra generalised (500m) - clipped to the coastline (Mean High Water mark). Contains both Ordnance Survey and ONS Intellectual Property Rights.REST URL of ArcGIS for INSPIRE View Service – https://ons-inspire.esriuk.com/arcgis/rest/services/Administrative_Boundaries/Region_December_2015_Boundaries/MapServer/exts/InspireView</gco:CharacterString>
+<gco:CharacterString>This file contains the digital vector boundaries for NHS Regions (Geography) (NHSRG) in England as at April 2015. The boundaries available are: Full resolution - extent of the realm (usually this is the Mean Low Water mark but in some cases boundaries extend beyond this to include off shore islands)Full resolution - clipped to the coastline (Mean High Water mark)Generalised (20m) - clipped to the coastline (Mean High Water mark)Super generalised (200m) - clipped to the coastline (Mean High Water mark)Ultra generalised (500m) - clipped to the coastline (Mean High Water mark).Contains both Ordnance Survey and ONS Intellectual Property Rights.REST URL of ArcGIS for INSPIRE View Service – https://ons-inspire.esriuk.com/arcgis/rest/services/Health_Boundaries/NHS_Region_Geography_April_2015_Boundaries_V2/MapServer/exts/InspireViewREST URL of ArcGIS for INSPIRE Feature Download Service – https://ons-inspire.esriuk.com/arcgis/rest/services/Health_Boundaries/NHS_Region_Geography_April_2015_Boundaries_V2/MapServer/exts/InspireFeatureDownload</gco:CharacterString>
 </gmd:abstract>
 <gmd:purpose>
 <gco:CharacterString>Boundaries</gco:CharacterString>
@@ -95,10 +95,10 @@
 <gco:CharacterString>Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Region</gco:CharacterString>
+<gco:CharacterString>NHS Region Geography</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN</gco:CharacterString>
+<gco:CharacterString>NHSRG</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>2015</gco:CharacterString>
@@ -107,7 +107,7 @@
 <gco:CharacterString>England</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Administrative Boundaries</gco:CharacterString>
+<gco:CharacterString>Health Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>WFS</gco:CharacterString>
@@ -116,7 +116,7 @@
 <gco:CharacterString>WMS</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN Boundaries</gco:CharacterString>
+<gco:CharacterString>NHSRG Boundaries</gco:CharacterString>
 </gmd:keyword>
 </gmd:MD_Keywords>
 </gmd:descriptiveKeywords>
@@ -126,10 +126,10 @@
 <gco:CharacterString>Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Region</gco:CharacterString>
+<gco:CharacterString>NHS Region Geography</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN</gco:CharacterString>
+<gco:CharacterString>NHSRG</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>2015</gco:CharacterString>
@@ -138,7 +138,7 @@
 <gco:CharacterString>England</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Administrative Boundaries</gco:CharacterString>
+<gco:CharacterString>Health Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>WFS</gco:CharacterString>
@@ -147,7 +147,7 @@
 <gco:CharacterString>WMS</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN Boundaries</gco:CharacterString>
+<gco:CharacterString>NHSRG Boundaries</gco:CharacterString>
 </gmd:keyword>
 </gmd:MD_Keywords>
 </gmd:descriptiveKeywords>
@@ -157,10 +157,10 @@
 <gco:CharacterString>Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Region</gco:CharacterString>
+<gco:CharacterString>NHS Region Geography</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN</gco:CharacterString>
+<gco:CharacterString>NHSRG</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>2015</gco:CharacterString>
@@ -169,7 +169,7 @@
 <gco:CharacterString>England</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Administrative Boundaries</gco:CharacterString>
+<gco:CharacterString>Health Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>WFS</gco:CharacterString>
@@ -178,7 +178,7 @@
 <gco:CharacterString>WMS</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN Boundaries</gco:CharacterString>
+<gco:CharacterString>NHSRG Boundaries</gco:CharacterString>
 </gmd:keyword>
 </gmd:MD_Keywords>
 </gmd:descriptiveKeywords>
@@ -188,10 +188,10 @@
 <gco:CharacterString>Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Region</gco:CharacterString>
+<gco:CharacterString>NHS Region Geography</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN</gco:CharacterString>
+<gco:CharacterString>NHSRG</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>2015</gco:CharacterString>
@@ -200,7 +200,7 @@
 <gco:CharacterString>England</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Administrative Boundaries</gco:CharacterString>
+<gco:CharacterString>Health Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>WFS</gco:CharacterString>
@@ -209,7 +209,7 @@
 <gco:CharacterString>WMS</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN Boundaries</gco:CharacterString>
+<gco:CharacterString>NHSRG Boundaries</gco:CharacterString>
 </gmd:keyword>
 </gmd:MD_Keywords>
 </gmd:descriptiveKeywords>
@@ -219,10 +219,10 @@
 <gco:CharacterString>Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Region</gco:CharacterString>
+<gco:CharacterString>NHS Region Geography</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN</gco:CharacterString>
+<gco:CharacterString>NHSRG</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>2015</gco:CharacterString>
@@ -231,7 +231,7 @@
 <gco:CharacterString>England</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Administrative Boundaries</gco:CharacterString>
+<gco:CharacterString>Health Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>WFS</gco:CharacterString>
@@ -240,7 +240,7 @@
 <gco:CharacterString>WMS</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN Boundaries</gco:CharacterString>
+<gco:CharacterString>NHSRG Boundaries</gco:CharacterString>
 </gmd:keyword>
 </gmd:MD_Keywords>
 </gmd:descriptiveKeywords>
@@ -250,10 +250,10 @@
 <gco:CharacterString>Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Region</gco:CharacterString>
+<gco:CharacterString>NHS Region Geography</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN</gco:CharacterString>
+<gco:CharacterString>NHSRG</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>2015</gco:CharacterString>
@@ -262,7 +262,7 @@
 <gco:CharacterString>England</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Administrative Boundaries</gco:CharacterString>
+<gco:CharacterString>Health Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>WFS</gco:CharacterString>
@@ -271,7 +271,7 @@
 <gco:CharacterString>WMS</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN Boundaries</gco:CharacterString>
+<gco:CharacterString>NHSRG Boundaries</gco:CharacterString>
 </gmd:keyword>
 </gmd:MD_Keywords>
 </gmd:descriptiveKeywords>
@@ -281,10 +281,10 @@
 <gco:CharacterString>Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Region</gco:CharacterString>
+<gco:CharacterString>NHS Region Geography</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN</gco:CharacterString>
+<gco:CharacterString>NHSRG</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>2015</gco:CharacterString>
@@ -293,7 +293,7 @@
 <gco:CharacterString>England</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Administrative Boundaries</gco:CharacterString>
+<gco:CharacterString>Health Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>WFS</gco:CharacterString>
@@ -302,7 +302,7 @@
 <gco:CharacterString>WMS</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN Boundaries</gco:CharacterString>
+<gco:CharacterString>NHSRG Boundaries</gco:CharacterString>
 </gmd:keyword>
 </gmd:MD_Keywords>
 </gmd:descriptiveKeywords>
@@ -312,10 +312,10 @@
 <gco:CharacterString>Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Region</gco:CharacterString>
+<gco:CharacterString>NHS Region Geography</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN</gco:CharacterString>
+<gco:CharacterString>NHSRG</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>2015</gco:CharacterString>
@@ -324,7 +324,7 @@
 <gco:CharacterString>England</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Administrative Boundaries</gco:CharacterString>
+<gco:CharacterString>Health Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>WFS</gco:CharacterString>
@@ -333,7 +333,7 @@
 <gco:CharacterString>WMS</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN Boundaries</gco:CharacterString>
+<gco:CharacterString>NHSRG Boundaries</gco:CharacterString>
 </gmd:keyword>
 </gmd:MD_Keywords>
 </gmd:descriptiveKeywords>
@@ -343,10 +343,10 @@
 <gco:CharacterString>Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Region</gco:CharacterString>
+<gco:CharacterString>NHS Region Geography</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN</gco:CharacterString>
+<gco:CharacterString>NHSRG</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>2015</gco:CharacterString>
@@ -355,7 +355,7 @@
 <gco:CharacterString>England</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>Administrative Boundaries</gco:CharacterString>
+<gco:CharacterString>Health Boundaries</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
 <gco:CharacterString>WFS</gco:CharacterString>
@@ -364,14 +364,14 @@
 <gco:CharacterString>WMS</gco:CharacterString>
 </gmd:keyword>
 <gmd:keyword>
-<gco:CharacterString>RGN Boundaries</gco:CharacterString>
+<gco:CharacterString>NHSRG Boundaries</gco:CharacterString>
 </gmd:keyword>
 </gmd:MD_Keywords>
 </gmd:descriptiveKeywords>
 <gmd:resourceConstraints>
 <gmd:MD_LegalConstraints>
 <gmd:useLimitation>
-<gco:CharacterString>Licence, http://www.nationalarchives.gov.uk/doc/open-government-licence/, Contains National Statistics data © Crown copyright and database right [2015]</gco:CharacterString>
+<gco:CharacterString>Licence, http://www.nationalarchives.gov.uk/doc/open-government-licence/, Contains National Statistics data © Crown copyright and database right [2016]</gco:CharacterString>
 </gmd:useLimitation>
 <gmd:accessConstraints>
 <gmd:MD_RestrictionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="otherRestrictions" codeSpace="ISOTC211/19115">otherRestrictions</gmd:MD_RestrictionCode>
@@ -380,7 +380,7 @@
 <gmd:MD_RestrictionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="otherRestrictions" codeSpace="ISOTC211/19115">otherRestrictions</gmd:MD_RestrictionCode>
 </gmd:useConstraints>
 <gmd:otherConstraints>
-<gco:CharacterString>Licence, http://www.nationalarchives.gov.uk/doc/open-government-licence/, Contains National Statistics data © Crown copyright and database right [2015]</gco:CharacterString>
+<gco:CharacterString>Licence, http://www.nationalarchives.gov.uk/doc/open-government-licence/, Contains National Statistics data © Crown copyright and database right [2016]</gco:CharacterString>
 </gmd:otherConstraints>
 </gmd:MD_LegalConstraints>
 </gmd:resourceConstraints>
@@ -465,7 +465,7 @@
 <gmd:lineage>
 <gmd:LI_Lineage>
 <gmd:statement>
-<gco:CharacterString>This dataset was built from ONS Geographys corrected version of Ordnance Survey Boundary Line 2015</gco:CharacterString>
+<gco:CharacterString>This dataset was built from ONS Geography's corrected version of Ordnance Survey Boundary Line 2015</gco:CharacterString>
 </gmd:statement>
 </gmd:LI_Lineage>
 </gmd:lineage>
