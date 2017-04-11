@@ -60,7 +60,21 @@ manipulate_regions_for_shapefile <- function(region_prevalence) {
   return(thirteen_level_NHS_regional_prevalence)
 }
   
+
+#join shapefile to regional prevalence data
+join_prevalence_data_to_shapefile <- function(thirteen_level_NHS_regional_prevalence, region_shapefile){
+  region_shapefile@data <- setnames(region_shapefile@data, "nhsrg15cd", "Parent.Code")
+  region_shapefile@data <-  region_shapefile@data %>% 
+    left_join(thirteen_level_NHS_regional_prevalence, by='Parent.Code')
+  
+  return(region_shapefile)
+  }
+
 #Run function, specifying dataset to use
 england_prevalence <- aggregate_prevalence_to_England(CCG_prevalence)
 region_prevalence <- aggregate_prevalence_to_region(CCG_prevalence)
 thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
+region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(thirteen_level_NHS_regional_prevalence, region_shapefile)
+
+#plot(region_shapefile_with_joined_prevalence_data, col = region_shapefile_with_joined_prevalence_data@data$prevalence)
+#region_shapefile_with_joined_prevalence_data@data
