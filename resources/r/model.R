@@ -62,10 +62,11 @@ manipulate_regions_for_shapefile <- function(region_prevalence) {
   
 #Add rank column/variable to dataset
 
-create_rank_variable_by_region <- function(thirteen_level_NHS_regional_prevalence){
+rank_prevalence_by_region <- function(thirteen_level_NHS_regional_prevalence){
   thirteen_level_NHS_regional_prevalence$rank <- NA
   thirteen_level_NHS_regional_prevalence$rank[order(-thirteen_level_NHS_regional_prevalence$prevalence)] <- 1:nrow(thirteen_level_NHS_regional_prevalence)
-  return(thirteen_level_NHS_regional_prevalence)
+  
+  return(regional_prevalence_with_ranks)
 }
 
 #join shapefile to regional prevalence data
@@ -81,12 +82,13 @@ join_prevalence_data_to_shapefile <- function(thirteen_level_NHS_regional_preval
 england_prevalence <- aggregate_prevalence_to_England(CCG_prevalence)
 region_prevalence <- aggregate_prevalence_to_region(CCG_prevalence)
 thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
-regional_prevalence_with_ranks <- create_rank_variable_by_region(thirteen_level_NHS_regional_prevalence)
+regional_prevalence_with_ranks <- rank_prevalence_by_region(thirteen_level_NHS_regional_prevalence)
 region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks, region_shapefile)
 
-#plot(region_shapefile_with_joined_prevalence_data, col = region_shapefile_with_joined_prevalence_data@data$prevalence)
-#region_shapefile_with_joined_prevalence_data@data
+plot(region_shapefile_with_joined_prevalence_data, col = region_shapefile_with_joined_prevalence_data@data$prevalence)
+region_shapefile_with_joined_prevalence_data@data
 
+View(region_shapefile_with_joined_prevalence_data)
 
 
 
