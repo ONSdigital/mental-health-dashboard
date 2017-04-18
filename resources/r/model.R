@@ -70,10 +70,10 @@ rank_prevalence_by_region <- function(thirteen_level_NHS_regional_prevalence){
 }
 
 #join shapefile to regional prevalence data
-join_prevalence_data_to_shapefile <- function(thirteen_level_NHS_regional_prevalence, region_shapefile){
+join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, region_shapefile){
   region_shapefile@data <- setnames(region_shapefile@data, "nhsrg15cd", "Parent.Code")
   region_shapefile@data <-  region_shapefile@data %>% 
-    left_join(thirteen_level_NHS_regional_prevalence, by='Parent.Code')
+    left_join(regional_prevalence_with_ranks, by='Parent.Code')
   
   return(region_shapefile)
   }
