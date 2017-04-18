@@ -66,7 +66,7 @@ rank_prevalence_by_region <- function(thirteen_level_NHS_regional_prevalence){
   thirteen_level_NHS_regional_prevalence$rank <- NA
   thirteen_level_NHS_regional_prevalence$rank[order(-thirteen_level_NHS_regional_prevalence$prevalence)] <- 1:nrow(thirteen_level_NHS_regional_prevalence)
   
-  return(regional_prevalence_with_ranks)
+  return(thirteen_level_NHS_regional_prevalence)
 }
 
 #join shapefile to regional prevalence data
