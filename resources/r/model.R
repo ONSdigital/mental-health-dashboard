@@ -1,9 +1,11 @@
 #install.packages("data.table")
 #install.packages("dplyr")
 #install.packages("maptools")
+#install.packages("ggplot2")
 library(data.table)
 library(dplyr)
 library(maptools)
+library(ggplot2)
 
 
 ####Data
@@ -13,7 +15,7 @@ CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
 region_shapefile <- readShapePoly("data/NHS_regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 
 region_shapefile@data
-View(region_shapefile)
+#View(region_shapefile)
 
 ####Model
 #Function to aggregate to England
@@ -36,7 +38,6 @@ aggregate_prevalence_to_region <- function(prevalence_data) {
   return(regional_level_prevalence)
 }
 
-
 manipulate_regions_for_shapefile <- function(region_prevalence) {
   #Combining regions to match shapefile
   removed_regions <- region_prevalence %>%
@@ -48,7 +49,7 @@ manipulate_regions_for_shapefile <- function(region_prevalence) {
     filter(Parent.Code %in% c("E39000037","E39000038")) %>%
     group_by() %>%
     summarise(Parent.Code = "E39000028",
-              Parent.Name = "Lancashire and Greater Manchester NHS region",
+              Parent.Name = "Lancashire and Greater Manchester",
               Count = sum(Count),
               Population = sum(Population)) %>%
     mutate(prevalence = (Count/Population)*100)
@@ -59,7 +60,7 @@ manipulate_regions_for_shapefile <- function(region_prevalence) {
   
   return(thirteen_level_NHS_regional_prevalence)
 }
-  
+
 #Add rank column/variable to dataset
 
 rank_prevalence_by_region <- function(thirteen_level_NHS_regional_prevalence){
@@ -76,7 +77,27 @@ join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, re
     left_join(regional_prevalence_with_ranks, by='Parent.Code')
   
   return(region_shapefile)
-  }
+}
+
+#Create barchart
+
+#Order by rank
+regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
+                                                     levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
+#Create themes for formatting text size, colour etc
+title_label <- element_text(face = "bold", color = "turquoise4", size = 14)
+axis_labels <- element_text(color = "dodgerblue4", size = 12, hjust = 0.5)
+region_labels <- element_text(size = 12, hjust = 1)
+prevalence_labels <- element_text(size = 12, vjust = 0.2, hjust = 0.5)
+
+#Create dataframe for England average line
+england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
+region_names <- as.vector(regional_prevalence_with_ranks$Parent.Name)
+england_prevalence_line <- data.frame(england_prev, region_names)
+
+#Plot
+ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) + coord_flip() +theme(axis.title = axis_labels, title = title_label, axis.text.x = prevalence_labels, axis.text.y = region_labels) +labs(title = "Prevalence of Common Mental Disorders by NHS Region in England, 2014-2015", x = "NHS Region", y = "Prevalence of Common Mental Disorders (%)") + geom_bar(stat = "identity", fill="dodgerblue4") +geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "red", size = 2) + annotate("text", x=0.75, y= 15.75, label = "England average", color = "red", size  = 4)
+
 
 #Run function, specifying dataset to use
 england_prevalence <- aggregate_prevalence_to_England(CCG_prevalence)
