@@ -1,9 +1,13 @@
 #install.packages("data.table")
 #install.packages("dplyr")
 #install.packages("maptools")
+#install.packages("classInt")
+#install.packages("RColorBrewer")
 library(data.table)
 library(dplyr)
 library(maptools)
+library(classInt)
+library(RColorBrewer)
 
 
 ####Data
@@ -85,8 +89,18 @@ thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(regio
 regional_prevalence_with_ranks <- rank_prevalence_by_region(thirteen_level_NHS_regional_prevalence)
 region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks, region_shapefile)
 
-plot(region_shapefile_with_joined_prevalence_data, col = region_shapefile_with_joined_prevalence_data@data$prevalence)
-region_shapefile_with_joined_prevalence_data@data
+# Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+breaks=classIntervals(region_shapefile_with_joined_prevalence_data@data$prevalence, n=4, style="jenks")
+
+#get 4 Green ColorBrewer Colours
+Greenery <- brewer.pal(4,"Greens")
+
+# plot a map using the new class breaks and colours we created just now.
+plot(region_shapefile_with_joined_prevalence_data, col= Greenery[findInterval(region_shapefile_with_joined_prevalence_data@data$prevalence, breaks$brks, all.inside = TRUE)], axes =FALSE, border = rgb(0.8,0.8,0.8))
+
+# a map should have a title - this may need
+title('Mental Health Prevalence in England, 2015')
+legend(x = 10000, y = 120000, legend = leglabs(breaks$brks), fill = Greenery, bty = "n")
 
 View(region_shapefile_with_joined_prevalence_data)
 
