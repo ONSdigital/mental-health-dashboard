@@ -27,7 +27,7 @@ region_shapefile@data
 aggregate_prevalence_to_England <- function(prevalence_data) {
   England_count <- sum(prevalence_data$Count)
   England_pop <- sum(prevalence_data$Denominator)
-  England_prevalence <- 100*(England_count / England_pop)
+  England_prevalence <- round(100*(England_count / England_pop), digits = 1)
   
   return(England_prevalence)
 }
@@ -36,7 +36,7 @@ aggregate_prevalence_to_England <- function(prevalence_data) {
 (results <- test_that("Test that the number for England prevalence is equal to 15.6", 
                       {CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
                       england_prevalence <- aggregate_prevalence_to_England(CCG_prevalence)
-                      expect_equal(round(england_prevalence, digits = 1), 15.6)}))
+                      expect_equal(england_prevalence, 15.6)}))
 
 
 #Function to aggregate to Region
@@ -45,7 +45,7 @@ aggregate_prevalence_to_region <- function(prevalence_data) {
     group_by(Parent.Code, Parent.Name) %>%
     summarise(Count = sum(Count),
               Population = sum(Denominator)) %>%
-    mutate(prevalence=(Count/Population)*100)
+    mutate(prevalence=round((Count/Population)*100, digits =1))
   
   return(regional_level_prevalence)
 }
