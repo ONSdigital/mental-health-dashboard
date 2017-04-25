@@ -84,12 +84,13 @@ join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, re
 
 #Create barchart
 
-#Order by rank
-regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
-                                                     levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
-
 
 create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence){
+ 
+   #Order by rank
+  regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
+                                                       levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
+  
   #Create themes for formatting text size, colour etc
   title_label <- element_text(face = "bold", color = "turquoise4", size = 14)
   axis_labels <- element_text(color = "dodgerblue4", size = 12, hjust = 0.5)
