@@ -84,22 +84,34 @@ join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, re
 
 #Create barchart
 
-#Order by rank
-regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
-                                                     levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
-#Create themes for formatting text size, colour etc
-title_label <- element_text(face = "bold", color = "turquoise4", size = 14)
-axis_labels <- element_text(color = "dodgerblue4", size = 12, hjust = 0.5)
-region_labels <- element_text(size = 12, hjust = 1)
-prevalence_labels <- element_text(size = 12, vjust = 0.2, hjust = 0.5)
 
-#Create dataframe for England average line
-england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
-region_names <- as.vector(regional_prevalence_with_ranks$Parent.Name)
-england_prevalence_line <- data.frame(england_prev, region_names)
-
-#Plot
-ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) + coord_flip() +theme(axis.title = axis_labels, title = title_label, axis.text.x = prevalence_labels, axis.text.y = region_labels) +labs(title = "Prevalence of Common Mental Disorders by NHS Region in England, 2014-2015", x = "NHS Region", y = "Prevalence of Common Mental Disorders (%)") + geom_bar(stat = "identity", fill="dodgerblue4") +geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "red", size = 2) + annotate("text", x=0.75, y= 15.75, label = "England average", color = "red", size  = 4)
+create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence){
+ 
+   #Order by rank
+  regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
+                                                       levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
+  
+  #Create themes for formatting text size, colour etc
+  title_label <- element_text(face = "bold", color = "turquoise4", size = 14)
+  axis_labels <- element_text(color = "dodgerblue4", size = 12, hjust = 0.5)
+  region_labels <- element_text(size = 12, hjust = 1)
+  prevalence_labels <- element_text(size = 12, vjust = 0.2, hjust = 0.5)
+  
+  #Create dataframe for England average line
+  england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
+  region_names <- as.vector(regional_prevalence_with_ranks$Parent.Name)
+  england_prevalence_line <- data.frame(england_prev, region_names)
+  
+  #Plot
+  ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
+    coord_flip() +
+    theme(axis.title = axis_labels, title = title_label, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
+    labs(title = "Prevalence of Common Mental Disorders by NHS Region in England, 2014-2015", x = "NHS Region", y = "Prevalence of Common Mental Disorders (%)") +
+    geom_bar(stat = "identity", fill="dodgerblue4") +
+    geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "red", size = 2) +
+    annotate("text", x=0.75, y= 15.75, label = "England average", color = "red", size  = 4)
+  
+}
 
 # Create a map of prevalence by NHS Region
 create_choropleth_map_by_prevalence <- function(region_shapefile_with_joined_prevalence_data){
@@ -124,6 +136,7 @@ region_prevalence <- aggregate_prevalence_to_region(CCG_prevalence)
 thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
 regional_prevalence_with_ranks <- rank_prevalence_by_region(thirteen_level_NHS_regional_prevalence)
 region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks, region_shapefile)
+create_barchart_of_prevalence_by_region(regional_prevalence_with_ranks, england_prevalence)
 choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(region_shapefile_with_joined_prevalence_data)
 
 
