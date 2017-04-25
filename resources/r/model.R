@@ -43,7 +43,7 @@ aggregate_prevalence_to_region <- function(prevalence_data) {
   return(regional_level_prevalence)
 }
 
-
+#Function to manipulate regions to match shapefile
 manipulate_regions_for_shapefile <- function(region_prevalence) {
   #Combining regions to match shapefile
   removed_regions <- region_prevalence %>%

@@ -10,3 +10,10 @@ test_that("Test that the number of  NHS regions is 14",
                       region_prevalence <- aggregate_prevalence_to_region(CCG_prevalence)
                       number_of_rows <- nrow(region_prevalence)
                       expect_equal(number_of_rows, 14)})
+
+#Test for function to mainpulate regions to match shapefile
+test_that("Test that the number of  NHS regions is 13",
+          {CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
+          thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
+          number_of_rows <- nrow(region_prevalence)
+          expect_equal(number_of_rows, 13)})
