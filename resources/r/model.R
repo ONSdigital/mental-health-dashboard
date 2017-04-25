@@ -32,13 +32,6 @@ aggregate_prevalence_to_England <- function(prevalence_data) {
   return(England_prevalence)
 }
 
-#Test for aggregate to england function
-(results <- test_that("Test that the number for England prevalence is equal to 15.6", 
-                      {CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
-                      england_prevalence <- aggregate_prevalence_to_England(CCG_prevalence)
-                      expect_equal(england_prevalence, 15.6)}))
-
-
 #Function to aggregate to Region
 aggregate_prevalence_to_region <- function(prevalence_data) {
   regional_level_prevalence <- prevalence_data %>%
@@ -50,12 +43,6 @@ aggregate_prevalence_to_region <- function(prevalence_data) {
   return(regional_level_prevalence)
 }
 
-#Test for aggregate to region function
-(results <- test_that("Test that the number of  NHS regions is 14",
-                      {CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
-                      region_prevalence <- aggregate_prevalence_to_region(CCG_prevalence)
-                      number_of_rows <- nrow(region_prevalence)
-                      expect_equal(number_of_rows, 14)}))
 
 manipulate_regions_for_shapefile <- function(region_prevalence) {
   #Combining regions to match shapefile
@@ -156,7 +143,10 @@ create_barchart_of_prevalence_by_region(regional_prevalence_with_ranks, england_
 choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(region_shapefile_with_joined_prevalence_data)
 
 
-View(region_shapefile_with_joined_prevalence_data)
+#Tests
+test_results <- test_dir("resources/r/", reporter="summary")
+test_results
+
 
 
 
