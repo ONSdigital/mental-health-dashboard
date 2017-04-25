@@ -4,12 +4,14 @@
 #install.packages("ggplot2")
 #install.packages("classInt")
 #install.packages("RColorBrewer")
+#install.packages("testthat")
 library(data.table)
 library(dplyr)
 library(maptools)
 library(ggplot2)
 library(classInt)
 library(RColorBrewer)
+library(testthat)
 
 ####Data
 #CCG Data
@@ -29,6 +31,13 @@ aggregate_prevalence_to_England <- function(prevalence_data) {
   
   return(England_prevalence)
 }
+
+#Test for aggregate to england function
+(results <- test_that("Test that the number for England prevalence is equal to 15.6", 
+                      {CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
+                      england_prevalence <- aggregate_prevalence_to_England(CCG_prevalence)
+                      expect_equal(round(england_prevalence, digits = 1), 15.6)}))
+
 
 #Function to aggregate to Region
 aggregate_prevalence_to_region <- function(prevalence_data) {
