@@ -101,6 +101,22 @@ england_prevalence_line <- data.frame(england_prev, region_names)
 #Plot
 ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) + coord_flip() +theme(axis.title = axis_labels, title = title_label, axis.text.x = prevalence_labels, axis.text.y = region_labels) +labs(title = "Prevalence of Common Mental Disorders by NHS Region in England, 2014-2015", x = "NHS Region", y = "Prevalence of Common Mental Disorders (%)") + geom_bar(stat = "identity", fill="dodgerblue4") +geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "red", size = 2) + annotate("text", x=0.75, y= 15.75, label = "England average", color = "red", size  = 4)
 
+# Create a map of prevalence by NHS Region
+create_choropleth_map_by_prevalence <- function(region_shapefile_with_joined_prevalence_data){
+  
+# Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+breaks=classIntervals(region_shapefile_with_joined_prevalence_data@data$prevalence, n=4, style="jenks")
+
+#get 4 Green ColorBrewer Colours
+ColourScheme <- brewer.pal(4,"Greens")
+
+# plot a map using the new class breaks and colours we created just now.
+plot(region_shapefile_with_joined_prevalence_data, col= ColourScheme[findInterval(region_shapefile_with_joined_prevalence_data@data$prevalence, breaks$brks, all.inside = TRUE)], axes =FALSE, border = rgb(0.8,0.8,0.8))
+
+# Create a title and a legend
+title('Mental Health Prevalence in England, 2015')
+legend(x = 10000, y = 120000, legend = leglabs(breaks$brks), fill = ColourScheme, bty = "n")
+}
 
 #Run function, specifying dataset to use
 england_prevalence <- aggregate_prevalence_to_England(CCG_prevalence)
@@ -108,19 +124,8 @@ region_prevalence <- aggregate_prevalence_to_region(CCG_prevalence)
 thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
 regional_prevalence_with_ranks <- rank_prevalence_by_region(thirteen_level_NHS_regional_prevalence)
 region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks, region_shapefile)
+choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(region_shapefile_with_joined_prevalence_data)
 
-# Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
-breaks=classIntervals(region_shapefile_with_joined_prevalence_data@data$prevalence, n=4, style="jenks")
-
-#get 4 Green ColorBrewer Colours
-Greenery <- brewer.pal(4,"Greens")
-
-# plot a map using the new class breaks and colours we created just now.
-plot(region_shapefile_with_joined_prevalence_data, col= Greenery[findInterval(region_shapefile_with_joined_prevalence_data@data$prevalence, breaks$brks, all.inside = TRUE)], axes =FALSE, border = rgb(0.8,0.8,0.8))
-
-# a map should have a title - this may need
-title('Mental Health Prevalence in England, 2015')
-legend(x = 10000, y = 120000, legend = leglabs(breaks$brks), fill = Greenery, bty = "n")
 
 View(region_shapefile_with_joined_prevalence_data)
 
