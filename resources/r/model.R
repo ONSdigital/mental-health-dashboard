@@ -50,6 +50,13 @@ aggregate_prevalence_to_region <- function(prevalence_data) {
   return(regional_level_prevalence)
 }
 
+#Test for aggregate to region function
+(results <- test_that("Test that the number of  NHS regions is 14",
+                      {CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
+                      region_prevalence <- aggregate_prevalence_to_region(CCG_prevalence)
+                      number_of_rows <- nrow(region_prevalence)
+                      expect_equal(number_of_rows, 14)}))
+
 manipulate_regions_for_shapefile <- function(region_prevalence) {
   #Combining regions to match shapefile
   removed_regions <- region_prevalence %>%
