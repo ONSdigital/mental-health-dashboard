@@ -4,12 +4,14 @@
 #install.packages("ggplot2")
 #install.packages("classInt")
 #install.packages("RColorBrewer")
+#install.packages("testthat")
 library(data.table)
 library(dplyr)
 library(maptools)
 library(ggplot2)
 library(classInt)
 library(RColorBrewer)
+library(testthat)
 
 ####Data
 #CCG Data
@@ -25,7 +27,7 @@ region_shapefile@data
 aggregate_prevalence_to_England <- function(prevalence_data) {
   England_count <- sum(prevalence_data$Count)
   England_pop <- sum(prevalence_data$Denominator)
-  England_prevalence <- 100*(England_count / England_pop)
+  England_prevalence <- round(100*(England_count / England_pop), digits = 1)
   
   return(England_prevalence)
 }
@@ -36,11 +38,12 @@ aggregate_prevalence_to_region <- function(prevalence_data) {
     group_by(Parent.Code, Parent.Name) %>%
     summarise(Count = sum(Count),
               Population = sum(Denominator)) %>%
-    mutate(prevalence=(Count/Population)*100)
+    mutate(prevalence=round((Count/Population)*100, digits =1))
   
   return(regional_level_prevalence)
 }
 
+#Function to manipulate regions to match shapefile
 manipulate_regions_for_shapefile <- function(region_prevalence) {
   #Combining regions to match shapefile
   removed_regions <- region_prevalence %>%
@@ -140,7 +143,10 @@ create_barchart_of_prevalence_by_region(regional_prevalence_with_ranks, england_
 choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(region_shapefile_with_joined_prevalence_data)
 
 
-View(region_shapefile_with_joined_prevalence_data)
+#Tests
+test_results <- test_dir("resources/r/", reporter="summary")
+test_results
+
 
 
 
