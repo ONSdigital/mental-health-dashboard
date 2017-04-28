@@ -117,20 +117,32 @@ create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ran
 }
 
 # Create a map of prevalence by NHS Region
-create_choropleth_map_by_prevalence <- function(region_shapefile_with_joined_prevalence_data){
+create_choropleth_map_by_prevalence <- function(shapefile){
   
-# Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
-breaks=classIntervals(region_shapefile_with_joined_prevalence_data@data$prevalence, n=4, style="jenks")
-
-#get 4 Green ColorBrewer Colours
-ColourScheme <- brewer.pal(4,"Greens")
-
-# plot a map using the new class breaks and colours we created just now.
-plot(region_shapefile_with_joined_prevalence_data, col= ColourScheme[findInterval(region_shapefile_with_joined_prevalence_data@data$prevalence, breaks$brks, all.inside = TRUE)], axes =FALSE, border = rgb(0.8,0.8,0.8))
-
-# Create a title and a legend
-title('Mental Health Prevalence in England, 2015')
-legend(x = 10000, y = 120000, legend = leglabs(breaks$brks), fill = ColourScheme, bty = "n")
+  # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+  breaks=classIntervals(shapefile@data$prevalence,
+                        n=4, # set the number of ranges to create
+                        style="jenks") # set the algorithm to use to create the ranges
+  
+  #get 4 Green ColorBrewer Colours
+  ColourScheme <- brewer.pal(4,"Greens")
+  
+  # plot a map using the new class breaks and colours we created just now.
+  plot(shapefile,
+       col= ColourScheme[findInterval(shapefile@data$prevalence, breaks$brks, all.inside = TRUE)],
+       axes =FALSE,
+       border = rgb(0.8,0.8,0.8))
+  
+  # Create a title and legend
+  title('Mental Health Prevalence, percentage of population\n aged 16 to 74, in England, 2015',
+        adj = 0)
+  par(xpd=TRUE) # disables clipping of the legend by the map extent
+  legend("bottom", # sets where to place legend
+         inset=c(0,-0.15), # adds space below the map
+         legend = leglabs(breaks$brks), # create the legend using the breaks created earlier
+         fill = ColourScheme, # use the colour scheme created earlier
+         bty = "n") #controls box visibility around legend (sets to off)
+  par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
 #Run function, specifying dataset to use
