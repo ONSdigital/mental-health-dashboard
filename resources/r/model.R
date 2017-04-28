@@ -117,22 +117,28 @@ create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ran
 }
 
 # Create a map of prevalence by NHS Region
-create_choropleth_map_by_prevalence <- function(region_shapefile_with_joined_prevalence_data){
+create_choropleth_map_by_prevalence <- function(shapefile){
   
 # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
-breaks=classIntervals(region_shapefile_with_joined_prevalence_data@data$prevalence, n=4, style="jenks")
+breaks=classIntervals(shapefile@data$prevalence, n=4, style="jenks")
 
 #get 4 Green ColorBrewer Colours
 ColourScheme <- brewer.pal(4,"Greens")
 
 # plot a map using the new class breaks and colours we created just now.
-plot(region_shapefile_with_joined_prevalence_data, col= ColourScheme[findInterval(region_shapefile_with_joined_prevalence_data@data$prevalence, breaks$brks, all.inside = TRUE)], axes =FALSE, border = rgb(0.8,0.8,0.8))
+plot(shapefile,
+     col= ColourScheme[findInterval(shapefile@data$prevalence, breaks$brks, all.inside = TRUE)],
+     axes =FALSE,
+     border = rgb(0.8,0.8,0.8))
 
 # Create a title and legend
 title('Mental Health Prevalence in England, 2015')
 par(xpd=TRUE) # disables clipping of the legend by the map extent
-# creates legend. "bottom" sets where to place, inset adds space below the map. bty controls box around legend.
-legend("bottom",inset=c(0,-0.15), legend = leglabs(breaks$brks), fill = ColourScheme, bty = "n")
+legend("bottom", # sets where to place legend
+       inset=c(0,-0.15), # adds space below the map
+       legend = leglabs(breaks$brks), # create the legend using the breaks created earlier
+       fill = ColourScheme, # use the colour scheme created earlier
+       bty = "n") #controls box visibility around legend (sets to off)
 par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
