@@ -13,14 +13,7 @@ library(classInt)
 library(RColorBrewer)
 library(testthat)
 
-####Data
-#CCG Data
-CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
-#Shapefile data
-region_shapefile <- readShapePoly("data/NHS_regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 
-region_shapefile@data
-#View(region_shapefile)
 
 ####Model
 #Function to aggregate to England
@@ -89,8 +82,8 @@ join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, re
 
 
 create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
- 
-   #Order by rank
+  
+  #Order by rank
   regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
                                                        levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
   
@@ -149,14 +142,39 @@ create_choropleth_map_by_prevalence <- function(shapefile){
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
-#Run function, specifying dataset to use
-england_prevalence <- aggregate_prevalence_to_England(CCG_prevalence)
-region_prevalence <- aggregate_prevalence_to_region(CCG_prevalence)
-thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
-regional_prevalence_with_ranks <- rank_prevalence_by_region(thirteen_level_NHS_regional_prevalence)
-region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks, region_shapefile)
+
+#Create run model function
+
+run_model <- function(prevalence_dataset, shapefile, metadata){
+  england_prevalence <- aggregate_prevalence_to_England(prevalence_dataset)
+  region_prevalence <- aggregate_prevalence_to_region(prevalence_dataset)
+  thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
+  regional_prevalence_with_ranks <- rank_prevalence_by_region(thirteen_level_NHS_regional_prevalence)
+  region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks, 
+                                                                                    shapefile)
+  
+  return(region_shapefile_with_joined_prevalence_data)
+}
+
+
+####Data
+#CCG Data
+CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
+#Shapefile data
+region_shapefile <- readShapePoly("data/NHS_regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
+
+region_shapefile@data
+#View(region_shapefile)
+
+
+#Model outputs
+model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata")
+
+
+#Run plots
 create_barchart_of_prevalence_by_region(regional_prevalence_with_ranks, england_prevalence, "Wessex")
 choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(region_shapefile_with_joined_prevalence_data)
+
 
 
 #Tests
