@@ -153,7 +153,7 @@ run_model <- function(prevalence_dataset, shapefile, metadata){
   region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks, 
                                                                                     shapefile)
   
-  return(region_shapefile_with_joined_prevalence_data)
+  return(list(region_shapefile_with_joined_prevalence_data, regional_prevalence_with_ranks, england_prevalence))
 }
 
 
@@ -172,8 +172,8 @@ model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata")
 
 
 #Run plots
-create_barchart_of_prevalence_by_region(regional_prevalence_with_ranks, england_prevalence, "Wessex")
-choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(region_shapefile_with_joined_prevalence_data)
+create_barchart_of_prevalence_by_region(model_outputs[[2]], model_outputs[[3]], "Wessex")
+choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(model_outputs[[1]])
 
 
 
