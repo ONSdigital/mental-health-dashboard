@@ -88,7 +88,7 @@ join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, re
 #Create barchart
 
 
-create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence){
+create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
  
    #Order by rank
   regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
@@ -105,12 +105,16 @@ create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ran
   region_names <- as.vector(regional_prevalence_with_ranks$Parent.Name)
   england_prevalence_line <- data.frame(england_prev, region_names)
   
+  ColourScheme <- brewer.pal(2,"Greens")
+  
   #Plot
   ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
     coord_flip() +
     theme(axis.title = axis_labels, title = title_label, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
     labs(title = "Prevalence of Common Mental Disorders by NHS Region in England, 2014-2015", x = "NHS Region", y = "Prevalence of Common Mental Disorders (%)") +
-    geom_bar(stat = "identity", fill="dodgerblue4") +
+    scale_fill_manual(values = ColourScheme) +
+    geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
+    
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "red", size = 2) +
     annotate("text", x=0.75, y= 15.75, label = "England average", color = "red", size  = 4)
   
@@ -151,7 +155,7 @@ region_prevalence <- aggregate_prevalence_to_region(CCG_prevalence)
 thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
 regional_prevalence_with_ranks <- rank_prevalence_by_region(thirteen_level_NHS_regional_prevalence)
 region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks, region_shapefile)
-create_barchart_of_prevalence_by_region(regional_prevalence_with_ranks, england_prevalence)
+create_barchart_of_prevalence_by_region(regional_prevalence_with_ranks, england_prevalence, "Wessex")
 choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(region_shapefile_with_joined_prevalence_data)
 
 
