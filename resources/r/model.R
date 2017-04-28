@@ -132,7 +132,8 @@ plot(shapefile,
      border = rgb(0.8,0.8,0.8))
 
 # Create a title and legend
-title('Mental Health Prevalence in England, 2015')
+title('Mental Health Prevalence, percentage of population\n aged 16 to 74, in England, 2015',
+      adj = 0)
 par(xpd=TRUE) # disables clipping of the legend by the map extent
 legend("bottom", # sets where to place legend
        inset=c(0,-0.15), # adds space below the map
