@@ -128,9 +128,12 @@ ColourScheme <- brewer.pal(4,"Greens")
 # plot a map using the new class breaks and colours we created just now.
 plot(region_shapefile_with_joined_prevalence_data, col= ColourScheme[findInterval(region_shapefile_with_joined_prevalence_data@data$prevalence, breaks$brks, all.inside = TRUE)], axes =FALSE, border = rgb(0.8,0.8,0.8))
 
-# Create a title and a legend
+# Create a title and legend
 title('Mental Health Prevalence in England, 2015')
-legend(x = 10000, y = 120000, legend = leglabs(breaks$brks), fill = ColourScheme, bty = "n")
+par(xpd=TRUE) # disables clipping of the legend by the map extent
+# creates legend. "bottom" sets where to place, inset adds space below the map. bty controls box around legend.
+legend("bottom",inset=c(0,-0.15), legend = leglabs(breaks$brks), fill = ColourScheme, bty = "n")
+par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
 #Run function, specifying dataset to use
