@@ -1,6 +1,6 @@
 #install.packages("shiny")
 library(shiny)
-source("resources/r/model.r")
+source("src/r/model.r")
 
 ui <- shinyUI(fluidPage(
   fluidRow(h1("This the page layout a user would see after clicking on a map region")),
