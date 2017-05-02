@@ -86,7 +86,6 @@ create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ran
   #Order by rank
   regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
                                                        levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
-  
   #Create themes for formatting text size, colour etc
   title_label <- element_text(face = "bold", color = "turquoise4", size = 14)
   axis_labels <- element_text(color = "dodgerblue4", size = 12, hjust = 0.5)
@@ -166,11 +165,6 @@ region_shapefile <- readShapePoly("data/NHS_regions/NHS_Regions_Geography_April_
 narrative <- read.csv("data/NHS_region_narrative.csv")
 #Metadata - need to add but in what format?
 
-
-region_shapefile@data
-#View(region_shapefile)
-
-
 #Model outputs
 model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata")
 
@@ -182,7 +176,7 @@ choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(m
 
 
 #Tests
-test_results <- test_dir("resources/r/", reporter="summary")
+test_results <- test_dir("src/r/", reporter="summary")
 test_results
 
 
