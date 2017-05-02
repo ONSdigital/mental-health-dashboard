@@ -16,6 +16,7 @@ test_that("Test that the number of  NHS regions is 14",
 #We created a function to combine these two regions in our dataset so we were left with 13 regions, matching the shapefile
 test_that("Test that the number of  NHS regions is 13",
           {CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
+          region_prevalence <- aggregate_prevalence_to_region(CCG_prevalence)
           thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
-          number_of_rows <- nrow(region_prevalence)
+          number_of_rows <- nrow(thirteen_level_NHS_regional_prevalence)
           expect_equal(number_of_rows, 13)})
