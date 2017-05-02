@@ -149,6 +149,7 @@ create_narrative <- function(narrative, nhs_region){
   return(regional_narrative)
 }
 
+# user parameter
 region <- "South West"
 
 #Create run model function
