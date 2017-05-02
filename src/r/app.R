@@ -12,13 +12,12 @@ ui <- shinyUI(fluidPage(
 
 server <- function(input, output) {
   output$map <- renderPlot(height = 600, {
-    create_choropleth_map_by_prevalence(region_shapefile_with_joined_prevalence_data)}) ### Needs to take 'joined' dataset
-  output$chart <- renderPlot(height = 1000 {
-    create_barchart_of_prevalence_by_region(regional_prevalence_with_ranks, england_prevalence)
-  })
+    choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(model_outputs[[1]])
+    })
+  # currently second output doesn't work
+  #output$chart <- renderPlot(height = 1000 {
+  #  create_barchart_of_prevalence_by_region(model_outputs[[2]], model_outputs[[3]], region)
+  #})
   }
 
 shinyApp(ui = ui, server = server)
-
-
-
