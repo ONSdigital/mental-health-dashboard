@@ -189,7 +189,7 @@ choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(m
 test_results <- test_dir("src/r/", reporter="summary")
 test_results
 
-
+# tests only work with 'data/' in the same dir as model.R and tests_model_functions.R
 
 
 
