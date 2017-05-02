@@ -142,17 +142,27 @@ create_choropleth_map_by_prevalence <- function(shapefile){
 }
 
 
+#Narrative function
+create_narrative <- function(narrative, nhs_region){
+  single_region <- subset(narrative, NHS.region == nhs_region) 
+  regional_narrative <- as.character(single_region$Narative)
+  return(regional_narrative)
+}
+
+region <- "South West"
+
 #Create run model function
 
-run_model <- function(prevalence_dataset, shapefile, metadata){
+run_model <- function(prevalence_dataset, shapefile, metadata, narrative, nhs_region){
   england_prevalence <- aggregate_prevalence_to_England(prevalence_dataset)
   region_prevalence <- aggregate_prevalence_to_region(prevalence_dataset)
   thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
   regional_prevalence_with_ranks <- rank_prevalence_by_region(thirteen_level_NHS_regional_prevalence)
   region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks, 
                                                                                     shapefile)
+  narrative_specific <- create_narrative(narrative, nhs_region)
   
-  return(list(region_shapefile_with_joined_prevalence_data, regional_prevalence_with_ranks, england_prevalence))
+  return(list(region_shapefile_with_joined_prevalence_data, regional_prevalence_with_ranks, england_prevalence, narrative_specific))
 }
 
 
@@ -166,11 +176,11 @@ narrative <- read.csv("data/NHS_region_narrative.csv")
 #Metadata - need to add but in what format?
 
 #Model outputs
-model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata")
+model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata", narrative, region)
 
 
 #Run plots
-create_barchart_of_prevalence_by_region(model_outputs[[2]], model_outputs[[3]], "Wessex")
+create_barchart_of_prevalence_by_region(model_outputs[[2]], model_outputs[[3]], region)
 choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(model_outputs[[1]])
 
 
