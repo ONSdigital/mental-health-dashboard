@@ -127,18 +127,18 @@ create_choropleth_map_by_prevalence <- function(shapefile){
   plot(shapefile,
        col= ColourScheme[findInterval(shapefile@data$prevalence, breaks$brks, all.inside = TRUE)],
        axes =FALSE,
-       border = rgb(0.8,0.8,0.8))
+       border = rgb(0.6,0.6,0.6))
   
   # Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
          inset=c(0,-0.15), # adds space below the map
-         legend = leglabs(breaks$brks), # create the legend using the breaks created earlier
-         fill = ColourScheme, # use the colour scheme created earlier
+         legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
+         fill = rev(ColourScheme), # use the colour scheme created earlier
          bty = "n",
          text.width = 5, #controls box visibility around legend (sets to off)
          title = "Prevalence (%)"
-         )
+  )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
