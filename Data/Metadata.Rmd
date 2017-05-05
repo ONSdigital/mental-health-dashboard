@@ -1,0 +1,23 @@
+---
+title: "Metadata"
+output: html_document
+---
+
+**Source:** The data used in this dashboard are taken from the PHE fingertips tool: http://fingertips.phe.org.uk/profile-group/mental-health/profile/common-mental-disorders and then aggregated up to NHS region level.
+
+**Indicator:** Estimated prevalence of any common mental health disorders expressed as a percentage of the population aged 16-74.
+
+**Rationale:** This estimate gives an indication of the expected caseload for psychological therapy services.
+
+**Numerator:** Estimated number of people with any common mental health disorder in the population aged 16-74 as provided by NHS England to inform the 2014/15 IAPT planning cycle. These were calculated using previously published Primary Care Trust (PCT) prevalence figures, which were then recalculated to take into account the population shift due to boundary changes from PCT to Clinical Commissioning Groups (CCG). The recalculation does not take into account any change in the overall population size or age distribution. The CCG level estimates were then aggregated up to 13 NHS regions.
+
+**Denominator:** Resident population aged 16-74 based on ONS mid-year population estimates. 
+Unit: Prevalence is displayed as a percentage of the population aged 16-74 years.
+
+**Caveats:** The prevalence is an estimate. There are some concerns with the quality of this data. The data should be viewed and interpreted with consideration of the key caveats and definitions below.  Drawing upon local data and intelligence and other indicators in the tool may generate better estimates of true local prevalence.
+
+The estimates were produced by NHS England and shared with CCGs to inform local planning of IAPT services. Each CCG then agreed a prevalence estimate with NHS England for the purposes of meeting the national access target which is that 15% of people with common mental health disorders access treatment.  For some areas these agreed planning target numbers may be different from the estimates presented here as targets are locally set. The agreed CCG prevalence estimates were then aggregated up to NHS region level, to give a prevalence estimate for each of the 13 NHS regions.
+The data presented are only an estimation of the numbers likely to be diagnosable with a condition at any point in time. Not everyone with the condition seeks, or wants, treatment, and some will already have received it.
+
+The estimates are based on the previously published PCT figures. This uplift of the estimates to CCGs is only based on population redistribution due to boundary change. No adjustment is made for change in overall population or age distribution. The population denominators used are recent mid-year estimates.
+The modeling work upon which the estimates are based is out of date.  The estimates take no account of any change in socio-demographic factors or potential change in the prevalence of common mental health disorders in the time since the original work was undertaken.
