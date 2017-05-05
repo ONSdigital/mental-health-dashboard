@@ -3,14 +3,11 @@ library(shiny)
 source("src/r/model.R")
 
 ui <- shinyUI(fluidPage(
-  fluidRow(h1("This is the page layout a user would see after clicking on a map region")),
-  fluidRow(column(width = 6, plotOutput("map", height = 800)), #need to: expand width one key moved
-    column(width = 6, plotOutput("chart", height = 800))
-    
-  #fluidRow(column(style = "background-color:white;", div(style = "height:200px;"))), #creates white space
-  #fluidRow(column(style = "background-color:blue;", div(style = "height:200px;"), h1("pull in metadata here"))
-),
-fluidRow(h1(textOutput("narrative")))))
+  fluidRow(h1("Title")),
+  fluidRow(column(width = 6, plotOutput("map", height = 800)),
+    column(width = 6, plotOutput("chart", height = 800))),
+fluidRow(h2(textOutput("narrative"))),
+fluidRow(h3("metadata", href= "https://github.com/ONSdigital/mental-health-dashboard", target="_blank"))))
 
 server <- function(input, output) {
   output$map <- renderPlot( {
