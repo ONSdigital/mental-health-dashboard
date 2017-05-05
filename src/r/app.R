@@ -3,11 +3,13 @@ library(shiny)
 source("src/r/model.R")
 
 ui <- shinyUI(fluidPage(
-  fluidRow(h1("Title")),
+  fluidRow(h1("Prevalence of Common Mental Health Disorders in England, by NHS Region, 2014/15")),
   fluidRow(column(width = 6, plotOutput("map", height = 800)),
     column(width = 6, plotOutput("chart", height = 800))),
 fluidRow(h2(textOutput("narrative"))),
-fluidRow(h3("metadata", href= "https://github.com/ONSdigital/mental-health-dashboard", target="_blank"))))
+fluidRow(h3("For more information on this dataset click", a("here", href= "https://github.com/ONSdigital/mental-health-dashboard", target="_blank"), "."))))
+
+
 
 server <- function(input, output) {
   output$map <- renderPlot( {
