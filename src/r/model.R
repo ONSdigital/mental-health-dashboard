@@ -87,10 +87,10 @@ create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ran
   regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
                                                        levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
   #Create themes for formatting text size, colour etc
-  title_label <- element_text(face = "bold", size = 14)
-  axis_labels <- element_text(size = 12, hjust = 0.5)
-  region_labels <- element_text(size = 12, hjust = 1)
-  prevalence_labels <- element_text(size = 12, vjust = 0.2, hjust = 0.5)
+  title_label <- element_text(face = "bold", size = 16, hjust = 0.5)
+  axis_labels <- element_text(face = "bold", size = 14, hjust = 0.5)
+  region_labels <- element_text(size = 14, hjust = 1, colour = "black")
+  prevalence_labels <- element_text(size = 14, vjust = 0.2, hjust = 0.5)
   
   #Create dataframe for England average line
   england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
@@ -102,8 +102,8 @@ create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ran
   #Plot
   ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
     coord_flip() +
-    theme(axis.title = axis_labels, title = title_label, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
-    labs(title = "Prevalence of Common Mental Health Disorders in England,/n by NHS Region, 2014/15", x = "NHS Region", y = "Prevalence of Common Mental Disorders (%)") +
+    theme(axis.title = axis_labels, plot.title = title_label, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
+    labs(x = "NHS Region", y = "Prevalence of Common Mental Disorders (%)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
@@ -129,15 +129,16 @@ create_choropleth_map_by_prevalence <- function(shapefile){
        axes =FALSE,
        border = rgb(0.8,0.8,0.8))
   
-  # Create a title and legend
-  title('Prevalence of Common Mental Health Disorders in England,\n by NHS Region, 2014/15',
-        adj = 0.5)
+  # Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
          inset=c(0,-0.15), # adds space below the map
          legend = leglabs(breaks$brks), # create the legend using the breaks created earlier
          fill = ColourScheme, # use the colour scheme created earlier
-         bty = "n") #controls box visibility around legend (sets to off)
+         bty = "n",
+         text.width = 5, #controls box visibility around legend (sets to off)
+         title = "Prevalence (%)"
+         )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
