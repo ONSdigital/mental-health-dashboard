@@ -131,9 +131,9 @@ create_choropleth_map_by_prevalence <- function(shapefile){
   
   # Create a title and legend
   title('Mental Health Prevalence, percentage of population\n aged 16 to 74, in England, 2015',
-        adj = 0)
+        adj = 0.5)
   par(xpd=TRUE) # disables clipping of the legend by the map extent
-  legend("bottom", # sets where to place legend
+  legend("left", # sets where to place legend
          inset=c(0,-0.15), # adds space below the map
          legend = leglabs(breaks$brks), # create the legend using the breaks created earlier
          fill = ColourScheme, # use the colour scheme created earlier
