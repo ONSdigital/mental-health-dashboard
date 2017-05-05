@@ -3,7 +3,7 @@ library(shiny)
 source("src/r/model.R")
 
 ui <- shinyUI(fluidPage(
-  fluidRow(h1("Prevalence of Common Mental Health Disorders in England, by NHS Region, 2014/15")),
+  fluidRow(h1("Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15")),
   fluidRow(column(width = 6, plotOutput("map", height = 800)),
            column(width = 6, plotOutput("chart", height = 800))),
   fluidRow(h2(textOutput("narrative"))),
