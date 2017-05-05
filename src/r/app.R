@@ -10,16 +10,16 @@ ui <- shinyUI(fluidPage(
   #fluidRow(column(style = "background-color:white;", div(style = "height:200px;"))), #creates white space
   #fluidRow(column(style = "background-color:blue;", div(style = "height:200px;"), h1("pull in metadata here"))
 ),
-fluidRow(h1("narrative"))))
+fluidRow(h1(textOutput("narrative")))))
 
 server <- function(input, output) {
   output$map <- renderPlot( {
     choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(model_outputs[[1]])
     })
-#  currently second output doesn't work
   output$chart <- renderPlot({
    create_barchart_of_prevalence_by_region(model_outputs[[2]], model_outputs[[3]], region)
   })
+  output$narrative <- renderText({narrative_by_region <- create_narrative(narrative, region)})
   }
 
 shinyApp(ui = ui, server = server)
