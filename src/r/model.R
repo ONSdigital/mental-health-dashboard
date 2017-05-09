@@ -82,7 +82,7 @@ create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ran
   regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
                                                        levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
   #Create themes for formatting text size, colour etc
-  axis_labels <- element_text(face = "bold", size = 20, hjust = 0.5)
+  axis_labels <- element_text(face = "bold", size = 20)
   region_labels <- element_text(size = 20, hjust = 1, colour = "black")
   prevalence_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
   
@@ -126,7 +126,7 @@ create_choropleth_map_by_prevalence <- function(shapefile){
   # Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
-         inset=c(0,-0.15), # adds space below the map
+         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
          fill = rev(ColourScheme), # use the colour scheme created earlier
          bty = "n",
