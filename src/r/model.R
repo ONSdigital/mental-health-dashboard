@@ -169,11 +169,11 @@ run_model <- function(prevalence_dataset, shapefile, metadata, narrative, nhs_re
 
 ####Data
 #CCG Data
-CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
+CCG_prevalence <- read.csv("src/r/data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
 #Shapefile data
-region_shapefile <- readShapePoly("data/NHS_regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
+region_shapefile <- readShapePoly("src/r/data/NHS_regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 #Narrative
-narrative <- read.csv("data/NHS_region_narrative.csv")
+narrative <- read.csv("src/r/data/NHS_region_narrative.csv")
 #Metadata - need to add but in what format?
 
 #Model outputs
