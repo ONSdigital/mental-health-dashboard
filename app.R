@@ -7,7 +7,7 @@ ui <- shinyUI(fluidPage(
   fluidRow(column(width = 6, plotOutput("map", height = 800)),
            column(width = 6, plotOutput("chart", height = 800))),
   fluidRow(h2(textOutput("narrative"))),
-  fluidRow(h3("For more information on this dataset click", a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/Data/Metadata.md", target="_blank"), "."))))
+  fluidRow(h3("For more information on this dataset click", a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/Data/Metadata.md", target="_blank"), "."))))
 
 
 server <- function(input, output) {

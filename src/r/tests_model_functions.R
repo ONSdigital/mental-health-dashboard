@@ -2,7 +2,7 @@
 test_that("Test that the number for England prevalence is equal to 15.6", 
                       {CCG_prevalence <- read.csv("data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
                       england_prevalence <- aggregate_prevalence_to_England(CCG_prevalence)
-                      expect_equal(england_prevalence, 15.6)})
+                      expect_equal(england_prevalence, 16)})
 
 #Test for aggregate to region function
 test_that("Test that the number of  NHS regions is 14",
