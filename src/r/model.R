@@ -13,8 +13,6 @@ library(classInt)
 library(RColorBrewer)
 library(testthat)
 
-
-
 ####Model
 #Function to aggregate to England
 aggregate_prevalence_to_England <- function(prevalence_data) {
@@ -61,7 +59,6 @@ manipulate_regions_for_shapefile <- function(region_prevalence) {
 }
 
 #Add rank column/variable to dataset
-
 rank_prevalence_by_region <- function(thirteen_level_NHS_regional_prevalence){
   thirteen_level_NHS_regional_prevalence$rank <- NA
   thirteen_level_NHS_regional_prevalence$rank[order(-thirteen_level_NHS_regional_prevalence$prevalence)] <- 1:nrow(thirteen_level_NHS_regional_prevalence)
@@ -79,8 +76,6 @@ join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, re
 }
 
 #Create barchart
-
-
 create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
   
   #Order by rank
@@ -179,18 +174,12 @@ narrative <- read.csv("src/r/data/NHS_region_narrative.csv")
 #Model outputs
 model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata", narrative, region)
 
-
 #Run plots
 create_barchart_of_prevalence_by_region(model_outputs[[2]], model_outputs[[3]], region)
 choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(model_outputs[[1]])
-
-
 
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
 test_results
 
 # tests only work with 'data/' in the same dir as model.R and tests_model_functions.R
-
-
-
