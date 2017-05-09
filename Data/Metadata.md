@@ -1,3 +1,6 @@
+Metadata
+--------
+
 **Source:** The data used in this dashboard are taken from the PHE
 fingertips tool:
 <http://fingertips.phe.org.uk/profile-group/mental-health/profile/common-mental-disorders>
