@@ -20,7 +20,7 @@ library(testthat)
 aggregate_prevalence_to_England <- function(prevalence_data) {
   England_count <- sum(prevalence_data$Count)
   England_pop <- sum(prevalence_data$Denominator)
-  England_prevalence <- round(100*(England_count / England_pop), digits = 1)
+  England_prevalence <- round(100*(England_count / England_pop), digits = 0)
   
   return(England_prevalence)
 }
@@ -31,7 +31,7 @@ aggregate_prevalence_to_region <- function(prevalence_data) {
     group_by(Parent.Code, Parent.Name) %>%
     summarise(Count = sum(Count),
               Population = sum(Denominator)) %>%
-    mutate(prevalence=round((Count/Population)*100, digits =1))
+    mutate(prevalence=round((Count/Population)*100, digits =0))
   
   return(regional_level_prevalence)
 }
