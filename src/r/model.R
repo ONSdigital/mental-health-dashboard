@@ -161,12 +161,11 @@ run_model <- function(prevalence_dataset, shapefile, metadata, narrative, nhs_re
   return(list(region_shapefile_with_joined_prevalence_data, regional_prevalence_with_ranks, england_prevalence, narrative_specific))
 }
 
-
 ####Data
 #CCG Data
 CCG_prevalence <- read.csv("src/r/data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
 #Shapefile data
-region_shapefile <- readShapePoly("src/r/data/NHS_regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
+region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 #Narrative
 narrative <- read.csv("src/r/data/NHS_region_narrative.csv")
 #Metadata - need to add but in what format?
