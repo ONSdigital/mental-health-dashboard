@@ -148,7 +148,6 @@ create_narrative <- function(narrative, nhs_region){
 region <- "South West"
 
 #Create run model function
-
 run_model <- function(prevalence_dataset, shapefile, metadata, narrative, nhs_region){
   england_prevalence <- aggregate_prevalence_to_England(prevalence_dataset)
   region_prevalence <- aggregate_prevalence_to_region(prevalence_dataset)
@@ -168,8 +167,6 @@ CCG_prevalence <- read.csv("src/r/data/Estimated_Prevalence_of_CMDs_2014-2015.cs
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 #Narrative
 narrative <- read.csv("src/r/data/NHS_region_narrative.csv")
-#Metadata - need to add but in what format?
-
 #Model outputs
 model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata", narrative, region)
 
