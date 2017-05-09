@@ -2,6 +2,7 @@
 title: "Metadata"
 output: md_document
 ---
+##Metadata
 
 **Source:** The data used in this dashboard are taken from the PHE fingertips tool: http://fingertips.phe.org.uk/profile-group/mental-health/profile/common-mental-disorders and then aggregated up to NHS region level.
 
