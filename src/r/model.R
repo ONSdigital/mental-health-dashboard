@@ -168,6 +168,9 @@ region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_
 #Narrative
 narrative <- read.csv("src/r/data/NHS_region_narrative.csv")
 
+#Run model
+model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata", narrative, region)
+
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
 test_results
