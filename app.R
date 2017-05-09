@@ -1,5 +1,13 @@
 #install.packages("shiny")
+# install.packages("backports")
+# install.packages("caTools")
+# install.packages("rmarkdown")
+# install.packages("rprojroot")
 library(shiny)
+library(backports)
+library(caTools)
+library(rmarkdown)
+library(rprojroot)
 source("src/r/model.R")
 
 ui <- shinyUI(fluidPage(
