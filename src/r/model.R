@@ -170,10 +170,6 @@ narrative <- read.csv("src/r/data/NHS_region_narrative.csv")
 #Model outputs
 model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata", narrative, region)
 
-#Run plots
-create_barchart_of_prevalence_by_region(model_outputs[[2]], model_outputs[[3]], region)
-choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(model_outputs[[1]])
-
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
 test_results
