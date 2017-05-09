@@ -20,6 +20,7 @@ ui <- shinyUI(fluidPage(
 
 
 server <- function(input, output) {
+  model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata", narrative, region)
   output$map <- renderPlot( {
     create_choropleth_map_by_prevalence(model_outputs[[1]])
   })

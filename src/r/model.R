@@ -167,8 +167,6 @@ CCG_prevalence <- read.csv("src/r/data/Estimated_Prevalence_of_CMDs_2014-2015.cs
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 #Narrative
 narrative <- read.csv("src/r/data/NHS_region_narrative.csv")
-#Model outputs
-model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata", narrative, region)
 
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
