@@ -87,10 +87,9 @@ create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ran
   regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
                                                        levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
   #Create themes for formatting text size, colour etc
-  title_label <- element_text(face = "bold", size = 16, hjust = 0.5)
-  axis_labels <- element_text(face = "bold", size = 14, hjust = 0.5)
-  region_labels <- element_text(size = 14, hjust = 1, colour = "black")
-  prevalence_labels <- element_text(size = 14, vjust = 0.2, hjust = 0.5)
+  axis_labels <- element_text(face = "bold", size = 20, hjust = 0.5)
+  region_labels <- element_text(size = 20, hjust = 1, colour = "black")
+  prevalence_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
   
   #Create dataframe for England average line
   england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
@@ -102,13 +101,13 @@ create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ran
   #Plot
   ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
     coord_flip() +
-    theme(axis.title = axis_labels, plot.title = title_label, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
+    theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
     labs(x = "NHS Region", y = "Prevalence of Common Mental Disorders (%)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 15.75, label = "England average", color = "navyblue", size  = 4.5)
+    annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
   
 }
 
@@ -136,7 +135,7 @@ create_choropleth_map_by_prevalence <- function(shapefile){
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
          fill = rev(ColourScheme), # use the colour scheme created earlier
          bty = "n",
-         text.width = 5, #controls box visibility around legend (sets to off)
+         cex = 1.8, #expansion factor - expands text to make larger
          title = "Prevalence (%)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
