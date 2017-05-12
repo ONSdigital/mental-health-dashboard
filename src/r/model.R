@@ -139,9 +139,29 @@ create_choropleth_map_by_prevalence <- function(shapefile){
 
 #Narrative function
 create_narrative <- function(narrative, nhs_region){
-  single_region <- subset(narrative, NHS.region == nhs_region) 
-  regional_narrative <- as.character(single_region$Narative)
-  return(regional_narrative)
+Eng_Prev <- 15.6
+
+Year <- "2014/15"
+
+Region_Name<-narrative$NHS.region
+
+a<-"In"
+b<-"the prevalence of common mental health disorders in the"
+c<-"NHS region was"
+d<-narrative$Prevalence
+e<-"%. This was"
+f<-ifelse(narrative$Prevalence < Eng_Prev,"lower than", 
+          ifelse(narrative$Prevalence > Eng_Prev, "higher than", 
+                 ifelse(narrative$Prevalence <- Eng_Prev, "equal to")))
+g<-"the overall prevalence of"
+h<- "% in England. In comparison to other NHS regions,"
+i<-"was ranked"
+j<-narrative$Rank
+k<-"in England."
+
+narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j)
+narrative_final <- cbind(narrative$NHS.region,narrative_text)
+return(narrative_final)
 }
 
 # user parameter
@@ -155,7 +175,7 @@ run_model <- function(prevalence_dataset, shapefile, metadata, narrative, nhs_re
   regional_prevalence_with_ranks <- rank_prevalence_by_region(thirteen_level_NHS_regional_prevalence)
   region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks, 
                                                                                     shapefile)
-  narrative_specific <- create_narrative(narrative, nhs_region)
+  narrative_specific <- create_narrative(narrative_raw, region)
   
   return(list(region_shapefile_with_joined_prevalence_data, regional_prevalence_with_ranks, england_prevalence, narrative_specific))
 }
@@ -166,7 +186,10 @@ CCG_prevalence <- read.csv("src/r/data/Estimated_Prevalence_of_CMDs_2014-2015.cs
 #Shapefile data
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 #Narrative
-narrative <- read.csv("src/r/data/NHS_region_narrative.csv")
+narrative_raw <- read.csv("src/r/data/NHS_region_narrative_no_commentary.csv")
+
+
+
 
 #Run model
 model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata", narrative, region)
