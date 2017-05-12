@@ -11,12 +11,20 @@ library(rprojroot)
 source("src/r/model.R")
 
 ui <- shinyUI(fluidPage(
-  fluidRow(column(12, offset = 0.5, h2("Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15"))),
+  fluidRow(column(1),
+           column(10, h1("Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15")),
+            column(1)),
   fluidRow(h2("")),
-  fluidRow(column(4, plotOutput("map", height = "600")),
-           column(8, plotOutput("chart", height = "500", width = "900"))),
-  fluidRow(h2(textOutput("narrative"))),
-  fluidRow(h3("For more information on this dataset click", a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata.md", target="_blank"), "."))))
+  fluidRow(column(5, plotOutput("map", height = "600")),
+           column(7, plotOutput("chart", height = "500", width = "900"))),
+  fluidRow(column(1),
+           column(10,(h2(textOutput("narrative")))),
+          column(1)),
+  fluidRow(column(1),
+           column(10, h3("For more information on this dataset click", 
+                         a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata.md", target="_blank"), ".")),
+           column(1)))
+)
 
 
 server <- function(input, output) {
