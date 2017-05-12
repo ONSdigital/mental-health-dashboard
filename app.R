@@ -34,7 +34,7 @@ server <- function(input, output) {
   output$chart <- renderPlot({
     create_barchart_of_prevalence_by_region(model_outputs[[2]], model_outputs[[3]], input$region)
   })
-  output$narrative <- renderText({narrative_by_region <- create_narrative(narrative, input$region)})
+  output$narrative <- renderText({narrative_by_region <- create_narrative(model_outputs[[4]], input$region)})
 }
 
 shinyApp(ui = ui, server = server)

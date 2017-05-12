@@ -144,7 +144,6 @@ Eng_Prev <- 15.6
 Year <- "2014/15"
 
 Region_Name<-narrative$NHS.region
-
 a<-"In"
 b<-"the prevalence of common mental health disorders in the"
 c<-"NHS region was"
@@ -160,7 +159,7 @@ j<-narrative$Rank
 k<-"in England."
 
 narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j)
-narrative_final <- cbind(narrative$NHS.region,narrative_text)
+narrative_final <- cbind.data.frame(narrative$NHS.region,narrative_text)
 return(narrative_final)
 }
 
