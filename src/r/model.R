@@ -100,30 +100,40 @@ create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ran
     labs(x = "NHS Region", y = "Prevalence of Common Mental Disorders (%)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
-    
+
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
     annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
-  
+
+}
+
+#subset shapefile by region
+region_subset <- function(shapefile, nhs_region) {
+  subset(shapefile, shapefile$Parent.Name == nhs_region)
 }
 
 # Create a map of prevalence by NHS Region
-create_choropleth_map_by_prevalence <- function(shapefile){
-  
+create_choropleth_map_by_prevalence <- function(shapefile, nhs_region){
+
   # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
   breaks=classIntervals(shapefile@data$prevalence,
                         n=4, # set the number of ranges to create
                         style="jenks") # set the algorithm to use to create the ranges
-  
+
   #get 4 Green ColorBrewer Colours
   ColourScheme <- brewer.pal(4,"Greens")
-  
+
   # plot a map using the new class breaks and colours we created just now.
   plot(shapefile,
        col= ColourScheme[findInterval(shapefile@data$prevalence, breaks$brks, all.inside = TRUE)],
        axes =FALSE,
        border = rgb(0.6,0.6,0.6))
-  
-  # Create a legend
+
+  # overlay map with selected region, highlighted in black
+  plot(region_subset(shapefile, nhs_region),
+       border = rgb(0.0,0.0,0.0),
+       add = TRUE)
+
+# Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
          inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
@@ -139,7 +149,7 @@ create_choropleth_map_by_prevalence <- function(shapefile){
 
 #Narrative function
 create_narrative <- function(narrative, nhs_region){
-  single_region <- subset(narrative, NHS.region == nhs_region) 
+  single_region <- subset(narrative, NHS.region == nhs_region)
   regional_narrative <- as.character(single_region$Narative)
   return(regional_narrative)
 }
@@ -153,10 +163,10 @@ run_model <- function(prevalence_dataset, shapefile, metadata, narrative, nhs_re
   region_prevalence <- aggregate_prevalence_to_region(prevalence_dataset)
   thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
   regional_prevalence_with_ranks <- rank_prevalence_by_region(thirteen_level_NHS_regional_prevalence)
-  region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks, 
+  region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks,
                                                                                     shapefile)
   narrative_specific <- create_narrative(narrative, nhs_region)
-  
+
   return(list(region_shapefile_with_joined_prevalence_data, regional_prevalence_with_ranks, england_prevalence, narrative_specific))
 }
 

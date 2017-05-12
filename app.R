@@ -29,7 +29,7 @@ ui <- shinyUI(fluidPage(
 
 server <- function(input, output) {
   output$map <- renderPlot( {
-    create_choropleth_map_by_prevalence(model_outputs[[1]])
+    create_choropleth_map_by_prevalence(model_outputs[[1]], input$region)
   })
   output$chart <- renderPlot({
     create_barchart_of_prevalence_by_region(model_outputs[[2]], model_outputs[[3]], input$region)
