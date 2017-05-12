@@ -1,8 +1,8 @@
 #install.packages("shiny")
-# install.packages("backports")
-# install.packages("caTools")
-# install.packages("rmarkdown")
-# install.packages("rprojroot")
+#install.packages("backports")
+#install.packages("caTools")
+#install.packages("rmarkdown")
+#install.packages("rprojroot")
 library(shiny)
 library(backports)
 library(caTools)
@@ -21,7 +21,7 @@ ui <- shinyUI(fluidPage(
 
 server <- function(input, output) {
   output$map <- renderPlot( {
-    choropleth_map_prevalence_by_NHS_Region <- create_choropleth_map_by_prevalence(model_outputs[[1]])
+    create_choropleth_map_by_prevalence(model_outputs[[1]])
   })
   output$chart <- renderPlot({
     create_barchart_of_prevalence_by_region(model_outputs[[2]], model_outputs[[3]], region)
