@@ -148,34 +148,32 @@ create_choropleth_map_by_prevalence <- function(shapefile, nhs_region){
 
 
 #Narrative function
-create_narrative <- function(narrative, nhs_region){
-# Eng_Prev <- 15.6
-# 
-# Year <- "2014/15"
-# 
-# Region_Name<-narrative$NHS.region
-# a<-"In"
-# b<-"the prevalence of common mental health disorders in the"
-# c<-"NHS region was"
-# d<-narrative$Prevalence
-# e<-"%. This was"
-# f<-ifelse(narrative$Prevalence < Eng_Prev,"lower than", 
-#           ifelse(narrative$Prevalence > Eng_Prev, "higher than", 
-#                  ifelse(narrative$Prevalence <- Eng_Prev, "equal to")))
-# g<-"the overall prevalence of"
-# h<- "% in England. In comparison to other NHS regions,"
-# i<-"was ranked"
-# j<-narrative$Rank
-# k<-"in England."
-# 
-# narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j)
-# narrative_final <- cbind.data.frame(narrative$NHS.region,narrative_text)
-# return(narrative_final)
-  single_region <- subset(narrative, NHS.region == nhs_region)
-  regional_narrative <- as.character(single_region$Narative)
-  return(regional_narrative)
+create_narrative <- function(model_outputs, nhs_region){
+  Eng_Prev <- model_outputs[[3]]
+  
+  Year <- "2014/15"
+  single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
+   Region_Name<-single_region$Parent.Name
 
+  a<-"In"
+  b<-"the prevalence of common mental health disorders in the"
+  c<-"NHS region was"
+  d<-single_region$prevalence
+  e<-"%. This was"
+  f<-ifelse(single_region$prevalence < Eng_Prev,"lower than",
+            ifelse(single_region$prevalence > Eng_Prev, "higher than",
+                   ifelse(single_region$prevalence <- Eng_Prev, "equal to")))
+  g<-"the overall prevalence of"
+  h<- "% in England. In comparison to other NHS regions,"
+  i<-"was ranked"
+  j<-single_region$rank
+  k<-"in England."
+
+  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j,k)
+
+  return(narrative_text)
 }
+
 
 
 #Create run model function
