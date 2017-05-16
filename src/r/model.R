@@ -174,8 +174,6 @@ create_narrative <- function(model_outputs, nhs_region){
   return(narrative_text)
 }
 
-
-
 #Create run model function
 run_model <- function(prevalence_dataset, shapefile, metadata){
   england_prevalence <- aggregate_prevalence_to_England(prevalence_dataset)
@@ -192,9 +190,6 @@ run_model <- function(prevalence_dataset, shapefile, metadata){
 CCG_prevalence <- read.csv("src/r/data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
 #Shapefile data
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
-#Narrative
-narrative_raw <- read.csv("src/r/data/NHS_region_narrative_no_commentary.csv")
-narrative_original <- read.csv("src/r/data/NHS_region_narrative.csv")
 
 
 
