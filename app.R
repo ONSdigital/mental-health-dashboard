@@ -14,8 +14,12 @@ ui <- shinyUI(fluidPage(
   fluidRow(column(1),
            column(10, h1("Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15")),
             column(1)),
-  fluidRow(sidebarPanel(
-    selectInput('region', 'Please select region', model_outputs[[2]]$Parent.Name))),
+  fluidRow(column(1),
+           column(10, sidebarPanel( 
+             tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+          
+    selectInput('region', label = h3('Please select an NHS region'), model_outputs[[2]]$Parent.Name))),
+    column(1)),
   fluidRow(column(5, plotOutput("map", height = "600")),
            column(7, plotOutput("chart", height = "500", width = "900"))),
   fluidRow(column(1),

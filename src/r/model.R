@@ -173,25 +173,25 @@ int_to_ranking <- function(i){
 create_narrative <- function(model_outputs, nhs_region){
   Eng_Prev <- model_outputs[[3]]
   
-  Year <- "2014/15"
+  Year <- "2014/15 "
   single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
    Region_Name<-single_region$Parent.Name
 
-  a<-"In"
-  b<-"the prevalence of common mental health disorders in the"
-  c<-"NHS region was"
+  a<-"In "
+  b<-" the prevalence of common mental health disorders in the "
+  c<-" NHS region was "
   d<-single_region$prevalence
-  e<-"%. This was"
-  f<-ifelse(single_region$prevalence < Eng_Prev,"lower than",
-            ifelse(single_region$prevalence > Eng_Prev, "higher than",
-                   ifelse(single_region$prevalence <- Eng_Prev, "equal to")))
-  g<-"the overall prevalence of"
-  h<- "% in England. In comparison to other NHS regions,"
-  i<-"was ranked"
+  e<-"%. This was "
+  f<-ifelse(single_region$prevalence < Eng_Prev,"lower than ",
+            ifelse(single_region$prevalence > Eng_Prev, "higher than ",
+                   ifelse(single_region$prevalence <- Eng_Prev, "equal to ")))
+  g<-"the overall prevalence of "
+  h<- "% in England. In comparison to other NHS regions, "
+  i<-" was ranked "
   j<-int_to_ranking(single_region$rank)
-  k<-"in England."
+  k<-" in England."
 
-  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j,k)
+  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j,k, sep = "")
 
   return(narrative_text)
 }
