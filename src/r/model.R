@@ -18,7 +18,7 @@ library(testthat)
 aggregate_prevalence_to_England <- function(prevalence_data) {
   England_count <- sum(prevalence_data$Count)
   England_pop <- sum(prevalence_data$Denominator)
-  England_prevalence <- round(100*(England_count / England_pop), digits = 0)
+  England_prevalence <- round((England_count / England_pop)*100, digits = 1)
   
   return(England_prevalence)
 }
@@ -29,7 +29,7 @@ aggregate_prevalence_to_region <- function(prevalence_data) {
     group_by(Parent.Code, Parent.Name) %>%
     summarise(Count = sum(Count),
               Population = sum(Denominator)) %>%
-    mutate(prevalence=round((Count/Population)*100, digits =0))
+    mutate(prevalence=round((Count/Population)*100, digits =1))
   
   return(regional_level_prevalence)
 }
@@ -49,7 +49,7 @@ manipulate_regions_for_shapefile <- function(region_prevalence) {
               Parent.Name = "Lancashire and Greater Manchester",
               Count = sum(Count),
               Population = sum(Population)) %>%
-    mutate(prevalence = (Count/Population)*100)
+    mutate(prevalence = round((Count/Population)*100, digits =1))
   
   #Add row
   thirteen_level_NHS_regional_prevalence <- summed_regions %>%
