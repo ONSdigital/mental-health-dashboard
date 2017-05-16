@@ -146,6 +146,28 @@ create_choropleth_map_by_prevalence <- function(shapefile, nhs_region){
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
+#Function to turn integers into ranks
+
+int_to_ranking <- function(i){
+  
+  whereinf <- is.infinite(i)
+  wherena <- is.na(i)
+  whereneg <- sign(i) == -1L
+  i <- suppressWarnings(as.integer(i))
+  if(any(is.na(i) & (!whereinf) & (!wherena))) stop('could not convert some inputs to integer')
+  
+  last_digit <- as.numeric(substring(i, nchar(i)))
+  ending <- sapply(last_digit + 1, switch, 'th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th')
+  second_last_digit <- as.numeric(substring(i, nchar(i) - 1, nchar(i) - 1))
+  ending[second_last_digit == 1L] <- 'th'
+  out <- paste(i, ending, sep = '')
+  
+  out[whereinf] <- 'infinitieth'
+  out[whereinf & whereneg] <- '-infinitieth'
+  out[wherena] <- 'missingith'
+  
+  return(out)
+}
 
 #Narrative function
 create_narrative <- function(model_outputs, nhs_region){
@@ -166,7 +188,7 @@ create_narrative <- function(model_outputs, nhs_region){
   g<-"the overall prevalence of"
   h<- "% in England. In comparison to other NHS regions,"
   i<-"was ranked"
-  j<-single_region$rank
+  j<-int_to_ranking(single_region$rank)
   k<-"in England."
 
   narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j,k)
