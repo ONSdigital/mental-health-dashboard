@@ -18,7 +18,7 @@ library(testthat)
 aggregate_prevalence_to_England <- function(prevalence_data) {
   England_count <- sum(prevalence_data$Count)
   England_pop <- sum(prevalence_data$Denominator)
-  England_prevalence <- round(100*(England_count / England_pop), digits = 0)
+  England_prevalence <- round((England_count / England_pop)*100, digits = 1)
   
   return(England_prevalence)
 }
@@ -29,7 +29,7 @@ aggregate_prevalence_to_region <- function(prevalence_data) {
     group_by(Parent.Code, Parent.Name) %>%
     summarise(Count = sum(Count),
               Population = sum(Denominator)) %>%
-    mutate(prevalence=round((Count/Population)*100, digits =0))
+    mutate(prevalence=round((Count/Population)*100, digits =1))
   
   return(regional_level_prevalence)
 }
@@ -49,7 +49,7 @@ manipulate_regions_for_shapefile <- function(region_prevalence) {
               Parent.Name = "Lancashire and Greater Manchester",
               Count = sum(Count),
               Population = sum(Population)) %>%
-    mutate(prevalence = (Count/Population)*100)
+    mutate(prevalence = round((Count/Population)*100, digits =1))
   
   #Add row
   thirteen_level_NHS_regional_prevalence <- summed_regions %>%
@@ -146,28 +146,65 @@ create_choropleth_map_by_prevalence <- function(shapefile, nhs_region){
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
+#Function to turn integers into ranks
 
-#Narrative function
-create_narrative <- function(narrative, nhs_region){
-  single_region <- subset(narrative, NHS.region == nhs_region)
-  regional_narrative <- as.character(single_region$Narative)
-  return(regional_narrative)
+int_to_ranking <- function(i){
+  
+  whereinf <- is.infinite(i)
+  wherena <- is.na(i)
+  whereneg <- sign(i) == -1L
+  i <- suppressWarnings(as.integer(i))
+  if(any(is.na(i) & (!whereinf) & (!wherena))) stop('could not convert some inputs to integer')
+  
+  last_digit <- as.numeric(substring(i, nchar(i)))
+  ending <- sapply(last_digit + 1, switch, 'th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th')
+  second_last_digit <- as.numeric(substring(i, nchar(i) - 1, nchar(i) - 1))
+  ending[second_last_digit == 1L] <- 'th'
+  out <- paste(i, ending, sep = '')
+  
+  out[whereinf] <- 'infinitieth'
+  out[whereinf & whereneg] <- '-infinitieth'
+  out[wherena] <- 'missingith'
+  
+  return(out)
 }
 
-# user parameter
-region <- "South West"
+#Narrative function
+create_narrative <- function(model_outputs, nhs_region){
+  Eng_Prev <- model_outputs[[3]]
+  
+  Year <- "2014/15"
+  single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
+   Region_Name<-single_region$Parent.Name
+
+  a<-"In"
+  b<-"the prevalence of common mental health disorders in the"
+  c<-"NHS region was"
+  d<-single_region$prevalence
+  e<-"%. This was"
+  f<-ifelse(single_region$prevalence < Eng_Prev,"lower than",
+            ifelse(single_region$prevalence > Eng_Prev, "higher than",
+                   ifelse(single_region$prevalence <- Eng_Prev, "equal to")))
+  g<-"the overall prevalence of"
+  h<- "% in England. In comparison to other NHS regions,"
+  i<-"was ranked"
+  j<-int_to_ranking(single_region$rank)
+  k<-"in England."
+
+  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j,k)
+
+  return(narrative_text)
+}
 
 #Create run model function
-run_model <- function(prevalence_dataset, shapefile, metadata, narrative, nhs_region){
+run_model <- function(prevalence_dataset, shapefile, metadata){
   england_prevalence <- aggregate_prevalence_to_England(prevalence_dataset)
   region_prevalence <- aggregate_prevalence_to_region(prevalence_dataset)
   thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
   regional_prevalence_with_ranks <- rank_prevalence_by_region(thirteen_level_NHS_regional_prevalence)
   region_shapefile_with_joined_prevalence_data <- join_prevalence_data_to_shapefile(regional_prevalence_with_ranks,
                                                                                     shapefile)
-  narrative_specific <- create_narrative(narrative, nhs_region)
-
-  return(list(region_shapefile_with_joined_prevalence_data, regional_prevalence_with_ranks, england_prevalence, narrative_specific))
+  return(list(region_shapefile_with_joined_prevalence_data, regional_prevalence_with_ranks, england_prevalence))
 }
 
 ####Data
@@ -175,11 +212,11 @@ run_model <- function(prevalence_dataset, shapefile, metadata, narrative, nhs_re
 CCG_prevalence <- read.csv("src/r/data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
 #Shapefile data
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
-#Narrative
-narrative <- read.csv("src/r/data/NHS_region_narrative.csv")
+
+
 
 #Run model
-model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata", narrative, region)
+model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata")
 
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
