@@ -10,26 +10,52 @@ library(rmarkdown)
 library(rprojroot)
 source("src/r/model.R")
 
-ui <- shinyUI(fluidPage(
-  fluidRow(column(1),
-           column(10, h1("Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15")),
-            column(1)),
-  fluidRow(column(1),
-           column(10, sidebarPanel( 
-             tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
-          
-    selectInput('region', label = h3('Please select an NHS region'), model_outputs[[2]]$Parent.Name))),
-    column(1)),
-  fluidRow(column(5, plotOutput("map", height = "600")),
-           column(7, plotOutput("chart", height = "500", width = "900"))),
-  fluidRow(column(1),
-           column(10,(h2(textOutput("narrative")))),
-          column(1)),
-  fluidRow(column(1),
-           column(10, h3("For more information on this dataset click",
-                         a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata.md", target="_blank"), ".")),
-           column(1)))
-)
+ui <- shinyUI(
+  fluidPage(
+    titlePanel("Mental Health Dashboard"),
+    
+    mainPanel(
+      column(12,
+      tabsetPanel(
+        
+        tabPanel( "Mental Health Prevalence",
+                  fluidRow(h1("Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15")),
+                  fluidRow(sidebarPanel( 
+                    tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+                  selectInput('region', label = h3('Please select an NHS region'), model_outputs[[2]]$Parent.Name))),
+                  fluidRow(plotOutput("chart")),
+                  fluidRow(plotOutput("map")),
+                  fluidRow(h2(textOutput("narrative"))),
+                  fluidRow(h3("For more information on this dataset click",
+                     a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata.md", target="_blank"), "."))
+        ),
+        
+        tabPanel("Depression prevalence", 
+                 fluidRow(sidebarPanel( 
+                   tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+                   selectInput('region', label = h3('Please select an NHS region'), model_outputs[[2]]$Parent.Name)))
+                 
+        ),
+        
+        tabPanel("Depression follow up",
+                 fluidRow(sidebarPanel( 
+                   tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+                   selectInput('region', label = h3('Please select an NHS region'), model_outputs[[2]]$Parent.Name)))
+                
+           )
+        
+        )
+      
+      ),
+    width = 12)
+    )
+  
+  )
+                  
+ 
+  
+
+  
 
 server <- function(input, output) {
   output$map <- renderPlot( {
