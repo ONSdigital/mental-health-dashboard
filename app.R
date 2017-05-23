@@ -53,7 +53,7 @@ ui <- shinyUI(
                           tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
                           selectInput('region3', label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
                         fluidRow(column(5, plotOutput("map3",height = "700")),
-                                 (column(7, plotOutput("chart3", height = "500", width = "900")))),
+                                 (column(7, plotOutput("chart3", height = "500", width = "1000")))),
                         fluidRow(column(1), column(10, h2(textOutput("narrative3")))), column(1),
                         fluidRow(column(1), column(10, h3("For more information on this dataset click",
                                                           a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md", target="_blank"), "."),column(1))
