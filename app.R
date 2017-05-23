@@ -16,58 +16,62 @@ ui <- shinyUI(
     
     mainPanel(
       column(12,
-      tabsetPanel(
-        
-        tabPanel( "Mental Health Prevalence", 
-                  fluidRow(h1("Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15")),
-                  fluidRow(sidebarPanel( 
-                    tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
-                  selectInput('region1', label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name))),
-                  fluidRow(plotOutput("chart1")),
-                  fluidRow(plotOutput("map1")),
-                  fluidRow(h2(textOutput("narrative1"))),
-                  fluidRow(h3("For more information on this dataset click",
-                     a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata1.md", target="_blank"), "."))
-        ),
-        
-        tabPanel("Depression prevalence", 
-                 fluidRow(h1(" Percentage of patients on GP practice register, aged 18+, recorded as having depression,\n in England, by NHS Region, 2014/15")),
-                 fluidRow(sidebarPanel( 
-                   tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
-                   selectInput('region2', label = h3('Please select an NHS region'), model_outputs2[[2]]$Parent.Name))),
-                 fluidRow(plotOutput("chart2")),
-                 fluidRow(plotOutput("map2")),
-                 fluidRow(h2(textOutput("narrative2"))),
-                 fluidRow(h3("For more information on this dataset click",
-                             a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata2.md", target="_blank"), "."))
-                 
-        ),
-        
-        tabPanel("Depression review", 
-                 fluidRow(h1("Percentage of newly diagnosed patients with depression, aged 18+, who had a review 10-56 days after diagnosis,\n in England, by NHS Region, 2014/15")),
-                 fluidRow(sidebarPanel( 
-                   tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
-                   selectInput('region3', label = h3('Please select an NHS region'), model_outputs3[[2]]$Parent.Name))),
-                 fluidRow(plotOutput("chart3")),
-                 fluidRow(plotOutput("map3")),
-                 fluidRow(h2(textOutput("narrative3"))),
-                 fluidRow(h3("For more information on this dataset click",
-                             a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md", target="_blank"), "."))
-                
-           )
-        
-        )
-      
+             tabsetPanel(
+               
+               tabPanel( "Mental Health Prevalence", 
+                         fluidRow(column(1), column( 10,h1("Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15")),
+                                  column(1)),
+                         fluidRow(column(1), column( 10,sidebarPanel( 
+                           tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+                           selectInput('region1', label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
+                         fluidRow(column(5, plotOutput("map1",height = "700")),
+                                  (column(7, plotOutput("chart1", height = "500", width = "900")))),
+                         fluidRow(column(1), column(10, h2(textOutput("narrative1")))), column(1),
+                         fluidRow(column(1), column(10, h3("For more information on this dataset click",
+                                                           a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata1.md", target="_blank"), "."),column(1))
+                         )),
+               
+               tabPanel("Depression prevalence", 
+                        fluidRow(column(1), column( 10,h1("Percentage of patients on GP practice register, aged 18+, recorded as having depression,\n in England, by NHS Region, 2014/15")),
+                                 column(1)),
+                        
+                        fluidRow(column(1), column( 10,sidebarPanel( 
+                          tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+                          selectInput('region2', label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
+                        fluidRow(column(5, plotOutput("map2",height = "700")),
+                                 (column(7, plotOutput("chart2", height = "500", width = "900")))),
+                        fluidRow(column(1), column(10, h2(textOutput("narrative2")))), column(1),
+                        fluidRow(column(1), column(10, h3("For more information on this dataset click",
+                                                          a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata2.md", target="_blank"), "."),column(1))
+                                 
+                        )),
+               
+               tabPanel("Depression review", 
+                        fluidRow(column(1), column( 10,h1("Percentage of newly diagnosed patients with depression, aged 18+, who had a review 10-56 days after diagnosis,\n in England, by NHS Region, 2014/15")),
+                                 column(1)),
+                        fluidRow(column(1), column( 10,sidebarPanel( 
+                          tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+                          selectInput('region3', label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
+                        fluidRow(column(5, plotOutput("map3",height = "700")),
+                                 (column(7, plotOutput("chart3", height = "500", width = "900")))),
+                        fluidRow(column(1), column(10, h2(textOutput("narrative3")))), column(1),
+                        fluidRow(column(1), column(10, h3("For more information on this dataset click",
+                                                          a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md", target="_blank"), "."),column(1))
+                                 
+                        )
+               )
+             )
+             
       ),
-    width = 12)
-    )
-  
+      width = 12)
   )
-                  
- 
   
+)
 
-  
+
+
+
+
 
 server <- function(input, output) {
   output$map1 <- renderPlot( {
