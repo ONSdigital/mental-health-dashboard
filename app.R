@@ -74,25 +74,25 @@ server <- function(input, output) {
     create_choropleth_map_by_prevalence(model_outputs1[[1]], input$region)
   })
   output$chart1 <- renderPlot({
-    create_barchart_of_prevalence_by_region(model_outputs1[[2]], model_outputs1[[3]], input$region)
+    create_barchart_of_MH_prevalence_by_region(model_outputs1[[2]], model_outputs1[[3]], input$region)
   })
-  output$narrative1 <- renderText({create_narrative(model_outputs1, input$region)})
+  output$narrative1 <- renderText({create_narrative1(model_outputs1, input$region)})
   
   output$map2 <- renderPlot( {
     create_choropleth_map_by_prevalence(model_outputs2[[1]], input$region)
   })
   output$chart2 <- renderPlot({
-    create_barchart_of_prevalence_by_region(model_outputs2[[2]], model_outputs2[[3]], input$region)
+    create_barchart_of_depression_prevalence_by_region(model_outputs2[[2]], model_outputs2[[3]], input$region)
   })
-  output$narrative2 <- renderText({create_narrative(model_outputs2, input$region)})
+  output$narrative2 <- renderText({create_narrative2(model_outputs2, input$region)})
   
   output$map3 <- renderPlot( {
     create_choropleth_map_by_prevalence(model_outputs3[[1]], input$region)
   })
   output$chart3 <- renderPlot({
-    create_barchart_of_prevalence_by_region(model_outputs3[[2]], model_outputs3[[3]], input$region)
+    create_barchart_of_depression_review_by_region(model_outputs3[[2]], model_outputs3[[3]], input$region)
   })
-  output$narrative3 <- renderText({create_narrative(model_outputs3, input$region)})
+  output$narrative3 <- renderText({create_narrative3(model_outputs3, input$region)})
 }
 
 shinyApp(ui = ui, server = server)
