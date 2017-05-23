@@ -313,7 +313,7 @@ create_narrative3 <- function(model_outputs, nhs_region){
 }
 
 #Create run model function for dataset - Mental health prevalence
-run_model1 <- function(prevalence_dataset, shapefile, metadata){
+run_model <- function(prevalence_dataset, shapefile, metadata){
   england_prevalence <- aggregate_prevalence_to_England(prevalence_dataset)
   region_prevalence <- aggregate_prevalence_to_region(prevalence_dataset)
   thirteen_level_NHS_regional_prevalence <- manipulate_regions_for_shapefile(region_prevalence)
