@@ -31,13 +31,15 @@ ui <- shinyUI(
         ),
         
         tabPanel("Depression prevalence", 
+                 fluidRow(h1(" Percentage of patients on GP practice register, aged 18+, recorded as having depression,\n in England, by NHS Region, 2014/15")),
                  fluidRow(sidebarPanel( 
                    tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
                    selectInput('region', label = h3('Please select an NHS region'), model_outputs[[2]]$Parent.Name)))
                  
         ),
         
-        tabPanel("Depression follow up",
+        tabPanel("Depression review",
+                 fluidRow(h1("Percentage of newly diagnosed patients with depression, aged 18+, who had a review 10-56 days after diagnosis,\n in England, by NHS Region, 2014/15")),
                  fluidRow(sidebarPanel( 
                    tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
                    selectInput('region', label = h3('Please select an NHS region'), model_outputs[[2]]$Parent.Name)))
