@@ -133,7 +133,7 @@ create_barchart_of_depression_prevalence_by_region <- function(regional_prevalen
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
 
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 7.25, label = "England average", color = "navyblue", size  = 7)
 
 }
 
@@ -164,7 +164,7 @@ create_barchart_of_depression_review_by_region <- function(regional_prevalence_w
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
 
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 63.80, label = "England average", color = "navyblue", size  = 7)
 
 }
 
