@@ -75,7 +75,7 @@ join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, re
   return(region_shapefile)
 }
 
-#Create barchart
+#Create barchart 1- Mental health prevalence
 create_barchart_of_MH_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
   
   #Order by rank
@@ -108,22 +108,22 @@ create_barchart_of_MH_prevalence_by_region <- function(regional_prevalence_with_
 
 #Create barchart 2- depression prevalence
 create_barchart_of_depression_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
-  
+
   #Order by rank
-  regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
+  regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name,
                                                        levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
   #Create themes for formatting text size, colour etc
   axis_labels <- element_text(face = "bold", size = 20)
   region_labels <- element_text(size = 20, hjust = 1, colour = "black")
   prevalence_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
-  
+
   #Create dataframe for England average line
   england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
   region_names <- as.vector(regional_prevalence_with_ranks$Parent.Name)
   england_prevalence_line <- data.frame(england_prev, region_names)
-  
+
   ColourSchemeBlue <- brewer.pal(2,"Blues")
-  
+
   #Plot
   ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
     coord_flip() +
@@ -131,30 +131,30 @@ create_barchart_of_depression_prevalence_by_region <- function(regional_prevalen
     labs(x = "NHS Region", y = "Percentage of patients on GP practice register recorded as having depression(%)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
-    
+
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
     annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
-  
+
 }
 
 #Create barchart3 - depression follow up
 create_barchart_of_depression_review_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
-  
+
   #Order by rank
-  regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
+  regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name,
                                                        levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
   #Create themes for formatting text size, colour etc
   axis_labels <- element_text(face = "bold", size = 20)
   region_labels <- element_text(size = 20, hjust = 1, colour = "black")
   prevalence_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
-  
+
   #Create dataframe for England average line
   england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
   region_names <- as.vector(regional_prevalence_with_ranks$Parent.Name)
   england_prevalence_line <- data.frame(england_prev, region_names)
-  
+
   ColourSchemeBlue <- brewer.pal(2,"Blues")
-  
+
   #Plot
   ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
     coord_flip() +
@@ -162,10 +162,10 @@ create_barchart_of_depression_review_by_region <- function(regional_prevalence_w
     labs(x = "NHS Region", y = "Percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis (%)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
-    
+
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
     annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
-  
+
 }
 
 #subset shapefile by region
