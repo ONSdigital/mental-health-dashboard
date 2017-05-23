@@ -203,7 +203,7 @@ create_choropleth_map_by_prevalence <- function(shapefile, nhs_region){
          fill = rev(ColourScheme), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
-         title = "Prevalence (%)"
+         title = "Percentage (%)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
