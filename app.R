@@ -27,7 +27,7 @@ ui <- shinyUI(
                   fluidRow(plotOutput("map1")),
                   fluidRow(h2(textOutput("narrative1"))),
                   fluidRow(h3("For more information on this dataset click",
-                     a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata.md", target="_blank"), "."))
+                     a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata1.md", target="_blank"), "."))
         ),
         
         tabPanel("Depression prevalence", 
@@ -39,7 +39,7 @@ ui <- shinyUI(
                  fluidRow(plotOutput("map2")),
                  fluidRow(h2(textOutput("narrative2"))),
                  fluidRow(h3("For more information on this dataset click",
-                             a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata.md", target="_blank"), "."))
+                             a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata2.md", target="_blank"), "."))
                  
         ),
         
@@ -52,7 +52,7 @@ ui <- shinyUI(
                  fluidRow(plotOutput("map3")),
                  fluidRow(h2(textOutput("narrative3"))),
                  fluidRow(h3("For more information on this dataset click",
-                             a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata.md", target="_blank"), "."))
+                             a("here", href= "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md", target="_blank"), "."))
                 
            )
         
