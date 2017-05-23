@@ -68,9 +68,9 @@ rank_prevalence_by_region <- function(thirteen_level_NHS_regional_prevalence){
 
 #join shapefile to regional prevalence data
 join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, region_shapefile){
-  region_shapefile@data <- setnames(region_shapefile@data, "nhsrg15cd", "Parent.Code")
+  regional_prevalence_with_ranks <- setnames(regional_prevalence_with_ranks, "Parent.Code", "nhsrg15cd")
   region_shapefile@data <-  region_shapefile@data %>% 
-    left_join(regional_prevalence_with_ranks, by='Parent.Code')
+    left_join(regional_prevalence_with_ranks, by='nhsrg15cd')
   
   return(region_shapefile)
 }
@@ -220,8 +220,9 @@ region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_
 
 
 #Run model
-model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata")
-
+model_outputs1 <- run_model(CCG_prevalence, region_shapefile, "metadata")
+model_outputs2 <- run_model(depression_prevalence, region_shapefile, "metadata")
+model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
 
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
