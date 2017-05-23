@@ -210,6 +210,10 @@ run_model <- function(prevalence_dataset, shapefile, metadata){
 ####Data
 #CCG Data
 CCG_prevalence <- read.csv("src/r/data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
+#Depression prevalence
+depression_prevalence <- read.csv("src/r/data/Depression_recorded_prevalence_QOF_percentage_or_practice_register_aged_18+_2014-15.csv")
+#Depression prevalence
+depression_review <- read.csv("src/r/data/%_of_newly_diagnosed_patients_with_depression_who_had_a_review_10-56_days_after_diagnosis_2014-15.csv")
 #Shapefile data
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 
@@ -217,6 +221,7 @@ region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_
 
 #Run model
 model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata")
+
 
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
