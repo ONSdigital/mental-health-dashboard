@@ -14,7 +14,8 @@ library(RColorBrewer)
 library(testthat)
 
 ####Model
-#Function to aggregate to England
+##Prevalence data
+#Function to prevalence data aggregate to England
 aggregate_prevalence_to_England <- function(prevalence_data) {
   England_count <- sum(prevalence_data$Count)
   England_pop <- sum(prevalence_data$Denominator)
@@ -34,7 +35,7 @@ aggregate_prevalence_to_region <- function(prevalence_data) {
   return(regional_level_prevalence)
 }
 
-#Function to manipulate regions to match shapefile
+#Function to manipulate prevalence data regions to match shapefile
 manipulate_regions_for_shapefile <- function(region_prevalence) {
   #Combining regions to match shapefile
   removed_regions <- region_prevalence %>%
@@ -74,6 +75,15 @@ join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, re
   
   return(region_shapefile)
 }
+
+##Rates data
+#Function to rates data aggregate to England
+aggregate_rates_to_England <- function(rates_data) {
+  England_rate <- (sum(rates_data$Rate)/14) #could change 14 to count how many rows there are
+    return(England_rate)
+}
+
+
 
 #Create barchart 1- Mental health prevalence
 create_barchart_of_MH_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
@@ -331,6 +341,8 @@ CCG_prevalence <- read.csv("src/r/data/Estimated_Prevalence_of_CMDs_2014-2015.cs
 depression_prevalence <- read.csv("src/r/data/Depression_recorded_prevalence_QOF_percentage_or_practice_register_aged_18+_2014-15.csv")
 #Depression prevalence
 depression_review <- read.csv("src/r/data/%_of_newly_diagnosed_patients_with_depression_who_had_a_review_10-56_days_after_diagnosis_2014-15.csv")
+#Suicide rates
+suicide_rates <- read.csv("src/r/data/NHS_Region_Suicides.csv")
 #Shapefile data
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 
