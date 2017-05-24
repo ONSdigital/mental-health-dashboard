@@ -68,15 +68,15 @@ rank_prevalence_by_region <- function(thirteen_level_NHS_regional_prevalence){
 
 #join shapefile to regional prevalence data
 join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, region_shapefile){
-  region_shapefile@data <- setnames(region_shapefile@data, "nhsrg15cd", "Parent.Code")
+  regional_prevalence_with_ranks <- setnames(regional_prevalence_with_ranks, "Parent.Code", "nhsrg15cd")
   region_shapefile@data <-  region_shapefile@data %>% 
-    left_join(regional_prevalence_with_ranks, by='Parent.Code')
+    left_join(regional_prevalence_with_ranks, by='nhsrg15cd')
   
   return(region_shapefile)
 }
 
-#Create barchart
-create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
+#Create barchart 1- Mental health prevalence
+create_barchart_of_MH_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
   
   #Order by rank
   regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name, 
@@ -103,6 +103,68 @@ create_barchart_of_prevalence_by_region <- function(regional_prevalence_with_ran
 
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
     annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
+
+}
+
+#Create barchart 2- depression prevalence
+create_barchart_of_depression_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
+
+  #Order by rank
+  regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name,
+                                                       levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
+  #Create themes for formatting text size, colour etc
+  axis_labels <- element_text(face = "bold", size = 20)
+  region_labels <- element_text(size = 20, hjust = 1, colour = "black")
+  prevalence_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
+
+  #Create dataframe for England average line
+  england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
+  region_names <- as.vector(regional_prevalence_with_ranks$Parent.Name)
+  england_prevalence_line <- data.frame(england_prev, region_names)
+
+  ColourSchemeBlue <- brewer.pal(2,"Blues")
+
+  #Plot
+  ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
+    coord_flip() +
+    theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
+    labs(x = "NHS Region", y = "Prevalence of depression(%)") +
+    scale_fill_manual(values = ColourSchemeBlue) +
+    geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
+
+    geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
+    annotate("text", x=0.75, y= 7.25, label = "England average", color = "navyblue", size  = 7)
+
+}
+
+#Create barchart3 - depression follow up
+create_barchart_of_depression_review_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
+
+  #Order by rank
+  regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name,
+                                                       levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
+  #Create themes for formatting text size, colour etc
+  axis_labels <- element_text(face = "bold", size = 20)
+  region_labels <- element_text(size = 20, hjust = 1, colour = "black")
+  prevalence_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
+
+  #Create dataframe for England average line
+  england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
+  region_names <- as.vector(regional_prevalence_with_ranks$Parent.Name)
+  england_prevalence_line <- data.frame(england_prev, region_names)
+
+  ColourSchemeBlue <- brewer.pal(2,"Blues")
+
+  #Plot
+  ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
+    coord_flip() +
+    theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
+    labs(x = "NHS Region", y = "Percentage who had a review 10-56 days after diagnosis (%)") +
+    scale_fill_manual(values = ColourSchemeBlue) +
+    geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
+
+    geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
+    annotate("text", x=0.75, y= 63.80, label = "England average", color = "navyblue", size  = 7)
 
 }
 
@@ -141,7 +203,7 @@ create_choropleth_map_by_prevalence <- function(shapefile, nhs_region){
          fill = rev(ColourScheme), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
-         title = "Prevalence (%)"
+         title = "Percentage (%)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
@@ -169,8 +231,8 @@ int_to_ranking <- function(i){
   return(out)
 }
 
-#Narrative function
-create_narrative <- function(model_outputs, nhs_region){
+#Narrative function for dataset 1
+create_narrative1 <- function(model_outputs, nhs_region){
   Eng_Prev <- model_outputs[[3]]
   
   Year <- "2014/15 "
@@ -196,7 +258,61 @@ create_narrative <- function(model_outputs, nhs_region){
   return(narrative_text)
 }
 
-#Create run model function
+#Narrative function for dataset 2
+create_narrative2 <- function(model_outputs, nhs_region){
+  Eng_Prev <- model_outputs[[3]]
+  
+  Year <- "2014/15 "
+  single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
+  Region_Name<-single_region$Parent.Name
+  
+  a<-"In "
+  b<-" the percentage of patients on GP practice register recorded as having depression in the "
+  c<-" NHS region was "
+  d<-single_region$prevalence
+  e<-"%. This was "
+  f<-ifelse(single_region$prevalence < Eng_Prev,"lower than ",
+            ifelse(single_region$prevalence > Eng_Prev, "higher than ",
+                   ifelse(single_region$prevalence <- Eng_Prev, "equal to ")))
+  g<-"the overall prevalence of "
+  h<- "% in England. In comparison to other NHS regions, "
+  i<-" was ranked "
+  j<-int_to_ranking(single_region$rank)
+  k<-" in England."
+  
+  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j,k, sep = "")
+  
+  return(narrative_text)
+}
+
+#Narrative function for dataset 3
+create_narrative3 <- function(model_outputs, nhs_region){
+  Eng_Prev <- model_outputs[[3]]
+  
+  Year <- "2014/15 "
+  single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
+  Region_Name<-single_region$Parent.Name
+  
+  a<-"In "
+  b<-" the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in the "
+  c<-" NHS region was "
+  d<-single_region$prevalence
+  e<-"%. This was "
+  f<-ifelse(single_region$prevalence < Eng_Prev,"lower than ",
+            ifelse(single_region$prevalence > Eng_Prev, "higher than ",
+                   ifelse(single_region$prevalence <- Eng_Prev, "equal to ")))
+  g<-"the overall proportion of "
+  h<- "% in England. In comparison to other NHS regions, "
+  i<-" was ranked "
+  j<-int_to_ranking(single_region$rank)
+  k<-" in England."
+  
+  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j,k, sep = "")
+  
+  return(narrative_text)
+}
+
+#Create run model function for dataset - Mental health prevalence
 run_model <- function(prevalence_dataset, shapefile, metadata){
   england_prevalence <- aggregate_prevalence_to_England(prevalence_dataset)
   region_prevalence <- aggregate_prevalence_to_region(prevalence_dataset)
@@ -207,16 +323,23 @@ run_model <- function(prevalence_dataset, shapefile, metadata){
   return(list(region_shapefile_with_joined_prevalence_data, regional_prevalence_with_ranks, england_prevalence))
 }
 
+
 ####Data
 #CCG Data
 CCG_prevalence <- read.csv("src/r/data/Estimated_Prevalence_of_CMDs_2014-2015.csv")
+#Depression prevalence
+depression_prevalence <- read.csv("src/r/data/Depression_recorded_prevalence_QOF_percentage_or_practice_register_aged_18+_2014-15.csv")
+#Depression prevalence
+depression_review <- read.csv("src/r/data/%_of_newly_diagnosed_patients_with_depression_who_had_a_review_10-56_days_after_diagnosis_2014-15.csv")
 #Shapefile data
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 
 
 
 #Run model
-model_outputs <- run_model(CCG_prevalence, region_shapefile, "metadata")
+model_outputs1 <- run_model(CCG_prevalence, region_shapefile, "metadata")
+model_outputs2 <- run_model(depression_prevalence, region_shapefile, "metadata")
+model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
 
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
