@@ -374,7 +374,7 @@ create_barchart_of_suicide_rates_by_region <- function(rates_data, England_rate,
   ggplot(rates_data, aes(x=Region.name, y=Rate)) +
     coord_flip() +
     theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
-    labs(x = "NHS Region", y = "Rate") +
+    labs(x = "NHS Region", y = "Rate (per 100,000 population)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Region.name==nhs_region), show.legend = FALSE) +
     
@@ -418,7 +418,7 @@ create_choropleth_map_of_rate <- function(shapefile, nhs_region){
          fill = rev(ColourScheme), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
-         title = "Age-Standardised Rate"
+         title = "Rate (per 100,000 population)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
