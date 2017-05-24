@@ -14,7 +14,8 @@ library(RColorBrewer)
 library(testthat)
 
 ####Model
-#Function to aggregate to England
+##Prevalence datasets
+#Function to aggregate prevalence to England
 aggregate_prevalence_to_England <- function(prevalence_data) {
   England_count <- sum(prevalence_data$Count)
   England_pop <- sum(prevalence_data$Denominator)
@@ -58,7 +59,7 @@ manipulate_regions_for_shapefile <- function(region_prevalence) {
   return(thirteen_level_NHS_regional_prevalence)
 }
 
-#Add rank column/variable to dataset
+#Add rank column/variable to dataset - Prevalence
 rank_prevalence_by_region <- function(thirteen_level_NHS_regional_prevalence){
   thirteen_level_NHS_regional_prevalence$rank <- NA
   thirteen_level_NHS_regional_prevalence$rank[order(-thirteen_level_NHS_regional_prevalence$prevalence)] <- 1:nrow(thirteen_level_NHS_regional_prevalence)
@@ -312,7 +313,7 @@ create_narrative3 <- function(model_outputs, nhs_region){
   return(narrative_text)
 }
 
-#Create run model function for dataset - Mental health prevalence
+#Create run model function for dataset - prevalence
 run_model <- function(prevalence_dataset, shapefile, metadata){
   england_prevalence <- aggregate_prevalence_to_England(prevalence_dataset)
   region_prevalence <- aggregate_prevalence_to_region(prevalence_dataset)
@@ -323,6 +324,23 @@ run_model <- function(prevalence_dataset, shapefile, metadata){
   return(list(region_shapefile_with_joined_prevalence_data, regional_prevalence_with_ranks, england_prevalence))
 }
 
+
+##Rates
+
+#Function to aggregate rates to England
+aggregate_rates_to_England <- function(rates_data) {
+  England_rate <- (sum(rates_data$Rate))/13 #could change 13 to have r count number of rows
+  return(England_rate)
+}
+
+
+#Add rank column/variable to dataset - rates
+rank_rates_by_region <- function(rates_data){
+  rates_data$rank <- NA
+  rates_data$rank[order(-rates_data$Rate)] <- 1:nrow(rates_data)
+  
+  return(rates_data)
+}
 
 ####Data
 #CCG Data
