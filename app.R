@@ -11,10 +11,9 @@ library(rprojroot)
 source("src/r/model.R")
 
 format_tab <- function(title, header, region_no, map_no, chart_no, narrative_no, metadata_url_no) {
-  tabPanel(title, 
-           fluidRow(column(1), column( 10,h1(header)),
-                    column(1)), (tags$style(type='text/css', 
-                                           ".nav-tabs {font-size: 20px} ")),
+  tabPanel(title, (tags$style(type='text/css', 
+                              ".nav-tabs {font-size: 20px} ")),
+           fluidRow(column(1), column( 10,h1(header)),column(1)), 
            fluidRow(column(1), column( 10,sidebarPanel( 
              tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
              selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
@@ -23,6 +22,22 @@ format_tab <- function(title, header, region_no, map_no, chart_no, narrative_no,
            fluidRow(column(1), column(10, h2(textOutput(narrative_no)))), column(1),
            fluidRow(column(1), column(10, h3("For more information on this dataset click",
                                              a("here", href= metadata_url_no, target="_blank"), "."),column(1))
+           ))
+}
+
+comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, chart3_no) {
+  tabPanel(title,(tags$style(type='text/css', 
+                                                ".nav-tabs {font-size: 20px} ")),
+           fluidRow(column(1), column( 10,h1(header)),column(1)), 
+           fluidRow(column(1), column( 10,sidebarPanel( 
+             tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+             selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
+           fluidRow (column(6, plotOutput(chart1_no, width = "900")),
+                     (column(6, plotOutput(chart2_no, width = "900")))),
+           fluidRow(column(1)),
+           fluidRow(column(1)),
+           fluidRow(column(2), (column(10, plotOutput(chart3_no, width = "1000")))),
+           fluidRow (column(10, h3("For more information on these datasets please see the metadata link in the relevant tabs."))
            ))
 }
 
@@ -56,7 +71,14 @@ ui <- shinyUI(
                           "map3",
                           "chart3",
                           "narrative3",
-                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md")
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md"),
+               
+              comparison_tab("Regional Comparisons",
+                             "A comparison of different mental health indicators \n across NHS Regions in England, 2014/15",
+                             "regioncompare",
+                             "chartcompare1",
+                             "chartcompare2",
+                             "chartcompare3")
              )
              
       ),
@@ -94,6 +116,16 @@ server <- function(input, output) {
     create_barchart_of_depression_review_by_region(model_outputs3[[2]], model_outputs3[[3]], input$region3)
   })
   output$narrative3 <- renderText({create_narrative3(model_outputs3, input$region3)})
+  
+  output$chartcompare1 <- renderPlot({
+    create_barchart_of_MH_prevalence_by_region(model_outputs1[[2]], model_outputs1[[3]], input$regioncompare)
+  })
+  output$chartcompare2 <- renderPlot({
+    create_barchart_of_depression_prevalence_by_region(model_outputs2[[2]], model_outputs2[[3]], input$regioncompare)
+  })
+  output$chartcompare3 <- renderPlot({
+    create_barchart_of_depression_review_by_region(model_outputs3[[2]], model_outputs3[[3]], input$regioncompare)
+  })
 }
 
 shinyApp(ui = ui, server = server)
