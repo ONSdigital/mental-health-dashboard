@@ -339,7 +339,16 @@ rank_rates_by_region <- function(rates_data){
   rates_data$rank <- NA
   rates_data$rank[order(-rates_data$Rate)] <- 1:nrow(rates_data)
   
-  return(rates_data)
+  return(rates_data_with_ranks)
+}
+
+#join shapefile to regional rate data
+join_rate_data_to_shapefile <- function(rates_data_with_ranks, region_shapefile){
+  rates_data_with_ranks <- setnames(rates_data_with_ranks, "Parent.Code", "nhsrg15cd")
+  region_shapefile@data <-  region_shapefile@data %>% 
+    left_join(rates_data_with_ranks, by='nhsrg15cd')
+  
+  return(region_shapefile)
 }
 
 ####Data
