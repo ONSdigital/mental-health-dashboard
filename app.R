@@ -33,7 +33,7 @@ ui <- shinyUI(
       column(12,
              tabsetPanel(
                
-               format_tab("Mental Health Prevalence", 
+               format_tab("Prevalence of Common Mental Health Disorders ", 
                           "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15",
                           "region1",
                           "map1",
@@ -41,7 +41,7 @@ ui <- shinyUI(
                           "narrative1",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata1.md"),
                
-               format_tab("Depression prevalence",
+               format_tab("Prevalence of Depression",
                           "Percentage of patients on GP practice register, aged 18+, recorded as having depression,\n in England, by NHS Region, 2014/15",
                           "region2",
                           "map2",
@@ -49,7 +49,7 @@ ui <- shinyUI(
                           "narrative2",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata2.md"),
                
-               format_tab("Depression review",
+               format_tab("Depression follow up reviews",
                           "Percentage of newly diagnosed patients with depression, aged 18+, who had a review 10-56 days after diagnosis,\n in England, by NHS Region, 2014/15",
                           "region3",
                           "map3",
