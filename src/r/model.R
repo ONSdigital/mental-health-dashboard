@@ -344,12 +344,23 @@ rank_rates_by_region <- function(rates_data){
 
 #join shapefile to regional rate data
 join_rate_data_to_shapefile <- function(rates_data_with_ranks, region_shapefile){
-  rates_data_with_ranks <- setnames(rates_data_with_ranks, "Parent.Code", "nhsrg15cd")
+  rates_data_with_ranks <- setnames(rates_data_with_ranks, "Region.code", "nhsrg15cd")
   region_shapefile@data <-  region_shapefile@data %>% 
     left_join(rates_data_with_ranks, by='nhsrg15cd')
   
-  return(region_shapefile)
+  return(rate_region_shapefile)
 }
+
+#Create run model function for dataset - rates
+run_model_rates <- function(rates_data, shapefile, metadata){
+  England_rate <- aggregate_rates_to_England(rates_data)
+  rates_data_with_ranks <- rank_rates_by_region(rates_data)
+  region_shapefile_with_joined_rate_data <- join_rate_data_to_shapefile(rates_data_with_ranks,
+                                                                                    shapefile)
+  return(list(region_shapefile_with_joined_rate_data, rates_data_with_ranks, England_rate))
+}
+
+
 
 ####Data
 #CCG Data
