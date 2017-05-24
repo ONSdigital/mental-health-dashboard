@@ -65,7 +65,7 @@ ui <- shinyUI(
                           "narrative2",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata2.md"),
                
-               format_tab("Depression follow up reviews",
+               format_tab("Depression Follow-Up Reviews",
                           "Percentage of newly diagnosed patients with depression, aged 18+, who had a review 10-56 days after diagnosis,\n in England, by NHS Region, 2014/15",
                           "region3",
                           "map3",
@@ -78,7 +78,15 @@ ui <- shinyUI(
                              "regioncompare",
                              "chartcompare1",
                              "chartcompare2",
-                             "chartcompare3")
+                             "chartcompare3"),
+              
+              format_tab("Age-Standardised Suicide Rates",
+                         "Age-standardised suicide rates per 100,000 population, by NHS Region \n in England, 2015 death registrations",
+                         "region4",
+                         "map4",
+                         "chart4",
+                         "narrative4",
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")
              )
              
       ),
@@ -126,6 +134,14 @@ server <- function(input, output) {
   output$chartcompare3 <- renderPlot({
     create_barchart_of_depression_review_by_region(model_outputs3[[2]], model_outputs3[[3]], input$regioncompare)
   })
+  
+  output$map4 <- renderPlot( {
+    create_choropleth_map_of_rate(model_outputs4[[1]], input$region4)
+  })
+  output$chart4 <- renderPlot({
+    create_barchart_of_suicide_rates_by_region(model_outputs4[[2]], model_outputs4[[3]], input$region4)
+  })
+  output$narrative4 <- renderText({create_narrative4(model_outputs4, input$region4)})
 }
 
 shinyApp(ui = ui, server = server)
