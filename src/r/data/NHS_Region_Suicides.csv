@@ -1,14 +1,14 @@
 Region code,Region name,Rate,LCL,UCL
-E39000030,Central Midlands ,8.9,8,9.8
-E39000026,Cheshire and Merseyside ,10.6,9.2,12
-E39000027,Cumbria and North East ,10.8,9.6,12.1
-E39000031,East ,10,9,11
+E39000030,Central Midlands,8.9,8,9.8
+E39000026,Cheshire and Merseyside,10.6,9.2,12
+E39000027,Cumbria and North East,10.8,9.6,12.1
+E39000031,East,10,9,11
 E39000028,Lancashire and Greater Manchester,10.9,9.9,12
-E39000018,London ,10.4,9.6,11.2
-E39000032,North Midlands ,9.3,8.3,10.4
-E39000034,South Central ,8.4,7.4,9.4
-E39000035,South East ,10.6,9.6,11.6
-E39000036,South West ,10.7,9.5,12
-E39000025,Wessex ,9.9,8.7,11.2
-E39000033,West Midlands ,9.6,8.6,10.6
-E39000029,Yorkshire and Humber ,11.6,10.6,12.5
+E39000018,London,10.4,9.6,11.2
+E39000032,North Midlands,9.3,8.3,10.4
+E39000034,South Central,8.4,7.4,9.4
+E39000035,South East,10.6,9.6,11.6
+E39000036,South West,10.7,9.5,12
+E39000025,Wessex,9.9,8.7,11.2
+E39000033,West Midlands,9.6,8.6,10.6
+E39000029,Yorkshire and Humber,11.6,10.6,12.5
