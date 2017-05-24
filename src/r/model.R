@@ -342,9 +342,9 @@ run_model <- function(prevalence_dataset, shapefile, metadata){
 
 #Function to aggregate rates to England
 aggregate_rates_to_England <- function(rates_data) {
-  England_rate <- (sum(rates_data$Rate))/13 #could change 13 to have r count number of rows
-  return(England_rate) #need to round
-}
+  England_rate <- round((sum(rates_data$Rate))/13, digits = 1) #could change 13 to have r count number of rows
+  return(England_rate) 
+  }
 
 #Add rank column/variable to dataset - rates
 rank_rates_by_region <- function(rates_data){
@@ -434,6 +434,33 @@ create_choropleth_map_of_rate <- function(shapefile, nhs_region){
          title = "Rate (per 100,000 population)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
+}
+
+#Narrative function for rates
+create_narrative4 <- function(model_outputs, nhs_region){
+  Eng_Average <- model_outputs[[3]]
+  
+  Year <- "2015"
+  single_region <- subset(model_outputs[[1]]@data, Region.name == nhs_region)
+  Region_Name<-single_region$Region.name
+  
+  a<-"In "
+  b<-" the age-standardised suicide rate in the "
+  c<-" NHS region was "
+  d<-single_region$Rate
+  e<-" per 100,000 population. This was "
+  f<-ifelse(single_region$Rate < Eng_Average,"lower than ",
+            ifelse(single_region$Rate > Eng_Average, "higher than ",
+                   ifelse(single_region$Rate <- Eng_Average, "equal to ")))
+  g<-"the average rate of "
+  h<- " per 100,000 population in England. In comparison to other NHS regions, "
+  i<-" was ranked "
+  j<-int_to_ranking(single_region$Rank)
+  k<-" in England."
+  
+  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Average,h,Region_Name,i,j,k, sep = "")
+  
+  return(narrative_text)
 }
 
 
