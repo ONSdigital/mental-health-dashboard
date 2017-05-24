@@ -383,6 +383,45 @@ create_barchart_of_suicide_rates_by_region <- function(rates_data, England_rate,
   
 }
 
+#subset shapefile by region
+region_subset_rate <- function(shapefile, nhs_region) {
+  subset(shapefile, shapefile$Region.name == nhs_region)
+}
+
+# Create a map of rate by NHS Region
+create_choropleth_map_of_rate <- function(shapefile, nhs_region){
+  
+  # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+  breaks=classIntervals(shapefile@data$Rate,
+                        n=4, # set the number of ranges to create
+                        style="jenks") # set the algorithm to use to create the ranges
+  
+  #get 4 Green ColorBrewer Colours
+  ColourScheme <- brewer.pal(4,"Greens")
+  
+  # plot a map using the new class breaks and colours we created just now.
+  plot(shapefile,
+       col= ColourScheme[findInterval(shapefile@data$Rate, breaks$brks, all.inside = TRUE)],
+       axes =FALSE,
+       border = rgb(0.6,0.6,0.6))
+  
+  # overlay map with selected region, highlighted in black
+  plot(region_subset_rate(shapefile, nhs_region),
+       border = rgb(0.0,0.0,0.0),
+       add = TRUE)
+  
+  # Create a legend
+  par(xpd=TRUE) # disables clipping of the legend by the map extent
+  legend("left", # sets where to place legend
+         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
+         fill = rev(ColourScheme), # use the colour scheme created earlier
+         bty = "n",
+         cex = 1.8, #expansion factor - expands text to make larger
+         title = "Age-Standardised Rate"
+  )
+  par(xpd=FALSE)# disables clipping of the legend by the map extent
+}
 
 
 #Create run model function for dataset - rates
