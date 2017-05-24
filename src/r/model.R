@@ -330,17 +330,18 @@ run_model <- function(prevalence_dataset, shapefile, metadata){
 #Function to aggregate rates to England
 aggregate_rates_to_England <- function(rates_data) {
   England_rate <- (sum(rates_data$Rate))/13 #could change 13 to have r count number of rows
-  return(England_rate)
+  return(England_rate) #need to round
 }
-
 
 #Add rank column/variable to dataset - rates
 rank_rates_by_region <- function(rates_data){
-  rates_data$rank <- NA
-  rates_data$rank[order(-rates_data$Rate)] <- 1:nrow(rates_data)
+  rates_data$Rank <- NA
+  rates_data$Rank[order(-rates_data$Rate)] <- 1:nrow(rates_data)
   
-  return(rates_data_with_ranks)
+  return(rates_data)
 }
+
+rates_with_ranks <- rank_rates_by_region(suicide_rates)
 
 #join shapefile to regional rate data
 join_rate_data_to_shapefile <- function(rates_data_with_ranks, region_shapefile){
@@ -348,8 +349,41 @@ join_rate_data_to_shapefile <- function(rates_data_with_ranks, region_shapefile)
   region_shapefile@data <-  region_shapefile@data %>% 
     left_join(rates_data_with_ranks, by='nhsrg15cd')
   
-  return(rate_region_shapefile)
+  return(region_shapefile)
 }
+
+#Create barchart4 - suicide rates
+create_barchart_of_suicide_rates_by_region <- function(rates_data, England_rate, nhs_region){
+  
+  #Order by rank
+  rates_data$Region.name <- factor(rates_data$Region.name,
+                                                       levels = rates_data$Region.name[order(rates_data$Rate)])
+  #Create themes for formatting text size, colour etc
+  axis_labels <- element_text(face = "bold", size = 20)
+  region_labels <- element_text(size = 20, hjust = 1, colour = "black")
+  prevalence_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
+  
+  #Create dataframe for England average line
+  england_rate_rep <- rep(England_rate, length(rates_data$Region.name))
+  region_names <- as.vector(rates_data$Region.name)
+  england_rate_line <- data.frame(england_rate_rep, region_names)
+  
+  ColourSchemeBlue <- brewer.pal(2,"Blues")
+  
+  #Plot
+  ggplot(rates_data, aes(x=Region.name, y=Rate)) +
+    coord_flip() +
+    theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
+    labs(x = "NHS Region", y = "Rate") +
+    scale_fill_manual(values = ColourSchemeBlue) +
+    geom_bar(stat = "identity", colour="black", aes(fill=Region.name==nhs_region), show.legend = FALSE) +
+    
+    geom_line(data = england_rate_line, aes(x=as.numeric(region_names), y=england_rate_rep), color = "navyblue", size = 2) +
+    annotate("text", x=0.75, y= 10, label = "England average", color = "navyblue", size  = 7)
+  
+}
+
+
 
 #Create run model function for dataset - rates
 run_model_rates <- function(rates_data, shapefile, metadata){
@@ -359,7 +393,6 @@ run_model_rates <- function(rates_data, shapefile, metadata){
                                                                                     shapefile)
   return(list(region_shapefile_with_joined_rate_data, rates_data_with_ranks, England_rate))
 }
-
 
 
 ####Data
@@ -380,6 +413,7 @@ region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_
 model_outputs1 <- run_model(CCG_prevalence, region_shapefile, "metadata")
 model_outputs2 <- run_model(depression_prevalence, region_shapefile, "metadata")
 model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
+model_outputs4 <- run_model_rates(suicide_rates, region_shapefile, "metadata")
 
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
