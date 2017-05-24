@@ -331,6 +331,8 @@ CCG_prevalence <- read.csv("src/r/data/Estimated_Prevalence_of_CMDs_2014-2015.cs
 depression_prevalence <- read.csv("src/r/data/Depression_recorded_prevalence_QOF_percentage_or_practice_register_aged_18+_2014-15.csv")
 #Depression prevalence
 depression_review <- read.csv("src/r/data/%_of_newly_diagnosed_patients_with_depression_who_had_a_review_10-56_days_after_diagnosis_2014-15.csv")
+#Suicide rates
+suicide_rates <- read.csv("src/r/data/NHS_Region_Suicides.csv")
 #Shapefile data
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 
