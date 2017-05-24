@@ -61,9 +61,10 @@ ui <- shinyUI(
                fluidRow(column(1), column( 10,h1("A comparison of different mental health indicators across regions")),column(1)), 
                fluidRow(column(1), column( 10,sidebarPanel( 
                  tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
-                 selectInput("regioncompare", label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),(column(6, plotOutput("chartcompare1", width = "900"))),
-                fluidRow (column(5), fluidRow (column(5, plotOutput("chartcompare2", width = "900")))),
-               fluidRow (column(2), (column(10, plotOutput("chartcompare3", width = "1200"))))
+                 selectInput("regioncompare", label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
+               fluidRow (column(6, plotOutput("chartcompare1", width = "900")),
+                        (column(6, plotOutput("chartcompare2", width = "900")))),
+               fluidRow (column(1), (column(10, plotOutput("chartcompare3", width = "1500"))))
              )
              
       ),
