@@ -25,6 +25,22 @@ format_tab <- function(title, header, region_no, map_no, chart_no, narrative_no,
            ))
 }
 
+comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, chart3_no) {
+  tabPanel(title,(tags$style(type='text/css', 
+                                                ".nav-tabs {font-size: 20px} ")),
+           fluidRow(column(1), column( 10,h1(header)),column(1)), 
+           fluidRow(column(1), column( 10,sidebarPanel( 
+             tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+             selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
+           fluidRow (column(6, plotOutput(chart1_no, width = "900")),
+                     (column(6, plotOutput(chart2_no, width = "900")))),
+           fluidRow(column(1)),
+           fluidRow(column(1)),
+           fluidRow(column(2), (column(10, plotOutput(chart3_no, width = "1000")))),
+           fluidRow (column(10, h3("For more information on these datasets please see the metadata link in the relevant tabs."))
+           ))
+}
+
 ui <- shinyUI(
   fluidPage(
     titlePanel("Mental Health Dashboard"),
@@ -56,15 +72,13 @@ ui <- shinyUI(
                           "chart3",
                           "narrative3",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md"),
-               tabPanel("Regional Comparisons"),(tags$style(type='text/css', 
-                                                            ".nav-tabs {font-size: 20px} ")),
-               fluidRow(column(1), column( 10,h1("A comparison of different mental health indicators across regions")),column(1)), 
-               fluidRow(column(1), column( 10,sidebarPanel( 
-                 tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
-                 selectInput("regioncompare", label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
-               fluidRow (column(6, plotOutput("chartcompare1", width = "900")),
-                        (column(6, plotOutput("chartcompare2", width = "900")))),
-               fluidRow (column(2), (column(10, plotOutput("chartcompare3", width = "1000"))))
+               
+              comparison_tab("Regional Comparisons",
+                             "A comparison of different mental health indicators \n across NHS Regions in England, 2014/15",
+                             "regioncompare",
+                             "chartcompare1",
+                             "chartcompare2",
+                             "chartcompare3")
              )
              
       ),
