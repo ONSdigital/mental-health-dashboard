@@ -13,7 +13,8 @@ source("src/r/model.R")
 format_tab <- function(title, header, region_no, map_no, chart_no, narrative_no, metadata_url_no) {
   tabPanel(title, 
            fluidRow(column(1), column( 10,h1(header)),
-                    column(1)),
+                    column(1)), (tags$style(type='text/css', 
+                                           ".nav-tabs {font-size: 20px} ")),
            fluidRow(column(1), column( 10,sidebarPanel( 
              tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
              selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
