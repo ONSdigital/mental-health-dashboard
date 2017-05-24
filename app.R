@@ -64,7 +64,7 @@ ui <- shinyUI(
                  selectInput("regioncompare", label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
                fluidRow (column(6, plotOutput("chartcompare1", width = "900")),
                         (column(6, plotOutput("chartcompare2", width = "900")))),
-               fluidRow (column(1), (column(10, plotOutput("chartcompare3", width = "1500"))))
+               fluidRow (column(2), (column(10, plotOutput("chartcompare3", width = "1000"))))
              )
              
       ),
