@@ -187,20 +187,20 @@ region_subset <- function(shapefile, nhs_region) {
   subset(shapefile, shapefile$Parent.Name == nhs_region)
 }
 
-# Create a map of prevalence by NHS Region
-create_choropleth_map_by_prevalence <- function(shapefile, nhs_region){
+# Create map 1 - purple
+create_choropleth_map_by_prevalence_purple <- function(shapefile, nhs_region){
 
   # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
   breaks=classIntervals(shapefile@data$prevalence,
                         n=4, # set the number of ranges to create
                         style="jenks") # set the algorithm to use to create the ranges
 
-  #get 4 Green ColorBrewer Colours
-  ColourScheme <- brewer.pal(4,"Greens")
+  #get 4 Purple ColorBrewer Colours
+  ColourSchemePurple <- brewer.pal(4,"Purples")
 
   # plot a map using the new class breaks and colours we created just now.
   plot(shapefile,
-       col= ColourScheme[findInterval(shapefile@data$prevalence, breaks$brks, all.inside = TRUE)],
+       col= ColourSchemePurple[findInterval(shapefile@data$prevalence, breaks$brks, all.inside = TRUE)],
        axes =FALSE,
        border = rgb(0.6,0.6,0.6))
 
@@ -214,13 +214,85 @@ create_choropleth_map_by_prevalence <- function(shapefile, nhs_region){
   legend("left", # sets where to place legend
          inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
-         fill = rev(ColourScheme), # use the colour scheme created earlier
+         fill = rev(ColourSchemePurple), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
          title = "Percentage (%)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
+
+# Create map 2 - green
+create_choropleth_map_by_prevalence_green <- function(shapefile, nhs_region){
+  
+  # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+  breaks=classIntervals(shapefile@data$prevalence,
+                        n=4, # set the number of ranges to create
+                        style="jenks") # set the algorithm to use to create the ranges
+  
+  #get 4 Purple ColorBrewer Colours
+  ColourSchemeGreen <- brewer.pal(4,"Greens")
+  
+  # plot a map using the new class breaks and colours we created just now.
+  plot(shapefile,
+       col= ColourSchemeGreen[findInterval(shapefile@data$prevalence, breaks$brks, all.inside = TRUE)],
+       axes =FALSE,
+       border = rgb(0.6,0.6,0.6))
+  
+  # overlay map with selected region, highlighted in black
+  plot(region_subset(shapefile, nhs_region),
+       border = rgb(0.0,0.0,0.0),
+       add = TRUE)
+  
+  # Create a legend
+  par(xpd=TRUE) # disables clipping of the legend by the map extent
+  legend("left", # sets where to place legend
+         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
+         fill = rev(ColourSchemeGreen), # use the colour scheme created earlier
+         bty = "n",
+         cex = 1.8, #expansion factor - expands text to make larger
+         title = "Percentage (%)"
+  )
+  par(xpd=FALSE)# disables clipping of the legend by the map extent
+}
+
+
+# Create map 3 - Orange
+create_choropleth_map_by_prevalence_orange <- function(shapefile, nhs_region){
+  
+  # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+  breaks=classIntervals(shapefile@data$prevalence,
+                        n=4, # set the number of ranges to create
+                        style="jenks") # set the algorithm to use to create the ranges
+  
+  #get 4 Purple ColorBrewer Colours
+  ColourSchemeOrange <- brewer.pal(4,"Oranges")
+  
+  # plot a map using the new class breaks and colours we created just now.
+  plot(shapefile,
+       col= ColourSchemeOrange[findInterval(shapefile@data$prevalence, breaks$brks, all.inside = TRUE)],
+       axes =FALSE,
+       border = rgb(0.6,0.6,0.6))
+  
+  # overlay map with selected region, highlighted in black
+  plot(region_subset(shapefile, nhs_region),
+       border = rgb(0.0,0.0,0.0),
+       add = TRUE)
+  
+  # Create a legend
+  par(xpd=TRUE) # disables clipping of the legend by the map extent
+  legend("left", # sets where to place legend
+         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
+         fill = rev(ColourSchemeOrange), # use the colour scheme created earlier
+         bty = "n",
+         cex = 1.8, #expansion factor - expands text to make larger
+         title = "Percentage (%)"
+  )
+  par(xpd=FALSE)# disables clipping of the legend by the map extent
+}
+
 
 #Function to turn integers into ranks
 
@@ -401,7 +473,7 @@ region_subset_rate <- function(shapefile, nhs_region) {
   subset(shapefile, shapefile$Region.name == nhs_region)
 }
 
-# Create a map of rate by NHS Region
+# Create a map of rate by NHS Region - red
 create_choropleth_map_of_rate <- function(shapefile, nhs_region){
   
   # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
@@ -410,11 +482,11 @@ create_choropleth_map_of_rate <- function(shapefile, nhs_region){
                         style="jenks") # set the algorithm to use to create the ranges
   
   #get 4 Green ColorBrewer Colours
-  ColourScheme <- brewer.pal(4,"Greens")
+  ColourSchemeRed <- brewer.pal(4,"Reds")
   
   # plot a map using the new class breaks and colours we created just now.
   plot(shapefile,
-       col= ColourScheme[findInterval(shapefile@data$Rate, breaks$brks, all.inside = TRUE)],
+       col= ColourSchemeRed[findInterval(shapefile@data$Rate, breaks$brks, all.inside = TRUE)],
        axes =FALSE,
        border = rgb(0.6,0.6,0.6))
   
@@ -428,7 +500,7 @@ create_choropleth_map_of_rate <- function(shapefile, nhs_region){
   legend("left", # sets where to place legend
          inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
-         fill = rev(ColourScheme), # use the colour scheme created earlier
+         fill = rev(ColourSchemeRed), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
          title = "Rate (per 100,000 population)"
