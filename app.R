@@ -79,12 +79,12 @@ Read on to learn about England overall, or click the tabs above to explore regio
                         "In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population.",
                         "In 2013/14 the spending on mental health in England was £145.80 per 1,000 population."),
                
-               CCG_tab("Prevalence of Common Mental Health Disorders - Overview", 
+               CCG_tab("Prevalence of Common Mental Health Disorders (1)", 
                            "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by Clinical Commissioning Group, 2014/15",
                            "ccgmap"),
                
                
-               format_tab("Prevalence of Common Mental Health Disorders - Regional", 
+               format_tab("Prevalence of Common Mental Health Disorders (2)", 
                           "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15",
                           "region1",
                           "map1",

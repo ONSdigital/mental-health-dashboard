@@ -312,15 +312,15 @@ create_choropleth_map_CCG <- function(CCG_shapefile){
   
   # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
   breaks=classIntervals(CCG_shapefile@data$Value,
-                        n=4, # set the number of ranges to create
+                        n=6, # set the number of ranges to create
                         style="jenks") # set the algorithm to use to create the ranges
   
   #get 4 Purple ColorBrewer Colours
-  ColourSchemeBluePurple <- brewer.pal(4,"BuPu")
+  ColourSchemeYlGnBu <- brewer.pal(6,"YlGnBu")
   
   # plot a map using the new class breaks and colours we created just now.
   plot(CCG_shapefile,
-       col= ColourSchemeBluePurple[findInterval(CCG_shapefile@data$Value, breaks$brks, all.inside = TRUE)],
+       col= ColourSchemeYlGnBu[findInterval(CCG_shapefile@data$Value, breaks$brks, all.inside = TRUE)],
        axes =FALSE,
        border = rgb(0.6,0.6,0.6))
   
@@ -328,7 +328,7 @@ create_choropleth_map_CCG <- function(CCG_shapefile){
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
-         fill = rev(ColourSchemeBluePurple), # use the colour scheme created earlier
+         fill = rev(ColourSchemeYlGnBu), # use the colour scheme created earlier
          bty = "n",
          cex = 2.5, #expansion factor - expands text to make larger
          title = "Percentage (%)"
