@@ -647,20 +647,20 @@ region_subset_spending <- function(shapefile, nhs_region) {
   subset(shapefile, shapefile$Parent.Name == nhs_region)
 }
 
-# Create a map of rate by NHS Region - red
-create_choropleth_map_of_soending <- function(shapefile, nhs_region){
+# Create a map of spending by NHS Region - Pink
+create_choropleth_map_of_spending <- function(shapefile, nhs_region){
   
   # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
-  breaks=classIntervals(shapefile@data$Rate,
+  breaks=classIntervals(shapefile@data$CCG.spending.on.mental.health.per.capita,
                         n=4, # set the number of ranges to create
                         style="jenks") # set the algorithm to use to create the ranges
   
   #get 4 Green ColorBrewer Colours
-  ColourSchemeYellow <- brewer.pal(4,"Yellows")
+  ColourSchemePink <- brewer.pal(4,"RdPu")
   
   # plot a map using the new class breaks and colours we created just now.
   plot(shapefile,
-       col= ColourSchemeYellow[findInterval(shapefile@data$CCG.spending.on.mental.health.per.capita, breaks$brks, all.inside = TRUE)],
+       col= ColourSchemePink[findInterval(shapefile@data$CCG.spending.on.mental.health.per.capita, breaks$brks, all.inside = TRUE)],
        axes =FALSE,
        border = rgb(0.6,0.6,0.6))
   
@@ -674,10 +674,10 @@ create_choropleth_map_of_soending <- function(shapefile, nhs_region){
   legend("left", # sets where to place legend
          inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
-         fill = rev(ColourSchemeYellow), # use the colour scheme created earlier
+         fill = rev(ColourSchemePink), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
-         title = "Spending (£) on mental health per capita"
+         title = "Spending (£) per capita"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
