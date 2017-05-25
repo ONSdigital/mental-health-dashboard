@@ -45,6 +45,15 @@ CCG_tab <- function(title, header, ccgmap) {
            fluidRow(column(1), column(10, plotOutput(ccgmap, height = 950 ))))
 }
 
+timeseries_tab <- function(title, header, region_no, timeseries) {
+  tabPanel(title, (tags$style(type='text/css', 
+                              ".nav-tabs {font-size: 20px} ")),
+           fluidRow(column(1), column( 10,h1(header)),column(1)), 
+           fluidRow(column(1), column( 10,sidebarPanel( 
+             tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+             selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
+           fluidRow(column(1), column(10, plotOutput(timeseries ))))
+}
 
 comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, chart3_no) {
   tabPanel(title,(tags$style(type='text/css', 
@@ -122,13 +131,21 @@ Read on to learn about England overall, or click the tabs above to explore regio
                           "chart4",
                           "narrative4",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md"),
+               
                format_tab("Spending on Mental Health", 
                           "Spending on mental health per 1,000 population, by NHS Region in England, 2013/14",
                           "region5",
                           "map5",
                           "chart5",
                           "narrative5",
-                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata5.md")
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata5.md"),
+               
+               timeseries_tab("Suicides time series",
+                          "Age-Standardised Suicide rates per 100,000 population, by NHS Region \n in England 2006-2016 death registrations",
+                          "region6",
+                          "timeseries"
+                          )
+               
              )
              
       ),
@@ -195,6 +212,9 @@ server <- function(input, output) {
     create_barchart_of_MH_spending_by_region(model_outputs5[[2]], model_outputs5[[3]], input$region5)
   })
   output$narrative5 <- renderText({create_narrative5(model_outputs5, input$region5)})
+  
+  output$timeseries <- renderPlot( {
+    create_suicide_time_series(Suicides_time_series_raw, input$region6)})
 }
 
-shinyApp(ui = ui, server = server)
+shinyApp(ui = ui, server = server) 
