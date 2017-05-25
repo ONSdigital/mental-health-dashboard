@@ -128,7 +128,7 @@ Read on to learn about England overall, or click the tabs above to explore regio
                           "map5",
                           "chart5",
                           "narrative5",
-                          "metadata")
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata5.md")
              )
              
       ),
