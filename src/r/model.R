@@ -142,7 +142,7 @@ create_barchart_of_depression_prevalence_by_region <- function(regional_prevalen
   ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
     coord_flip() +
     theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
-    labs(x = "NHS Region", y = "Prevalence of depression(%)") +
+    labs(x = "NHS Region", y = "Prevalence of depression (%)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
 
@@ -173,7 +173,7 @@ create_barchart_of_depression_review_by_region <- function(regional_prevalence_w
   ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
     coord_flip() +
     theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
-    labs(x = "NHS Region", y = "Percentage who had a review 10-56 days after diagnosis (%)") +
+    labs(x = "NHS Region", y = "Percentage who had a review 10-56 days after diagnosis of depression (%)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
 
