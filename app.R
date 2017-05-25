@@ -11,10 +11,14 @@ library(rprojroot)
 source("src/r/model.R")
 
 
-home_tab <- function(title, header) {
+home_tab <- function(title, header, narrativeline1, narrativeline2, narrativeline3, narrativeline4) {
   tabPanel(title, (tags$style(type='text/css', 
                               ".nav-tabs {font-size: 20px} ")),
-           fluidRow(column(1), column( 10,h1(header)),column(1)))
+           fluidRow(column(1), column( 10,h1(header)),column(1)),
+           fluidRow(column(1), column( 10,h2(narrativeline1)),column(1)),
+           fluidRow(column(1), column( 10,h2(narrativeline2)),column(1)),
+           fluidRow(column(1), column( 10,h2(narrativeline3)),column(1)),
+           fluidRow(column(1), column( 10,h2(narrativeline4)),column(1)))
   
 }
 
@@ -59,7 +63,11 @@ ui <- shinyUI(
                
                home_tab("Overview", 
                         "This dashboard presents mental health data from Public Health England (PHE) and the Office for National Statistics (ONS). 
-Read on to learn about England overall, or click the tabs above to explore regional breakdowns"),
+Read on to learn about England overall, or click the tabs above to explore regional breakdowns",
+                        "In 2014/15 the overall prevalence of common mental disorders in England was 15.6%.",
+"In 2014/15 the percentage of patients on GP practice register recorded as having depression in England was 7.3%.",
+"In 2014/15 the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in England was 63.8%.",
+"In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population."),
                
                format_tab("Prevalence of Common Mental Health Disorders ", 
                           "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15",
