@@ -62,7 +62,7 @@ ui <- shinyUI(
              tabsetPanel(
                
                home_tab("Overview", 
-                        "This dashboard presents mental health data from Public Health England (PHE) and the Office for National Statistics (ONS). 
+                        "This dashboard presents mental health data taken from Public Health England (PHE) Fingertips tool and the Office for National Statistics (ONS). 
 Read on to learn about England overall, or click the tabs above to explore regional breakdowns.",
                         "In 2014/15 the overall prevalence of common mental disorders in England was 15.6%.",
 "In 2014/15 the percentage of patients on GP practice register recorded as having depression in England was 7.3%.",
