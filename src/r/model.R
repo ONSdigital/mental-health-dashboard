@@ -632,7 +632,7 @@ create_barchart_of_MH_spending_by_region <- function(spending_data, England_spen
   ggplot(spending_data, aes(x=Parent.Name, y=CCG.spending.on.mental.health.per.capita)) +
     coord_flip() +
     theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
-    labs(x = "NHS Region", y = "Spending (£) on mental health per capita (1000 population)") +
+    labs(x = "NHS Region", y = "Spending (£) on mental health per 1,000 population") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
@@ -677,31 +677,31 @@ create_choropleth_map_of_spending <- function(shapefile, nhs_region){
          fill = rev(ColourSchemePink), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
-         title = "Spending (£) per capita"
+         title = "Spending (£) per 1,000 population"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
 #Narrative function for spending
-create_narrative4 <- function(model_outputs, nhs_region){
+create_narrative5 <- function(model_outputs, nhs_region){
   Eng_Average <- model_outputs[[3]]
   
-  Year <- "2015"
+  Year <- "2013/14"
   single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
   Region_Name<-single_region$Parent.Name
   
   a<-"In "
-  b<-" the age-standardised suicide rate in the "
-  c<-" NHS region was "
-  d<-single_region$Rate
-  e<-" per 100,000 population. This was "
-  f<-ifelse(single_region$Rate < Eng_Average,"lower than ",
-            ifelse(single_region$Rate > Eng_Average, "higher than ",
-                   ifelse(single_region$Rate <- Eng_Average, "equal to ")))
-  g<-"the average rate of "
-  h<- " per 100,000 population in England. In comparison to other NHS regions, "
+  b<-" the spending on mental health in the "
+  c<-" NHS region was £"
+  d<-single_region$CCG.spending.on.mental.health.per.capita
+  e<-" per 1,000 population. This was "
+  f<-ifelse(single_region$CCG.spending.on.mental.health.per.capita < Eng_Average,"lower than ",
+            ifelse(single_region$CCG.spending.on.mental.health.per.capita > Eng_Average, "higher than ",
+                   ifelse(single_region$CCG.spending.on.mental.health.per.capita <- Eng_Average, "equal to ")))
+  g<-"the average spending of £"
+  h<- " per 1,000 population in England. In comparison to other NHS regions, "
   i<-" was ranked "
-  j<-int_to_ranking(single_region$Rank)
+  j<-int_to_ranking(single_region$rank)
   k<-" in England."
   
   narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Average,h,Region_Name,i,j,k, sep = "")
