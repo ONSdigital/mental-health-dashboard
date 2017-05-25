@@ -38,6 +38,14 @@ format_tab <- function(title, header, region_no, map_no, chart_no, narrative_no,
            ))
 }
 
+CCG_tab <- function(title, header, ccgmap) {
+  tabPanel(title, (tags$style(type='text/css', 
+                              ".nav-tabs {font-size: 20px} ")),
+           fluidRow(column(1), column( 10,h1(header)),column(1)), 
+           fluidRow(column(1), column(10, plotOutput(ccgmap, height = 950 ))))
+}
+
+
 comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, chart3_no) {
   tabPanel(title,(tags$style(type='text/css', 
                              ".nav-tabs {font-size: 20px} ")),
@@ -66,12 +74,17 @@ ui <- shinyUI(
                         "This dashboard presents mental health data taken from Public Health England (PHE) Fingertips tool and the Office for National Statistics (ONS). 
 Read on to learn about England overall, or click the tabs above to explore regional breakdowns.",
                         "In 2014/15 the overall prevalence of common mental disorders in England was 15.6%.",
-"In 2014/15 the percentage of patients on GP practice register recorded as having depression in England was 7.3%.",
-"In 2014/15 the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in England was 63.8%.",
-"In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population.",
-"In 2013/14 the spending on mental health in England was £145.80 per 1,000 population."),
+                        "In 2014/15 the percentage of patients on GP practice register recorded as having depression in England was 7.3%.",
+                        "In 2014/15 the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in England was 63.8%.",
+                        "In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population.",
+                        "In 2013/14 the spending on mental health in England was £145.80 per 1,000 population."),
                
-               format_tab("Prevalence of Common Mental Health Disorders ", 
+               CCG_tab("Prevalence of Common Mental Health Disorders (1)", 
+                           "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by Clinical Commissioning Group, 2014/15",
+                           "ccgmap"),
+               
+               
+               format_tab("Prevalence of Common Mental Health Disorders (2)", 
                           "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15",
                           "region1",
                           "map1",
@@ -109,13 +122,13 @@ Read on to learn about England overall, or click the tabs above to explore regio
                           "chart4",
                           "narrative4",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md"),
-              format_tab("Spending on Mental Health", 
-           "Spending on mental health per 1,000 population, by NHS Region in England, 2013/14",
-           "region5",
-           "map5",
-           "chart5",
-           "narrative5",
-           "metadata")
+               format_tab("Spending on Mental Health", 
+                          "Spending on mental health per 1,000 population, by NHS Region in England, 2013/14",
+                          "region5",
+                          "map5",
+                          "chart5",
+                          "narrative5",
+                          "metadata")
              )
              
       ),
@@ -130,6 +143,9 @@ Read on to learn about England overall, or click the tabs above to explore regio
 
 
 server <- function(input, output) {
+  output$ccgmap <- renderPlot( {
+    create_choropleth_map_CCG(model_outputs6)
+  })
   output$map1 <- renderPlot( {
     create_choropleth_map_by_prevalence_purple(model_outputs1[[1]], input$region1)
   })
