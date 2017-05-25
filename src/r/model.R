@@ -24,9 +24,10 @@ depression_review <- read.csv("src/r/data/%_of_newly_diagnosed_patients_with_dep
 suicide_rates <- read.csv("src/r/data/NHS_Region_Suicides.csv")
 #Spending data
 CCG_spending <- read.csv("src/r/data/CCG_MH_spending.csv")
-#Shapefile data
+# NHS region Shapefile data
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
-
+#CCG Shapefile data
+CCG_shapefile <- readShapePoly("src/r/data/CCG_Shapefiles/Clinical_Commissioning_Groups_July_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 
 ####Model
 ##Prevalence datasets
