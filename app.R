@@ -10,6 +10,14 @@ library(rmarkdown)
 library(rprojroot)
 source("src/r/model.R")
 
+
+home_tab <- function(title, header) {
+  tabPanel(title, (tags$style(type='text/css', 
+                              ".nav-tabs {font-size: 20px} ")),
+           fluidRow(column(1), column( 10,h1(header)),column(1)))
+  
+}
+
 format_tab <- function(title, header, region_no, map_no, chart_no, narrative_no, metadata_url_no) {
   tabPanel(title, (tags$style(type='text/css', 
                               ".nav-tabs {font-size: 20px} ")),
@@ -27,7 +35,7 @@ format_tab <- function(title, header, region_no, map_no, chart_no, narrative_no,
 
 comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, chart3_no) {
   tabPanel(title,(tags$style(type='text/css', 
-                                                ".nav-tabs {font-size: 20px} ")),
+                             ".nav-tabs {font-size: 20px} ")),
            fluidRow(column(1), column( 10,h1(header)),column(1)), 
            fluidRow(column(1), column( 10,sidebarPanel( 
              tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
@@ -48,6 +56,10 @@ ui <- shinyUI(
     mainPanel(
       column(12,
              tabsetPanel(
+               
+               home_tab("Overview", 
+                        "This dashboard presents mental health data from Public Health England (PHE) and the Office for National Statistics (ONS). 
+Read on to learn about England overall, or click the tabs above to explore regional breakdowns"),
                
                format_tab("Prevalence of Common Mental Health Disorders ", 
                           "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15",
@@ -73,20 +85,20 @@ ui <- shinyUI(
                           "narrative3",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md"),
                
-              comparison_tab("Regional Comparisons",
-                             "A comparison of different mental health indicators \n across NHS Regions in England, 2014/15",
-                             "regioncompare",
-                             "chartcompare1",
-                             "chartcompare2",
-                             "chartcompare3"),
-              
-              format_tab("Age-Standardised Suicide Rates",
-                         "Age-standardised suicide rates per 100,000 population, by NHS Region \n in England, 2015 death registrations",
-                         "region4",
-                         "map4",
-                         "chart4",
-                         "narrative4",
-                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")
+               comparison_tab("Regional Comparisons",
+                              "A comparison of different mental health indicators \n across NHS Regions in England, 2014/15",
+                              "regioncompare",
+                              "chartcompare1",
+                              "chartcompare2",
+                              "chartcompare3"),
+               
+               format_tab("Age-Standardised Suicide Rates",
+                          "Age-standardised suicide rates per 100,000 population, by NHS Region \n in England, 2015 death registrations",
+                          "region4",
+                          "map4",
+                          "chart4",
+                          "narrative4",
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")
              )
              
       ),
