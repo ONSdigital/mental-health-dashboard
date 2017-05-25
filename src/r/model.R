@@ -296,6 +296,45 @@ create_choropleth_map_by_prevalence_orange <- function(shapefile, nhs_region){
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
+### CMD Prevalence data with CCG breakdown
+#join CCG shapefile to regional prevalence data
+join_prevalence_data_to_CCG_shapefile <- function(CCG_prevalence, CCG_shapefile){
+  CCG_prevalence <- setnames(CCG_prevalence, "Area.Code", "ccg15cd")
+  CCG_shapefile@data <-  CCG_shapefile@data %>% 
+    left_join(CCG_prevalence, by='ccg15cd')
+  
+  return(CCG_shapefile)
+}
+
+# Create map 6 - CCG level CMDs
+create_choropleth_map_CCG <- function(CCG_shapefile_with_prevalence){
+  
+  # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+  breaks=classIntervals(CCG_shapefile_with_prevalence@data$prevalence,
+                        n=4, # set the number of ranges to create
+                        style="jenks") # set the algorithm to use to create the ranges
+  
+  #get 4 Purple ColorBrewer Colours
+  ColourSchemePurple <- brewer.pal(4,"Purples")
+  
+  # plot a map using the new class breaks and colours we created just now.
+  plot(shapefile,
+       col= ColourSchemePurple[findInterval(shapefile@data$prevalence, breaks$brks, all.inside = TRUE)],
+       axes =FALSE,
+       border = rgb(0.6,0.6,0.6))
+  
+  # Create a legend
+  par(xpd=TRUE) # disables clipping of the legend by the map extent
+  legend("left", # sets where to place legend
+         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
+         fill = rev(ColourSchemePurple), # use the colour scheme created earlier
+         bty = "n",
+         cex = 1.8, #expansion factor - expands text to make larger
+         title = "Percentage (%)"
+  )
+  par(xpd=FALSE)# disables clipping of the legend by the map extent
+}
 
 #Function to turn integers into ranks
 
