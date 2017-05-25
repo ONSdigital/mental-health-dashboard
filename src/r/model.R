@@ -547,6 +547,67 @@ run_model_rates <- function(rates_data, shapefile, metadata){
   return(list(region_shapefile_with_joined_rate_data, rates_data_with_ranks, England_rate))
 }
 
+##Spending data
+#Function to aggregate spending to England
+aggregate_spending_to_England <- function(spending_data) {
+  England_count <- sum(spending_data$CCG.spending.on.mental.health)
+  England_pop <- sum(spending_data$CCG.population)
+  England_spending <- round((England_count / England_pop)*1000, digits = 1)
+  
+  return(England_spending)
+}
+
+#Function to aggregate spending to NHS region
+aggregate_spending_to_region <- function(spending_data) {
+  regional_level_spending <- spending_data %>%
+    group_by(Parent.Code, Parent.Name) %>%
+    summarise(Spend = sum(CCG.spending.on.mental.health),
+              Population = sum(CCG.population)) %>%
+    mutate(CCG.spending.on.mental.health.per.capita=round((Spend/Population)*100, digits =1))
+  
+  return(regional_level_spending)
+}
+
+#Function to manipulate regions to match shapefile
+manipulate_regions_for_shapefile <- function(region_prevalence) {
+  #Combining regions to match shapefile
+  removed_regions <- region_prevalence %>%
+    filter(Parent.Code != "E39000037") %>%
+    filter(Parent.Code != "E39000038")
+  
+  #Sum regions
+  summed_regions <- region_prevalence %>%
+    filter(Parent.Code %in% c("E39000037","E39000038")) %>%
+    group_by() %>%
+    summarise(Parent.Code = "E39000028",
+              Parent.Name = "Lancashire and Greater Manchester",
+              Count = sum(Count),
+              Population = sum(Population)) %>%
+    mutate(prevalence = round((Count/Population)*100, digits =1))
+  
+  #Add row
+  thirteen_level_NHS_regional_prevalence <- summed_regions %>%
+    bind_rows(removed_regions)
+  
+  return(thirteen_level_NHS_regional_prevalence)
+}
+
+#Add rank column/variable to dataset - Prevalence
+rank_prevalence_by_region <- function(thirteen_level_NHS_regional_prevalence){
+  thirteen_level_NHS_regional_prevalence$rank <- NA
+  thirteen_level_NHS_regional_prevalence$rank[order(-thirteen_level_NHS_regional_prevalence$prevalence)] <- 1:nrow(thirteen_level_NHS_regional_prevalence)
+  
+  return(thirteen_level_NHS_regional_prevalence)
+}
+
+#join shapefile to regional prevalence data
+join_prevalence_data_to_shapefile <- function(regional_prevalence_with_ranks, region_shapefile){
+  regional_prevalence_with_ranks <- setnames(regional_prevalence_with_ranks, "Parent.Code", "nhsrg15cd")
+  region_shapefile@data <-  region_shapefile@data %>% 
+    left_join(regional_prevalence_with_ranks, by='nhsrg15cd')
+  
+  return(region_shapefile)
+}
 
 
 
