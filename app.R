@@ -16,7 +16,7 @@ format_tab <- function(title, header, region_no, map_no, chart_no, narrative_no,
            fluidRow(column(1), column( 10,h1(header)),column(1)), 
            fluidRow(column(1), column( 10,sidebarPanel( 
              tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
-             selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
+             selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
            fluidRow(column(5, plotOutput(map_no,height = "700")),
                     (column(7, plotOutput(chart_no, height = "500", width = "1000")))),
            fluidRow(column(1), column(10, h2(textOutput(narrative_no)))), column(1),
@@ -27,11 +27,11 @@ format_tab <- function(title, header, region_no, map_no, chart_no, narrative_no,
 
 comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, chart3_no) {
   tabPanel(title,(tags$style(type='text/css', 
-                                                ".nav-tabs {font-size: 20px} ")),
+                             ".nav-tabs {font-size: 20px} ")),
            fluidRow(column(1), column( 10,h1(header)),column(1)), 
            fluidRow(column(1), column( 10,sidebarPanel( 
              tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
-             selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name)))),
+             selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
            fluidRow (column(6, plotOutput(chart1_no, width = "900")),
                      (column(6, plotOutput(chart2_no, width = "900")))),
            fluidRow(column(1)),
@@ -73,20 +73,20 @@ ui <- shinyUI(
                           "narrative3",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md"),
                
-              comparison_tab("Regional Comparisons",
-                             "A comparison of different mental health indicators \n across NHS Regions in England, 2014/15",
-                             "regioncompare",
-                             "chartcompare1",
-                             "chartcompare2",
-                             "chartcompare3"),
-              
-              format_tab("Age-Standardised Suicide Rates",
-                         "Age-standardised suicide rates per 100,000 population, by NHS Region \n in England, 2015 death registrations",
-                         "region4",
-                         "map4",
-                         "chart4",
-                         "narrative4",
-                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")
+               comparison_tab("Regional Comparisons",
+                              "A comparison of different mental health indicators \n across NHS Regions in England, 2014/15",
+                              "regioncompare",
+                              "chartcompare1",
+                              "chartcompare2",
+                              "chartcompare3"),
+               
+               format_tab("Age-Standardised Suicide Rates",
+                          "Age-standardised suicide rates per 100,000 population, by NHS Region \n in England, 2015 death registrations",
+                          "region4",
+                          "map4",
+                          "chart4",
+                          "narrative4",
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")
              )
              
       ),
@@ -102,7 +102,7 @@ ui <- shinyUI(
 
 server <- function(input, output) {
   output$map1 <- renderPlot( {
-    create_choropleth_map_by_prevalence_purple(model_outputs1[[1]], input$region1)
+    create_choropleth_map_by_prevalence(model_outputs1[[1]], input$region1)
   })
   output$chart1 <- renderPlot({
     create_barchart_of_MH_prevalence_by_region(model_outputs1[[2]], model_outputs1[[3]], input$region1)
@@ -110,7 +110,7 @@ server <- function(input, output) {
   output$narrative1 <- renderText({create_narrative1(model_outputs1, input$region1)})
   
   output$map2 <- renderPlot( {
-    create_choropleth_map_by_prevalence_green(model_outputs2[[1]], input$region2)
+    create_choropleth_map_by_prevalence(model_outputs2[[1]], input$region2)
   })
   output$chart2 <- renderPlot({
     create_barchart_of_depression_prevalence_by_region(model_outputs2[[2]], model_outputs2[[3]], input$region2)
@@ -118,7 +118,7 @@ server <- function(input, output) {
   output$narrative2 <- renderText({create_narrative2(model_outputs2, input$region2)})
   
   output$map3 <- renderPlot( {
-    create_choropleth_map_by_prevalence_orange(model_outputs3[[1]], input$region3)
+    create_choropleth_map_by_prevalence(model_outputs3[[1]], input$region3)
   })
   output$chart3 <- renderPlot({
     create_barchart_of_depression_review_by_region(model_outputs3[[2]], model_outputs3[[3]], input$region3)
