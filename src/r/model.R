@@ -306,8 +306,7 @@ join_prevalence_data_to_CCG_shapefile <- function(CCG_prevalence, CCG_shapefile)
   return(CCG_shapefile)
 }
 
-joined <- join_prevalence_data_to_CCG_shapefile(CCG_prevalence, CCG_shapefile)
-map <- create_choropleth_map_CCG(joined)
+
 # Create map 6 - CCG level CMDs
 create_choropleth_map_CCG <- function(CCG_shapefile){
   
@@ -328,15 +327,16 @@ create_choropleth_map_CCG <- function(CCG_shapefile){
   # Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
-         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
          fill = rev(ColourSchemeBluePurple), # use the colour scheme created earlier
          bty = "n",
-         cex = 1.8, #expansion factor - expands text to make larger
+         cex = 2.5, #expansion factor - expands text to make larger
          title = "Percentage (%)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
+
+
 
 #Function to turn integers into ranks
 
@@ -772,6 +772,9 @@ model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
 model_outputs4 <- run_model_rates(suicide_rates, region_shapefile, "metadata")
 model_outputs5 <- run_model_spending(CCG_spending, region_shapefile, "metadata")
 model_outputs6 <- join_prevalence_data_to_CCG_shapefile(CCG_prevalence, CCG_shapefile)
+
+
+
 
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
