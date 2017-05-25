@@ -11,14 +11,15 @@ library(rprojroot)
 source("src/r/model.R")
 
 
-home_tab <- function(title, header, narrativeline1, narrativeline2, narrativeline3, narrativeline4) {
+home_tab <- function(title, header, narrativeline1, narrativeline2, narrativeline3, narrativeline4, narrativeline5) {
   tabPanel(title, (tags$style(type='text/css', 
                               ".nav-tabs {font-size: 20px} ")),
            fluidRow(column(1), column( 10,h1(header)),column(1)),
            fluidRow(column(1), column( 10,h2(narrativeline1)),column(1)),
            fluidRow(column(1), column( 10,h2(narrativeline2)),column(1)),
            fluidRow(column(1), column( 10,h2(narrativeline3)),column(1)),
-           fluidRow(column(1), column( 10,h2(narrativeline4)),column(1)))
+           fluidRow(column(1), column( 10,h2(narrativeline4)),column(1)),
+           fluidRow(column(1), column( 10,h2(narrativeline5)),column(1)))
   
 }
 
@@ -44,11 +45,11 @@ comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, char
            fluidRow(column(1), column( 10,sidebarPanel( 
              tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
              selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
-           fluidRow (column(6, plotOutput(chart1_no, width = "900")),
-                     (column(6, plotOutput(chart2_no, width = "900")))),
+           fluidRow (column(6, plotOutput(chart1_no, width = "975")),
+                     (column(6, plotOutput(chart2_no, width = "975")))),
            fluidRow(column(1)),
            fluidRow(column(1)),
-           fluidRow(column(2), (column(10, plotOutput(chart3_no, width = "1100")))),
+           fluidRow(column(2), (column(10, plotOutput(chart3_no, width = "1000")))),
            fluidRow (column(10, h3("For more information on these datasets please see the metadata link in the relevant tabs."))
            ))
 }
@@ -67,7 +68,8 @@ Read on to learn about England overall, or click the tabs above to explore regio
                         "In 2014/15 the overall prevalence of common mental disorders in England was 15.6%.",
 "In 2014/15 the percentage of patients on GP practice register recorded as having depression in England was 7.3%.",
 "In 2014/15 the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in England was 63.8%.",
-"In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population."),
+"In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population.",
+"In 2013/14 the spending on mental health in England was £145.80 per 1,000 population."),
                
                format_tab("Prevalence of Common Mental Health Disorders ", 
                           "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15",
@@ -106,7 +108,14 @@ Read on to learn about England overall, or click the tabs above to explore regio
                           "map4",
                           "chart4",
                           "narrative4",
-                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md"),
+              format_tab("Spending on Mental Health", 
+           "Spending on mental health per 1,000 population, by NHS Region in England, 2013/14",
+           "region5",
+           "map5",
+           "chart5",
+           "narrative5",
+           "metadata")
              )
              
       ),
@@ -162,6 +171,14 @@ server <- function(input, output) {
     create_barchart_of_suicide_rates_by_region(model_outputs4[[2]], model_outputs4[[3]], input$region4)
   })
   output$narrative4 <- renderText({create_narrative4(model_outputs4, input$region4)})
+  
+  output$map5 <- renderPlot( {
+    create_choropleth_map_of_spending(model_outputs5[[1]], input$region5)
+  })
+  output$chart5 <- renderPlot({
+    create_barchart_of_MH_spending_by_region(model_outputs5[[2]], model_outputs5[[3]], input$region5)
+  })
+  output$narrative5 <- renderText({create_narrative5(model_outputs5, input$region5)})
 }
 
 shinyApp(ui = ui, server = server)

@@ -22,6 +22,8 @@ depression_prevalence <- read.csv("src/r/data/Depression_recorded_prevalence_QOF
 depression_review <- read.csv("src/r/data/%_of_newly_diagnosed_patients_with_depression_who_had_a_review_10-56_days_after_diagnosis_2014-15.csv")
 #Suicide rates
 suicide_rates <- read.csv("src/r/data/NHS_Region_Suicides.csv")
+#Spending data
+CCG_spending <- read.csv("src/r/data/CCG_MH_spending.csv")
 #Shapefile data
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 
@@ -173,7 +175,7 @@ create_barchart_of_depression_review_by_region <- function(regional_prevalence_w
   ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
     coord_flip() +
     theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
-    labs(x = "NHS Region", y = "Percentage who had a review 10-56 days after diagnosis of depression (%)") +
+    labs(x = "NHS Region", y = "Percentage who had a review 10-56 days after \n diagnosis of depression (%)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
 
@@ -545,7 +547,179 @@ run_model_rates <- function(rates_data, shapefile, metadata){
   return(list(region_shapefile_with_joined_rate_data, rates_data_with_ranks, England_rate))
 }
 
+##Spending data
+#Function to aggregate spending to England
+aggregate_spending_to_England <- function(spending_data) {
+  England_count <- sum(spending_data$CCG.spending.on.mental.health)
+  England_pop <- sum(spending_data$CCG.population)
+  England_spending <- round((England_count / England_pop)*1000, digits = 1)
+  
+  return(England_spending)
+}
 
+#Function to aggregate spending to NHS region
+aggregate_spending_to_region <- function(spending_data) {
+  regional_level_spending <- spending_data %>%
+    group_by(Parent.Code, Parent.Name) %>%
+    summarise(Spend = sum(CCG.spending.on.mental.health),
+              Population = sum(CCG.population)) %>%
+    mutate(CCG.spending.on.mental.health.per.capita=round((Spend/Population)*1000, digits =1))
+  
+  return(regional_level_spending)
+}
+
+#Function to manipulate regions to match shapefile
+manipulate_spending_regions_for_shapefile <- function(region_spending) {
+  #Combining regions to match shapefile
+  removed_regions <- region_spending %>%
+    filter(Parent.Code != "E39000037") %>%
+    filter(Parent.Code != "E39000038")
+  
+  #Sum regions
+  summed_regions <- region_spending %>%
+    filter(Parent.Code %in% c("E39000037","E39000038")) %>%
+    group_by() %>%
+    summarise(Parent.Code = "E39000028",
+              Parent.Name = "Lancashire and Greater Manchester",
+              Spend = sum(Spend),
+              Population = sum(Population)) %>%
+    mutate(CCG.spending.on.mental.health.per.capita = round((Spend/Population)*1000, digits =1))
+  
+  #Add row
+  thirteen_level_NHS_regional_spending <- summed_regions %>%
+    bind_rows(removed_regions)
+  
+  return(thirteen_level_NHS_regional_spending)
+}
+
+#Add rank column/variable to dataset - Spending
+rank_spending_by_region <- function(thirteen_level_NHS_regional_spending){
+  thirteen_level_NHS_regional_spending$rank <- NA
+  thirteen_level_NHS_regional_spending$rank[order(-thirteen_level_NHS_regional_spending$CCG.spending.on.mental.health.per.capita)] <- 1:nrow(thirteen_level_NHS_regional_spending)
+  
+  return(thirteen_level_NHS_regional_spending)
+}
+
+#join shapefile to regional spending data
+join_spending_data_to_shapefile <- function(regional_spending_with_ranks, region_shapefile){
+  regional_spending_with_ranks <- setnames(regional_spending_with_ranks, "Parent.Code", "nhsrg15cd")
+  region_shapefile@data <-  region_shapefile@data %>% 
+    left_join(regional_spending_with_ranks, by='nhsrg15cd')
+  
+  return(region_shapefile)
+}
+
+
+#Create barchart5 - MH spending
+create_barchart_of_MH_spending_by_region <- function(spending_data, England_spending, nhs_region){
+  
+  #Order by rank
+  spending_data$Parent.Name <- factor(spending_data$Parent.Name,
+                                   levels = spending_data$Parent.Name[order(spending_data$CCG.spending.on.mental.health.per.capita)])
+  #Create themes for formatting text size, colour etc
+  axis_labels <- element_text(face = "bold", size = 20)
+  region_labels <- element_text(size = 20, hjust = 1, colour = "black")
+  prevalence_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
+  
+  #Create dataframe for England average line
+  england_spend_rep <- rep(England_spending, length(spending_data$Parent.Name))
+  region_names <- as.vector(spending_data$Parent.Name)
+  england_spend_line <- data.frame(england_spend_rep, region_names)
+  
+  ColourSchemeBlue <- brewer.pal(2,"Blues")
+  
+  #Plot
+  ggplot(spending_data, aes(x=Parent.Name, y=CCG.spending.on.mental.health.per.capita)) +
+    coord_flip() +
+    theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
+    labs(x = "NHS Region", y = "Spending on mental health per 1,000 population") +
+    scale_fill_manual(values = ColourSchemeBlue) +
+    geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
+    
+    geom_line(data = england_spend_line, aes(x=as.numeric(region_names), y=england_spend_rep), color = "navyblue", size = 2) +
+    annotate("text", x=0.75, y= 155, label = "England average", color = "navyblue", size  = 7)
+  
+}
+
+
+#subset shapefile by region
+region_subset_spending <- function(shapefile, nhs_region) {
+  subset(shapefile, shapefile$Parent.Name == nhs_region)
+}
+
+# Create a map of spending by NHS Region - Pink
+create_choropleth_map_of_spending <- function(shapefile, nhs_region){
+  
+  # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+  breaks=classIntervals(shapefile@data$CCG.spending.on.mental.health.per.capita,
+                        n=4, # set the number of ranges to create
+                        style="jenks") # set the algorithm to use to create the ranges
+  
+  #get 4 Green ColorBrewer Colours
+  ColourSchemePink <- brewer.pal(4,"RdPu")
+  
+  # plot a map using the new class breaks and colours we created just now.
+  plot(shapefile,
+       col= ColourSchemePink[findInterval(shapefile@data$CCG.spending.on.mental.health.per.capita, breaks$brks, all.inside = TRUE)],
+       axes =FALSE,
+       border = rgb(0.6,0.6,0.6))
+  
+  # overlay map with selected region, highlighted in black
+  plot(region_subset_spending(shapefile, nhs_region),
+       border = rgb(0.0,0.0,0.0),
+       add = TRUE)
+  
+  # Create a legend
+  par(xpd=TRUE) # disables clipping of the legend by the map extent
+  legend("left", # sets where to place legend
+         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
+         fill = rev(ColourSchemePink), # use the colour scheme created earlier
+         bty = "n",
+         cex = 1.8, #expansion factor - expands text to make larger
+         title = "Spending per 1,000 population"
+  )
+  par(xpd=FALSE)# disables clipping of the legend by the map extent
+}
+
+#Narrative function for spending
+create_narrative5 <- function(model_outputs, nhs_region){
+  Eng_Average <- model_outputs[[3]]
+  
+  Year <- "2013/14"
+  single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
+  Region_Name<-single_region$Parent.Name
+  
+  a<-"In "
+  b<-" the spending on mental health in the "
+  c<-" NHS region was £"
+  d<-single_region$CCG.spending.on.mental.health.per.capita
+  e<-" per 1,000 population. This was "
+  f<-ifelse(single_region$CCG.spending.on.mental.health.per.capita < Eng_Average,"lower than ",
+            ifelse(single_region$CCG.spending.on.mental.health.per.capita > Eng_Average, "higher than ",
+                   ifelse(single_region$CCG.spending.on.mental.health.per.capita <- Eng_Average, "equal to ")))
+  g<-"the average spending of £"
+  h<- " per 1,000 population in England. In comparison to other NHS regions, "
+  i<-" was ranked "
+  j<-int_to_ranking(single_region$rank)
+  k<-" in England."
+  
+  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Average,h,Region_Name,i,j,k, sep = "")
+  
+  return(narrative_text)
+}
+
+
+#Create run model function for dataset - spending
+run_model_spending <- function(spending_data, shapefile, metadata){
+  England_spending <- aggregate_spending_to_England(spending_data)
+  region_spending <- aggregate_spending_to_region(spending_data)
+  thirteen_level_NHS_regional_spending <- manipulate_spending_regions_for_shapefile(region_spending)
+  spending_data_with_ranks <- rank_spending_by_region(thirteen_level_NHS_regional_spending)
+  region_shapefile_with_joined_spending_data <- join_spending_data_to_shapefile(spending_data_with_ranks,
+                                                                        shapefile)
+  return(list(region_shapefile_with_joined_spending_data, spending_data_with_ranks, England_spending))
+}
 
 
 
@@ -554,6 +728,7 @@ model_outputs1 <- run_model(CCG_prevalence, region_shapefile, "metadata")
 model_outputs2 <- run_model(depression_prevalence, region_shapefile, "metadata")
 model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
 model_outputs4 <- run_model_rates(suicide_rates, region_shapefile, "metadata")
+model_outputs5 <- run_model_spending(CCG_spending, region_shapefile, "metadata")
 
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
