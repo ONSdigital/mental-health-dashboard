@@ -28,6 +28,8 @@ CCG_spending <- read.csv("src/r/data/CCG_MH_spending.csv")
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 #CCG Shapefile data
 CCG_shapefile <- readShapePoly("src/r/data/CCG_Shapefiles/Clinical_Commissioning_Groups_July_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
+#Suicides Time series Data
+Suicides_time_series_raw <- read.csv("src/r/data/REgion_Suicide_Time_Series.csv", check.names = F)
 
 ####Model
 ##Prevalence datasets
@@ -682,6 +684,23 @@ create_barchart_of_MH_spending_by_region <- function(spending_data, England_spen
     annotate("text", x=0.75, y= 155, label = "England average", color = "navyblue", size  = 7)
   
 }
+
+
+#Function for suicides time series chart
+create_suicide_time_series <- function(Suicide_data, nhs_region) {
+  #reformat dataframe for line chart 
+  Suicides_time_series_reshaped <- melt(Suicide_data, id.vars="Region.name", value.name="Rate", variable.name="Year")
+  #Filter data by single region
+  Specific_region <- filter(Suicides_time_series_reshaped, Region.name == region)
+  #Plot line chart
+  suicides_chart <- ggplot(data = Specific_region, aes(x=Year, y=Rate, group = Region.name)) +
+    geom_line() 
+  #scale_fill_manual(values = Region.name) +
+  #geom_line(stat = "identity", size=1, aes(colour=Region.name==nhs_region))
+}
+
+
+suicides_timeseries <- create_suicide_time_series(Suicides_time_series_raw, region)
 
 
 #subset shapefile by region
