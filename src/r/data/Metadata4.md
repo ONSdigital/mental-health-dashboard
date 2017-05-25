@@ -36,3 +36,6 @@ adults aged 15 years and over are included.
 
 Rates have been age-standardised according to the European Standard
 Population 2013.
+
+Figures are for deaths registered, rather than deaths occurring in each calendar year. Due to the length of time it takes to complete a coroner's inquest, it can take months or even years for a suicide to be registered. More details can be found on the ONS website:
+https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/bulletins/suicidesintheunitedkingdom/2015registrations#registration-delays
