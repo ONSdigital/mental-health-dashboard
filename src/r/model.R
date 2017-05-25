@@ -24,9 +24,10 @@ depression_review <- read.csv("src/r/data/%_of_newly_diagnosed_patients_with_dep
 suicide_rates <- read.csv("src/r/data/NHS_Region_Suicides.csv")
 #Spending data
 CCG_spending <- read.csv("src/r/data/CCG_MH_spending.csv")
-#Shapefile data
+# NHS region Shapefile data
 region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_April_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
-
+#CCG Shapefile data
+CCG_shapefile <- readShapePoly("src/r/data/CCG_Shapefiles/Clinical_Commissioning_Groups_July_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 
 ####Model
 ##Prevalence datasets
@@ -294,6 +295,47 @@ create_choropleth_map_by_prevalence_orange <- function(shapefile, nhs_region){
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
+
+### CMD Prevalence data with CCG breakdown
+#join CCG shapefile to regional prevalence data
+join_prevalence_data_to_CCG_shapefile <- function(CCG_prevalence, CCG_shapefile){
+  CCG_prevalence <- setnames(CCG_prevalence, "Area.Code", "ccg15cd")
+  CCG_shapefile@data <-  CCG_shapefile@data %>% 
+    left_join(CCG_prevalence, by='ccg15cd')
+  
+  return(CCG_shapefile)
+}
+
+
+# Create map 6 - CCG level CMDs
+create_choropleth_map_CCG <- function(CCG_shapefile){
+  
+  # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+  breaks=classIntervals(CCG_shapefile@data$Value,
+                        n=6, # set the number of ranges to create
+                        style="jenks") # set the algorithm to use to create the ranges
+  
+  #get 4 Purple ColorBrewer Colours
+  ColourSchemeYlGnBu <- brewer.pal(6,"YlGnBu")
+  
+  # plot a map using the new class breaks and colours we created just now.
+  plot(CCG_shapefile,
+       col= ColourSchemeYlGnBu[findInterval(CCG_shapefile@data$Value, breaks$brks, all.inside = TRUE)],
+       axes =FALSE,
+       border = rgb(0.6,0.6,0.6))
+  
+  # Create a legend
+  par(xpd=TRUE) # disables clipping of the legend by the map extent
+  legend("left", # sets where to place legend
+         legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
+         fill = rev(ColourSchemeYlGnBu), # use the colour scheme created earlier
+         bty = "n",
+         cex = 2.5, #expansion factor - expands text to make larger
+         title = "Percentage (%)"
+  )
+  par(xpd=FALSE)# disables clipping of the legend by the map extent
+}
+
 
 
 #Function to turn integers into ranks
@@ -729,6 +771,10 @@ model_outputs2 <- run_model(depression_prevalence, region_shapefile, "metadata")
 model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
 model_outputs4 <- run_model_rates(suicide_rates, region_shapefile, "metadata")
 model_outputs5 <- run_model_spending(CCG_spending, region_shapefile, "metadata")
+model_outputs6 <- join_prevalence_data_to_CCG_shapefile(CCG_prevalence, CCG_shapefile)
+
+
+
 
 #Tests
 test_results <- test_dir("src/r/", reporter="summary")
