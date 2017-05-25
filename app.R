@@ -44,11 +44,11 @@ comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, char
            fluidRow(column(1), column( 10,sidebarPanel( 
              tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
              selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
-           fluidRow (column(6, plotOutput(chart1_no, width = "900")),
-                     (column(6, plotOutput(chart2_no, width = "900")))),
+           fluidRow (column(6, plotOutput(chart1_no, width = "975")),
+                     (column(6, plotOutput(chart2_no, width = "975")))),
            fluidRow(column(1)),
            fluidRow(column(1)),
-           fluidRow(column(2), (column(10, plotOutput(chart3_no, width = "1100")))),
+           fluidRow(column(2), (column(10, plotOutput(chart3_no, width = "1000")))),
            fluidRow (column(10, h3("For more information on these datasets please see the metadata link in the relevant tabs."))
            ))
 }
