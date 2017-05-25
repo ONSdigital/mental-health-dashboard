@@ -106,7 +106,14 @@ Read on to learn about England overall, or click the tabs above to explore regio
                           "map4",
                           "chart4",
                           "narrative4",
-                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md"),
+              format_tab("Spending on Mental Health", 
+           "Spending on mental health per 1,000 population, by NHS Region in England, 2013/14",
+           "region5",
+           "map5",
+           "chart5",
+           "narrative5",
+           "metadata")
              )
              
       ),
@@ -162,6 +169,14 @@ server <- function(input, output) {
     create_barchart_of_suicide_rates_by_region(model_outputs4[[2]], model_outputs4[[3]], input$region4)
   })
   output$narrative4 <- renderText({create_narrative4(model_outputs4, input$region4)})
+  
+  output$map5 <- renderPlot( {
+    create_choropleth_map_of_spending(model_outputs5[[1]], input$region5)
+  })
+  output$chart5 <- renderPlot({
+    create_barchart_of_MH_spending_by_region(model_outputs5[[2]], model_outputs5[[3]], input$region5)
+  })
+  output$narrative5 <- renderText({create_narrative5(model_outputs5, input$region5)})
 }
 
 shinyApp(ui = ui, server = server)
