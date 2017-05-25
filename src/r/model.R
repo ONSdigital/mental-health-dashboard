@@ -691,16 +691,12 @@ create_suicide_time_series <- function(Suicide_data, nhs_region) {
   #reformat dataframe for line chart 
   Suicides_time_series_reshaped <- melt(Suicide_data, id.vars="Region.name", value.name="Rate", variable.name="Year")
   #Filter data by single region
-  Specific_region <- filter(Suicides_time_series_reshaped, Region.name == region)
+  Specific_region <- filter(Suicides_time_series_reshaped, Region.name == nhs_region)
   #Plot line chart
   suicides_chart <- ggplot(data = Specific_region, aes(x=Year, y=Rate, group = Region.name)) +
     geom_line() 
-  #scale_fill_manual(values = Region.name) +
-  #geom_line(stat = "identity", size=1, aes(colour=Region.name==nhs_region))
 }
 
-
-suicides_timeseries <- create_suicide_time_series(Suicides_time_series_raw, region)
 
 
 #subset shapefile by region
