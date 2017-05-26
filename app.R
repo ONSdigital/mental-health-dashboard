@@ -56,10 +56,10 @@ comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, char
            fluidRow(column(1), column( 10,sidebarPanel( 
              tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
              selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
-           fluidRow (column(6, plotOutput(chart1_no, width = "975")),
-                     (column(6, plotOutput(chart2_no, width = "975")))),
-           fluidRow (column(6, plotOutput(chart3_no, width = "975")),
-                     (column(6, plotOutput(chart4_no, width = "975")))),
+           fluidRow (column(6, plotOutput(chart4_no, width = "975")),
+                     (column(6, plotOutput(chart1_no, width = "975")))),
+           fluidRow (column(6, plotOutput(chart2_no, width = "975")),
+                     (column(6, plotOutput(chart3_no, width = "975")))),
            fluidRow (column(10, h3("For more information on these datasets please see the metadata link in the relevant tabs."))
            ))
 }
@@ -81,6 +81,14 @@ Read on to learn about England overall, or click the tabs above to explore regio
                         "In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population.",
                         "In 2013/14 the spending on mental health in England was £145.80 per 1,000 population."),
                
+               
+               format_tab("Spending on Mental Health 2013/14", 
+                          "Spending on mental health per 1,000 population, by NHS Region in England, 2013/14",
+                          "region5",
+                          "map5",
+                          "chart5",
+                          "narrative5",
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata5.md"),
                
                format_tab("Prevalence of Common Mental Health Disorders (NHS region)", 
                           "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15",
@@ -111,16 +119,9 @@ Read on to learn about England overall, or click the tabs above to explore regio
                           "narrative3",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md"),
                
-               format_tab("Spending on Mental Health", 
-                          "Spending on mental health per 1,000 population, by NHS Region in England, 2013/14",
-                          "region5",
-                          "map5",
-                          "chart5",
-                          "narrative5",
-                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata5.md"),
                
                comparison_tab("Regional Comparisons",
-                              "A comparison of different mental health indicators \n across NHS Regions in England, 2014/15",
+                              "A comparison of spending on mental health in 2013/14 and mental health indicators in 2014/15, across NHS Regions in England ",
                               "regioncompare",
                               "chartcompare1",
                               "chartcompare2",
