@@ -147,8 +147,8 @@ Read on to learn about England overall, or click the tabs above to explore regio
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md"),
                
               
-               timeseries_tab("Suicides time series",
-                          "Age-Standardised Suicide rates per 100,000 population, by NHS Region \n in England 2006-2016 death registrations",
+               timeseries_tab("Age-Standardised Suicide Rates Time Series",
+                          "Age-Standardised suicide rates per 100,000 population, by NHS Region \n in England 2006-2015 death registrations",
                           "region7",
                           "suicidestimeseries"
                           )
