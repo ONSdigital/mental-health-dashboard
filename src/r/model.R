@@ -683,7 +683,7 @@ create_barchart_of_MH_spending_by_region <- function(spending_data, England_spen
   ggplot(spending_data, aes(x=Parent.Name, y=CCG.spending.on.mental.health.per.capita)) +
     coord_flip() +
     theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
-    labs(x = "NHS Region", y = "Spending on mental health per 1,000 population") +
+    labs(x = "NHS Region", y = "Spending on mental health per 1,000 population (pounds sterling)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
