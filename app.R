@@ -49,18 +49,17 @@ CCG_tab <- function(title, header, region_no, ccgmap) {
 }
 
 
-comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, chart3_no) {
+comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, chart3_no, chart4_no) {
   tabPanel(title,(tags$style(type='text/css', 
                              ".nav-tabs {font-size: 20px} ")),
            fluidRow(column(1), column( 10,h1(header)),column(1)), 
            fluidRow(column(1), column( 10,sidebarPanel( 
              tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
              selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
-           fluidRow (column(6, plotOutput(chart1_no, width = "975")),
-                     (column(6, plotOutput(chart2_no, width = "975")))),
-           fluidRow(column(1)),
-           fluidRow(column(1)),
-           fluidRow(column(2), (column(10, plotOutput(chart3_no, width = "1000")))),
+           fluidRow (column(6, plotOutput(chart4_no, width = "975")),
+                     (column(6, plotOutput(chart1_no, width = "975")))),
+           fluidRow (column(6, plotOutput(chart2_no, width = "975")),
+                     (column(6, plotOutput(chart3_no, width = "975")))),
            fluidRow (column(10, h3("For more information on these datasets please see the metadata link in the relevant tabs."))
            ))
 }
@@ -76,25 +75,34 @@ ui <- shinyUI(
                home_tab("Overview", 
                         "This dashboard presents mental health data taken from Public Health England (PHE) Fingertips tool and the Office for National Statistics (ONS). 
 Read on to learn about England overall, or click the tabs above to explore regional breakdowns.",
+                        "In 2013/14 the spending on mental health in England was £145.80 per 1,000 population.",
                         "In 2014/15 the overall prevalence of common mental disorders in England was 15.6%.",
                         "In 2014/15 the percentage of patients on GP practice register recorded as having depression in England was 7.3%.",
                         "In 2014/15 the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in England was 63.8%.",
-                        "In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population.",
-                        "In 2013/14 the spending on mental health in England was £145.80 per 1,000 population."),
-               
-               CCG_tab("Prevalence of Common Mental Health Disorders (1)", 
-                           "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by Clinical Commissioning Group, 2014/15",
-                       "region6",  
-                       "ccgmap"),
+                        "In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population."
+                        ),
                
                
-               format_tab("Prevalence of Common Mental Health Disorders (2)", 
+               format_tab("Spending on Mental Health 2013/14", 
+                          "Spending on mental health per 1,000 population, by NHS Region in England, 2013/14",
+                          "region5",
+                          "map5",
+                          "chart5",
+                          "narrative5",
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata5.md"),
+               
+               format_tab("Prevalence of Common Mental Health Disorders (NHS region)", 
                           "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by NHS Region, 2014/15",
                           "region1",
                           "map1",
                           "chart1",
                           "narrative1",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata1.md"),
+               
+               CCG_tab("Prevalence of Common Mental Health Disorders (CCG)", 
+                       "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by Clinical Commissioning Group, 2014/15",
+                       "region6",  
+                       "ccgmap"),
                
                format_tab("Prevalence of Depression",
                           "Percentage of patients on GP practice register, aged 18+, recorded as having depression,\n in England, by NHS Region, 2014/15",
@@ -112,12 +120,14 @@ Read on to learn about England overall, or click the tabs above to explore regio
                           "narrative3",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md"),
                
+               
                comparison_tab("Regional Comparisons",
-                              "A comparison of different mental health indicators \n across NHS Regions in England, 2014/15",
+                              "A comparison of spending on mental health in 2013/14 and mental health indicators in 2014/15, across NHS Regions in England ",
                               "regioncompare",
                               "chartcompare1",
                               "chartcompare2",
-                              "chartcompare3"),
+                              "chartcompare3",
+                              "chartcompare4"),
                
                format_tab("Age-Standardised Suicide Rates",
                           "Age-standardised suicide rates per 100,000 population, by NHS Region \n in England, 2015 death registrations",
@@ -125,14 +135,9 @@ Read on to learn about England overall, or click the tabs above to explore regio
                           "map4",
                           "chart4",
                           "narrative4",
-                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md"),
-               format_tab("Spending on Mental Health", 
-                          "Spending on mental health per 1,000 population, by NHS Region in England, 2013/14",
-                          "region5",
-                          "map5",
-                          "chart5",
-                          "narrative5",
-                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata5.md")
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")
+               
+
              )
              
       ),
@@ -182,6 +187,10 @@ server <- function(input, output) {
   })
   output$chartcompare3 <- renderPlot({
     create_barchart_of_depression_review_by_region(model_outputs3[[2]], model_outputs3[[3]], input$regioncompare)
+  })
+  
+  output$chartcompare4 <- renderPlot({
+    create_barchart_of_MH_spending_by_region(model_outputs5[[2]], model_outputs5[[3]], input$regioncompare)
   })
   
   output$map4 <- renderPlot( {
