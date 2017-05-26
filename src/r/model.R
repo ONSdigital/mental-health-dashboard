@@ -702,25 +702,22 @@ reshape_suicide_time_series <- function(Suicide_data) {
   return(Suicides_time_series_reshaped) 
 }
 
+reshaped_suicide_data <-reshape_suicide_time_series(Suicides_time_series_raw)
+
 #Function to filter data by single region
-Filter_suicide_time_series <- function (reshaped_sdata, nhs_region) {
-specificregion <-subset(reshaped_sdata, reshaped_sdata$Region.name == nhs_region)
-return(specificregion)}
-
-
-#Function to create dataset for timeseries chart
-run_model_timeseriesdata <- function(Suicides_time_series_raw){
-  reshaped_suicide_data <-reshape_suicide_time_series(Suicides_time_series_raw)
-  specificregion <- Filter_suicide_time_series(reshaped_suicide_data, region)
-  return(specificregion)
+create_suicide_time_series <- function (reshaped_suicide_data, nhs_region) {
+specificregion <-subset(reshaped_suicide_data, reshaped_suicide_data$Region.name == nhs_region)
+ggplot(data = specificregion, aes(x=Year, y=Rate, group = Region.name)) +
+  geom_line()
 }
 
-#Function to plot suicides time series chart
-create_suicide_time_series <- function(suicide_data) {
-  #Plot line chart
-  ggplot(data = suicide_data, aes(x=Year, y=Rate, group = Region.name)) +
-    geom_line()
-}
+
+# #Function to plot suicides time series chart
+# create_suicide_time_series <- function(suicide_data) {
+#   #Plot line chart
+#   ggplot(data = suicide_data, aes(x=Year, y=Rate, group = Region.name)) +
+#     geom_line()
+# }
 
 
 #subset shapefile by region
@@ -811,7 +808,7 @@ model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
 model_outputs4 <- run_model_rates(suicide_rates, region_shapefile, "metadata")
 model_outputs5 <- run_model_spending(CCG_spending, region_shapefile, "metadata")
 model_outputs6 <- join_prevalence_data_to_CCG_shapefile(CCG_prevalence, CCG_shapefile)
-model_outputs7 <- run_model_timeseriesdata(Suicides_time_series_raw)
+
 
 
 
