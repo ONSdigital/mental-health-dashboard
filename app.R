@@ -55,7 +55,7 @@ timeseries_tab <- function(title, header, region_no, timeseries) {
            fluidRow(column(1), column( 10,sidebarPanel( 
              tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
              selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
-           fluidRow(column(1), plotOutput(timeseries )))
+           fluidRow(column(1), plotOutput(timeseries, height=600, width = 1900 )))
 }
 
 comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, chart3_no, chart4_no) {
