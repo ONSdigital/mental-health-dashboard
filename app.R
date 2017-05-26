@@ -214,7 +214,7 @@ server <- function(input, output) {
   output$narrative5 <- renderText({create_narrative5(model_outputs5, input$region5)})
   
   output$timeseries <- renderPlot( {
-    create_suicide_time_series(reshaped_suicide_data, input$region7)})
+    create_suicide_time_series(model_outputs7, input$region7)})
 }
 
 shinyApp(ui = ui, server = server) 
