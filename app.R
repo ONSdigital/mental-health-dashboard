@@ -48,6 +48,15 @@ CCG_tab <- function(title, header, region_no, ccgmap) {
            fluidRow(plotOutput(ccgmap, height = 1000 )))
 }
 
+timeseries_tab <- function(title, header, region_no, timeseries) {
+  tabPanel(title, (tags$style(type='text/css', 
+                              ".nav-tabs {font-size: 20px} ")),
+           fluidRow(column(1), column( 10,h1(header)),column(1)), 
+           fluidRow(column(1), column( 10,sidebarPanel( 
+             tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+             selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
+           fluidRow(column(1), plotOutput(timeseries, height=600, width = 1900 )))
+}
 
 comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, chart3_no, chart4_no) {
   tabPanel(title,(tags$style(type='text/css', 
@@ -135,8 +144,14 @@ Read on to learn about England overall, or click the tabs above to explore regio
                           "map4",
                           "chart4",
                           "narrative4",
-                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md"),
                
+              
+               timeseries_tab("Age-Standardised Suicide Rates Time Series",
+                          "Age-Standardised suicide rates per 100,000 population, by NHS Region \n in England 2006-2015 death registrations",
+                          "region7",
+                          "suicidestimeseries"
+                          )
 
              )
              
@@ -208,6 +223,9 @@ server <- function(input, output) {
     create_barchart_of_MH_spending_by_region(model_outputs5[[2]], model_outputs5[[3]], input$region5)
   })
   output$narrative5 <- renderText({create_narrative5(model_outputs5, input$region5)})
+  
+  output$suicidestimeseries <- renderPlot( {
+    create_suicide_time_series(reshaped_suicide_data, input$region7)})
 }
 
-shinyApp(ui = ui, server = server)
+shinyApp(ui = ui, server = server) 
