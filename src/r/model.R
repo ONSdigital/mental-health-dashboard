@@ -683,7 +683,7 @@ create_barchart_of_MH_spending_by_region <- function(spending_data, England_spen
   ggplot(spending_data, aes(x=Parent.Name, y=CCG.spending.on.mental.health.per.capita)) +
     coord_flip() +
     theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
-    labs(x = "NHS Region", y = "Spending on mental health per 1,000 population (pounds sterling)") +
+    labs(x = "NHS Region", y = "Spending on mental health per 1,000 population (£)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
@@ -728,7 +728,7 @@ create_choropleth_map_of_spending <- function(shapefile, nhs_region){
          fill = rev(ColourSchemePink), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
-         title = "Spending per 1,000 population"
+         title = "Spending per 1,000 population (£)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
