@@ -55,7 +55,7 @@ timeseries_tab <- function(title, header, region_no, timeseries) {
            fluidRow(column(1), column( 10,sidebarPanel( 
              tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
              selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
-           fluidRow(column(1), column(10, plotOutput(timeseries ))))
+           fluidRow(column(1), plotOutput(timeseries )))
 }
 
 comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, chart3_no, chart4_no) {
@@ -150,7 +150,7 @@ Read on to learn about England overall, or click the tabs above to explore regio
                timeseries_tab("Suicides time series",
                           "Age-Standardised Suicide rates per 100,000 population, by NHS Region \n in England 2006-2016 death registrations",
                           "region7",
-                          "timeseries"
+                          "suicidestimeseries"
                           )
 
              )
@@ -224,8 +224,8 @@ server <- function(input, output) {
   })
   output$narrative5 <- renderText({create_narrative5(model_outputs5, input$region5)})
   
-  output$timeseries <- renderPlot( {
-    create_suicide_time_series(model_outputs7, input$region7)})
+  output$suicidestimeseries <- renderPlot( {
+    create_suicide_time_series(model_outputs7)})
 }
 
 shinyApp(ui = ui, server = server) 
