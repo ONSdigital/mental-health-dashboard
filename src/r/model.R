@@ -306,9 +306,13 @@ join_prevalence_data_to_CCG_shapefile <- function(CCG_prevalence, CCG_shapefile)
   return(CCG_shapefile)
 }
 
+#subset shapefile by region
+CCG_subset <- function(CCG_shapefile, CCG_region) {
+  subset(CCG_shapefile, CCG_shapefile$Area.Name == CCG_region)
+}
 
 # Create map 6 - CCG level CMDs
-create_choropleth_map_CCG <- function(CCG_shapefile){
+create_choropleth_map_CCG <- function(CCG_shapefile, CCG_region){
   
   # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
   breaks=classIntervals(CCG_shapefile@data$Value,
@@ -324,6 +328,11 @@ create_choropleth_map_CCG <- function(CCG_shapefile){
        axes =FALSE,
        border = rgb(0.6,0.6,0.6))
   
+  # overlay map with selected region, highlighted in black
+  plot(CCG_subset(CCG_shapefile, CCG_region),
+       border = rgb(0.0,0.0,0.0),
+       add = TRUE)
+  
   # Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
@@ -334,7 +343,7 @@ create_choropleth_map_CCG <- function(CCG_shapefile){
          title = "Percentage (%)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
-}
+  }
 
 
 
