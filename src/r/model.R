@@ -697,7 +697,8 @@ create_suicide_time_series <- function(Suicide_data, nhs_region) {
     geom_line() 
 }
 
-
+#region = "London"
+#create_suicide_time_series(Suicides_time_series_raw,region)
 
 #subset shapefile by region
 region_subset_spending <- function(shapefile, nhs_region) {
