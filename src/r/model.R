@@ -708,7 +708,7 @@ reshaped_suicide_data <-reshape_suicide_time_series(Suicides_time_series_raw)
 create_suicide_time_series <- function (reshaped_suicide_data, nhs_region) {
 specificregion <-subset(reshaped_suicide_data, reshaped_suicide_data$Region.name == nhs_region)
 ggplot(data = specificregion, aes(x=Year, y=Rate, group = Region.name)) +
-  geom_line(line = 2) +
+  geom_line(size = 1.5, colour="navyblue") +
   theme(text = element_text(size=30))
 }
 
