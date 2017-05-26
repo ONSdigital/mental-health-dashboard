@@ -685,7 +685,7 @@ create_barchart_of_MH_spending_by_region <- function(spending_data, England_spen
   ggplot(spending_data, aes(x=Parent.Name, y=CCG.spending.on.mental.health.per.capita)) +
     coord_flip() +
     theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
-    labs(x = "NHS Region", y = "Spending on mental health per 1,000 population") +
+    labs(x = "NHS Region", y = "Spending on mental health per 1,000 population (£)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
@@ -758,7 +758,7 @@ create_choropleth_map_of_spending <- function(shapefile, nhs_region){
          fill = rev(ColourSchemePink), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
-         title = "Spending per 1,000 population"
+         title = "Spending per 1,000 population (£)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
@@ -775,12 +775,12 @@ create_narrative5 <- function(model_outputs, nhs_region){
   b<-" the spending on mental health in the "
   c<-" NHS region was £"
   d<-single_region$CCG.spending.on.mental.health.per.capita
-  e<-" per 1,000 population. This was "
+  e<-"0 per 1,000 population. This was "
   f<-ifelse(single_region$CCG.spending.on.mental.health.per.capita < Eng_Average,"lower than ",
             ifelse(single_region$CCG.spending.on.mental.health.per.capita > Eng_Average, "higher than ",
                    ifelse(single_region$CCG.spending.on.mental.health.per.capita <- Eng_Average, "equal to ")))
   g<-"the average spending of £"
-  h<- " per 1,000 population in England. In comparison to other NHS regions, "
+  h<- "0 per 1,000 population in England. In comparison to other NHS regions, "
   i<-" was ranked "
   j<-int_to_ranking(single_region$rank)
   k<-" in England."
