@@ -745,12 +745,12 @@ create_narrative5 <- function(model_outputs, nhs_region){
   b<-" the spending on mental health in the "
   c<-" NHS region was £"
   d<-single_region$CCG.spending.on.mental.health.per.capita
-  e<-" per 1,000 population. This was "
+  e<-"0 per 1,000 population. This was "
   f<-ifelse(single_region$CCG.spending.on.mental.health.per.capita < Eng_Average,"lower than ",
             ifelse(single_region$CCG.spending.on.mental.health.per.capita > Eng_Average, "higher than ",
                    ifelse(single_region$CCG.spending.on.mental.health.per.capita <- Eng_Average, "equal to ")))
   g<-"the average spending of £"
-  h<- " per 1,000 population in England. In comparison to other NHS regions, "
+  h<- "0 per 1,000 population in England. In comparison to other NHS regions, "
   i<-" was ranked "
   j<-int_to_ranking(single_region$rank)
   k<-" in England."
