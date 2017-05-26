@@ -142,7 +142,7 @@ Read on to learn about England overall, or click the tabs above to explore regio
                
                timeseries_tab("Suicides time series",
                           "Age-Standardised Suicide rates per 100,000 population, by NHS Region \n in England 2006-2016 death registrations",
-                          "region6",
+                          "region7",
                           "timeseries"
                           )
                
@@ -214,7 +214,7 @@ server <- function(input, output) {
   output$narrative5 <- renderText({create_narrative5(model_outputs5, input$region5)})
   
   output$timeseries <- renderPlot( {
-    create_suicide_time_series(Suicides_time_series_raw, input$region6)})
+    create_suicide_time_series(reshaped_suicide_data, input$region7)})
 }
 
 shinyApp(ui = ui, server = server) 

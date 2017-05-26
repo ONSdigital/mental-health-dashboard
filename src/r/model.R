@@ -687,11 +687,18 @@ create_barchart_of_MH_spending_by_region <- function(spending_data, England_spen
 
 
 #Function for suicides time series chart
-create_suicide_time_series <- function(Suicide_data, nhs_region) {
+reshape_suicide_time_series <- function(Suicide_data) {
   #reformat dataframe for line chart 
   Suicides_time_series_reshaped <- melt(Suicide_data, id.vars="Region.name", value.name="Rate", variable.name="Year")
-  #Filter data by single region
-  Specific_region <- filter(Suicides_time_series_reshaped, Region.name == nhs_region)
+  return(Suicides_time_series_reshaped) 
+}
+
+reshaped_suicide_data <-reshape_suicide_time_series(Suicides_time_series_raw)
+
+#Function for suicides time series chart
+create_suicide_time_series <- function(Suicide_data, nhs_region) {
+    #Filter data by single region
+  Specific_region <- subset(Suicide_data, Region.name == nhs_region)
   #Plot line chart
   suicides_chart <- ggplot(data = Specific_region, aes(x=Year, y=Rate, group = Region.name)) +
     geom_line() 
