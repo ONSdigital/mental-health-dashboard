@@ -308,7 +308,7 @@ join_prevalence_data_to_CCG_shapefile <- function(CCG_prevalence, CCG_shapefile)
 
 #subset shapefile by region
 CCG_subset <- function(CCG_shapefile, CCG_region) {
-  subset(CCG_shapefile, CCG_shapefile$ccg15nm == CCG_region)
+  subset(CCG_shapefile, CCG_shapefile$Area.Name == CCG_region)
 }
 
 # Create map 6 - CCG level CMDs
