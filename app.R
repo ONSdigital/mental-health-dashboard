@@ -38,11 +38,14 @@ format_tab <- function(title, header, region_no, map_no, chart_no, narrative_no,
            ))
 }
 
-CCG_tab <- function(title, header, ccgmap) {
+CCG_tab <- function(title, header, region_no, ccgmap) {
   tabPanel(title, (tags$style(type='text/css', 
                               ".nav-tabs {font-size: 20px} ")),
            fluidRow(column(1), column( 10,h1(header)),column(1)), 
-           fluidRow(column(1), column(10, plotOutput(ccgmap, height = 950 ))))
+           fluidRow(column(1), column( 10,sidebarPanel( 
+             tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+             selectInput(region_no, label = h3('Please select a CCG'), model_outputs6$Area.Name[order(model_outputs6$Area.Name)])))),
+           fluidRow(plotOutput(ccgmap, height = 1000 )))
 }
 
 timeseries_tab <- function(title, header, region_no, timeseries) {
@@ -90,7 +93,8 @@ Read on to learn about England overall, or click the tabs above to explore regio
                
                CCG_tab("Prevalence of Common Mental Health Disorders (1)", 
                            "Prevalence of Common Mental Health Disorders among people aged 16 to 74,\n in England, by Clinical Commissioning Group, 2014/15",
-                           "ccgmap"),
+                       "region6",  
+                       "ccgmap"),
                
                
                format_tab("Prevalence of Common Mental Health Disorders (2)", 
@@ -161,7 +165,7 @@ Read on to learn about England overall, or click the tabs above to explore regio
 
 server <- function(input, output) {
   output$ccgmap <- renderPlot( {
-    create_choropleth_map_CCG(model_outputs6)
+    create_choropleth_map_CCG(model_outputs6, input$region6)
   })
   output$map1 <- renderPlot( {
     create_choropleth_map_by_prevalence_purple(model_outputs1[[1]], input$region1)
