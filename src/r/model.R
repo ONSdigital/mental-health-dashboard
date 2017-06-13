@@ -902,8 +902,8 @@ create_barchart_of_EIP_waiting_times <- function(thirteen_level_NHS_regional_wai
 }
 
 #subset shapefile by region
-region_subset_rate <- function(shapefile, nhs_region) {
-  subset(shapefile, shapefile$Region.name == nhs_region)
+region_subset_waiting <- function(shapefile, nhs_region) {
+  subset(shapefile, shapefile$NHSRLO17NM == nhs_region)
 }
 
 # Create a map of waiting by NHS Region - greys
@@ -915,11 +915,11 @@ create_choropleth_map_of_waiting <- function(shapefile, nhs_region){
                         style="jenks") # set the algorithm to use to create the ranges
   
   #get 4 Green ColorBrewer Colours
-  ColourSchemeGrey <- brewer.pal(4,"Greys")
+  ColourSchemePuRd <- brewer.pal(4,"PuRd")
   
   # plot a map using the new class breaks and colours we created just now.
   plot(shapefile,
-       col= ColourSchemeGrey[findInterval(shapefile@data$Proportion, breaks$brks, all.inside = TRUE)],
+       col= ColourSchemePuRd[findInterval(shapefile@data$Proportion, breaks$brks, all.inside = TRUE)],
        axes =FALSE,
        border = rgb(0.6,0.6,0.6))
   
@@ -933,7 +933,7 @@ create_choropleth_map_of_waiting <- function(shapefile, nhs_region){
   legend("left", # sets where to place legend
          inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
-         fill = rev(ColourSchemeGrey), # use the colour scheme created earlier
+         fill = rev(ColourSchemePuRd), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
          title = "% in 2 weeks"
