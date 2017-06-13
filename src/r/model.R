@@ -30,6 +30,9 @@ region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_
 CCG_shapefile <- readShapePoly("src/r/data/CCG_Shapefiles/Clinical_Commissioning_Groups_July_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 #Suicides Time series Data
 Suicides_time_series_raw <- read.csv("src/r/data/REgion_Suicide_Time_Series.csv", check.names = F)
+#CAMHS Spending data
+CAMHS_Spending <- read.csv("src/r/data/CAMHS_Spending.csv")
+
 
 ####Model
 ##Prevalence datasets
@@ -795,6 +798,158 @@ run_model_spending <- function(spending_data, shapefile, metadata){
 }
 
 
+##CAMHS Spending datasets
+#Function to get average spending in England
+aggregate_CAMHS_spending_to_England <- function(spending_data) {
+  England_spend_agg <- sum(spending_data$Value)
+  England_average <- round(England_spend_agg / 208, digits=1)
+  
+  return(England_average)
+}
+
+#Function to get average spending in Regions
+aggregate_CAMHS_spending_to_region <- function(spending_data) {
+  regional_level_spend_agg <- spending_data %>%
+    group_by(Parent.Code, Parent.Name) %>%
+    summarise(Count = sum(Value),
+              Population = length(Area.Name)) %>%
+    mutate(spending=round((Count/Population), digits =1))
+  
+  return(regional_level_spend_agg)
+}
+
+#Function to manipulate regions to match shapefile
+manipulate_region_CAMHS_spend_for_shapefile <- function(region_CAMHS_Spending) {
+  #Combining regions to match shapefile
+  removed_regions <- region_CAMHS_Spending %>%
+    filter(Parent.Code != "E39000037") %>%
+    filter(Parent.Code != "E39000038")
+  
+  #Sum regions
+  summed_regions <- region_CAMHS_Spending %>%
+    filter(Parent.Code %in% c("E39000037","E39000038")) %>%
+    group_by() %>%
+    summarise(Parent.Code = "E39000028",
+              Parent.Name = "Lancashire and Greater Manchester",
+              Count = sum(spending),
+              Population = length(Parent.Name)) %>%
+    mutate(spending = round((Count/Population), digits =1))
+  
+  #Add row
+  thirteen_level_NHS_regional_CAMHS_spending <- summed_regions %>%
+    bind_rows(removed_regions)
+  
+  return(thirteen_level_NHS_regional_CAMHS_spending)
+}
+
+#Add rank column/variable to dataset - CAMHS Spending
+rank_CAMHS_spending_by_region <- function(thirteen_level_NHS_regional_CAMHS_spending){
+  thirteen_level_NHS_regional_CAMHS_spending$rank <- NA
+  thirteen_level_NHS_regional_CAMHS_spending$rank[order(-thirteen_level_NHS_regional_CAMHS_spending$spending)] <- 1:nrow(thirteen_level_NHS_regional_CAMHS_spending)
+  
+  return(thirteen_level_NHS_regional_CAMHS_spending)
+}
+
+#join shapefile to regional spending data
+join_CAMHS_spending_data_to_shapefile <- function(regional_CAMHS_spending_with_ranks, region_shapefile){
+  regional_CAMHS_spending_with_ranks <- setnames(regional_CAMHS_spending_with_ranks, "Parent.Code", "nhsrg15cd")
+  region_shapefile@data <-  region_shapefile@data %>% 
+    left_join(regional_CAMHS_spending_with_ranks, by='nhsrg15cd')
+  
+  return(region_shapefile)
+}
+
+#Create barchart 99 - CAMHS Spending
+create_barchart_of_CAMHS_spending_by_region <- function(regional_CAMHS_spending_with_ranks, england_CAMHS_spending, nhs_region){
+  
+  #Order by rank
+  regional_CAMHS_spending_with_ranks$Parent.Name <- factor(regional_CAMHS_spending_with_ranks$Parent.Name, 
+                                                           levels = regional_CAMHS_spending_with_ranks$Parent.Name[order(regional_CAMHS_spending_with_ranks$spending)])
+  #Create themes for formatting text size, colour etc
+  axis_labels <- element_text(face = "bold", size = 20)
+  region_labels <- element_text(size = 20, hjust = 1, colour = "black")
+  CAMHS_Spending_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
+  
+  #Create dataframe for England average line
+  england_CAMHS_spending <- rep(england_CAMHS_spending, length(regional_CAMHS_spending_with_ranks$Parent.Name))
+  region_names <- as.vector(regional_CAMHS_spending_with_ranks$Parent.Name)
+  england_CAMHS_spending_line <- data.frame(england_CAMHS_spending, region_names)
+  
+  ColourSchemeBlue <- brewer.pal(2,"Blues")
+  
+  #Plot
+  ggplot(regional_CAMHS_spending_with_ranks, aes(x=Parent.Name, y=spending)) +
+    coord_flip() +
+    theme(axis.title = axis_labels, axis.text.x = CAMHS_Spending_labels, axis.text.y = region_labels) +
+    labs(x = "NHS Region", y = "Spending on CAMHS (%)") +
+    scale_fill_manual(values = ColourSchemeBlue) +
+    geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
+    
+    geom_line(data = england_CAMHS_spending_line, aes(x=as.numeric(region_names), y=england_CAMHS_spending), color = "navyblue", size = 2) +
+    annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
+  
+}
+
+
+
+
+#subset shapefile by region
+region_subset <- function(shapefile, nhs_region) {
+  subset(shapefile, shapefile$Parent.Name == nhs_region)
+}
+
+# Create map 99 - GnBu
+create_choropleth_map_by_CAMHS_spending_GnBu <- function(shapefile, nhs_region){
+  
+  # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+  breaks=classIntervals(shapefile@data$spending,
+                        n=4, # set the number of ranges to create
+                        style="jenks") # set the algorithm to use to create the ranges
+  
+  #get 4 Purple ColorBrewer Colours
+  ColourSchemeGnBu <- brewer.pal(4,"GnBu")
+  
+  # plot a map using the new class breaks and colours we created just now.
+  plot(shapefile,
+       col= ColourSchemeGnBu[findInterval(shapefile@data$spending, breaks$brks, all.inside = TRUE)],
+       axes =FALSE,
+       border = rgb(0.6,0.6,0.6))
+  
+  # overlay map with selected region, highlighted in black
+  plot(region_subset(shapefile, nhs_region),
+       border = rgb(0.0,0.0,0.0),
+       add = TRUE)
+  
+  # Create a legend
+  par(xpd=TRUE) # disables clipping of the legend by the map extent
+  legend("left", # sets where to place legend
+         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
+         fill = rev(ColourSchemeGnBu), # use the colour scheme created earlier
+         bty = "n",
+         cex = 1.8, #expansion factor - expands text to make larger
+         title = "Percentage (%)"
+  )
+  par(xpd=FALSE)# disables clipping of the legend by the map extent
+}
+
+
+#Create run model function for dataset - CAMHS spending
+run_model_CAMHS_spending <- function(spending_data, shapefile, metadata){
+  England_CAMHS_spending <- aggregate_CAMHS_spending_to_England(spending_data)
+  region_CAMHS_spending <- aggregate_CAMHS_spending_to_region(spending_data)
+  thirteen_level_NHS_regional_CAMHS_spending <- manipulate_region_CAMHS_spend_for_shapefile(region_CAMHS_spending)
+  CAMHS_spending_data_with_ranks <- rank_CAMHS_spending_by_region(thirteen_level_NHS_regional_CAMHS_spending)
+  region_shapefile_with_joined_CAMHS_spending_data <- join_CAMHS_spending_data_to_shapefile(CAMHS_spending_data_with_ranks,
+                                                                                            shapefile)
+  return(list(region_shapefile_with_joined_CAMHS_spending_data, CAMHS_spending_data_with_ranks, England_CAMHS_spending))
+}
+
+
+
+
+
+
 
 #Run model
 model_outputs1 <- run_model(CCG_prevalence, region_shapefile, "metadata")
@@ -803,7 +958,7 @@ model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
 model_outputs4 <- run_model_rates(suicide_rates, region_shapefile, "metadata")
 model_outputs5 <- run_model_spending(CCG_spending, region_shapefile, "metadata")
 model_outputs6 <- join_prevalence_data_to_CCG_shapefile(CCG_prevalence, CCG_shapefile)
-
+model_outputs99 <- run_model_CAMHS_spending(CAMHS_Spending, region_shapefile)
 
 
 
