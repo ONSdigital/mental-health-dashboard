@@ -861,6 +861,14 @@ rank_waiting_by_region <- function(thirteen_level_NHS_regional_waiting){
   return(thirteen_level_NHS_regional_waiting)
 }
 
+#join shapefile to regional waiting data
+join_waiting_data_to_shapefile <- function(thirteen_level_NHS_regional_waiting, region_shapefile){
+  thirteen_level_NHS_regional_waiting <- setnames(thirteen_level_NHS_regional_waiting, "NHSRLO17CD", "nhsrg15cd")
+  region_shapefile@data <-  region_shapefile@data %>% 
+    left_join(thirteen_level_NHS_regional_waiting, by='nhsrg15cd')
+  
+  return(region_shapefile)
+}
 
 #Create barchart6 - EIP waiting times
 create_barchart_of_EIP_waiting_times <- function(thirteen_level_NHS_regional_waiting, nhs_region){
@@ -903,8 +911,9 @@ run_model_waiting <- function(waiting_times, ccg_codes, ccg_nhs_lookup, region_s
   nhs_region_waiting_times <- aggregate_EIP_waiting_to_region(waiting_times_with_nhs_region)
   thirteen_level_nhs_regional_waiting <- manipulate_waiting_time_regions_for_shapefile(nhs_region_waiting_times)
   thirteen_level_nhs_regional_waiting_with_ranks <- rank_waiting_by_region(thirteen_level_nhs_regional_waiting)
+  joined_waiting_and_shapefile <- join_waiting_data_to_shapefile(thirteen_level_nhs_regional_waiting_with_ranks, region_shapefile)
 
-  return(thirteen_level_nhs_regional_waiting_with_ranks)
+  return(list(joined_waiting_and_shapefile, thirteen_level_nhs_regional_waiting_with_ranks))
 }
 
 
@@ -915,7 +924,7 @@ model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
 model_outputs4 <- run_model_rates(suicide_rates, region_shapefile, "metadata")
 model_outputs5 <- run_model_spending(CCG_spending, region_shapefile, "metadata")
 model_outputs6 <- join_prevalence_data_to_CCG_shapefile(CCG_prevalence, CCG_shapefile)
-model_outputs7 <- run_model_waiting(EIP_waiting_times, ccg_codes, ccg_to_NHS_region)
+model_outputs7 <- run_model_waiting(EIP_waiting_times, ccg_codes, ccg_to_NHS_region, region_shapefile)
 
 
 
