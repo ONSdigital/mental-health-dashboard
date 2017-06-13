@@ -829,46 +829,59 @@ aggregate_EIP_waiting_to_region <- function(waiting_times_with_nhs_region) {
   return(nhs_region_waiting_times)
 }
 
-#Function to aggregate to England
-aggregate_waiting_to_England <- function(nhs_region_waiting_times) {
-  England_2weeks <- sum(N=nhs_region_waiting_times$A)
-  England_total <- sum(nhs_region_waiting_times$Total)
-  England_Proportion <- round((England_2weeks / England_total)*100, digits = 1)
+#Function to manipulate regions to match shapefile
+manipulate_waiting_time_regions_for_shapefile <- function(nhs_region_waiting_times) {
+  #Combining regions to match shapefile
+  removed_regions <- nhs_region_waiting_times %>%
+    filter(NHSRLO17CD != "E39000037") %>%
+    filter(NHSRLO17CD != "E39000040")
   
-  return(England_Proportion)
+  #Sum regions
+  summed_regions <- nhs_region_waiting_times %>%
+    filter(NHSRLO17CD %in% c("E39000037","E39000040")) %>%
+    group_by() %>%
+    summarise(NHSRLO17CD = "E39000028",
+              NHSRLO17NM = "Lancashire and Greater Manchester",
+              A = sum(A),
+              Total = sum(Total)) %>%
+    mutate(Proportion = round((A/Total)*100, digits =1))
+  
+  #Add row
+  thirteen_level_NHS_regional_waiting <- summed_regions %>%
+    bind_rows(removed_regions)
+  
+  return(thirteen_level_NHS_regional_waiting)
 }
-#create function to rename nhs regions to match others in dashboard
-#########################
 
 
 #Create barchart6 - EIP waiting times
-create_barchart_of_EIP_waiting_times <- function(nhs_region_waiting_times, England_waiting, nhs_region){
+create_barchart_of_EIP_waiting_times <- function(thirteen_level_NHS_regional_waiting, nhs_region){
   
   #Order by rank
-  nhs_region_waiting_times$NHSRLO17NM <- factor(nhs_region_waiting_times$NHSRLO17NM,
-                                      levels = nhs_region_waiting_times$NHSRLO17NM[order(nhs_region_waiting_times$Proportion)])
+  thirteen_level_NHS_regional_waiting$NHSRLO17NM <- factor(thirteen_level_NHS_regional_waiting$NHSRLO17NM,
+                                      levels = thirteen_level_NHS_regional_waiting$NHSRLO17NM[order(thirteen_level_NHS_regional_waiting$Proportion)])
   #Create themes for formatting text size, colour etc
   axis_labels <- element_text(face = "bold", size = 20)
   region_labels <- element_text(size = 20, hjust = 1, colour = "black")
   proportion_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
   
   #Create dataframe for England average line
-  england_wait_rep <- rep(England_waiting, length(nhs_region_waiting_times$NHSRLO17NM))
-  region_names <- as.vector(nhs_region_waiting_times$NHSRLO17NM)
-  england_wait_line <- data.frame(england_wait_rep, region_names)
+  england_standard <- c(50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)
+  region_names <- as.vector(thirteen_level_NHS_regional_waiting$NHSRLO17NM)
+  standard_line <- data.frame(england_standard, region_names)
   
-  ColourSchemeBlue <- brewer.pal(2,"Blues")
+  ColourSchemeGrey <- brewer.pal(2,"Greys")
   
   #Plot
-  ggplot(nhs_region_waiting_times, aes(x=NHSRLO17NM, y=Proportion)) +
+  ggplot(thirteen_level_NHS_regional_waiting, aes(x=NHSRLO17NM, y=Proportion)) +
     coord_flip() +
     theme(axis.title = axis_labels, axis.text.x = proportion_labels, axis.text.y = region_labels) +
-    labs(x = "NHS Region", y = "Proportion in 2 weeks") +
-    scale_fill_manual(values = ColourSchemeBlue) +
+    labs(x = "NHS Region", y = "Proportion (%) started treatment in 2 weeks") +
+    scale_fill_manual(values = ColourSchemeGrey) +
     geom_bar(stat = "identity", colour="black", aes(fill=NHSRLO17NM==nhs_region), show.legend = FALSE) +
     
-    geom_line(data = england_wait_line, aes(x=as.numeric(region_names), y=england_wait_rep), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 155, label = "England", color = "navyblue", size  = 7)
+    geom_line(data = standard_line, aes(x=as.numeric(region_names), y=england_standard), color = "red", size = 2) +
+    annotate("text", x=0.9, y= 50, label = "Required standard", color = "red", size  = 7)
   
 }
 
@@ -880,8 +893,8 @@ run_model_waiting <- function(waiting_times, ccg_codes, ccg_nhs_lookup) {
   waiting_times_with_ccg_codes <- join_waiting_times_with_ccg_codes(waiting_times, ccg_codes)
   waiting_times_with_nhs_region <- join_waiting_times_with_nhs_region(waiting_times_with_ccg_codes, ccg_nhs_lookup)
   nhs_region_waiting_times <- aggregate_EIP_waiting_to_region(waiting_times_with_nhs_region)
-  England_Proportion <- aggregate_waiting_to_England(nhs_region_waiting_times)
-  return(list(nhs_region_waiting_times, England_Proportion))
+  thirteen_level_nhs_regional_waiting <- manipulate_waiting_time_regions_for_shapefile(nhs_region_waiting_times)
+  return(thirteen_level_nhs_regional_waiting)
 }
 
 
