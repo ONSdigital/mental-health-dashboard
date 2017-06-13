@@ -30,6 +30,12 @@ region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_
 CCG_shapefile <- readShapePoly("src/r/data/CCG_Shapefiles/Clinical_Commissioning_Groups_July_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 #Suicides Time series Data
 Suicides_time_series_raw <- read.csv("src/r/data/REgion_Suicide_Time_Series.csv", check.names = F)
+#EIP Waiting Times Data
+EIP_waiting_times <- read.csv("src/r/data/EIP_Waiting_Times.csv")
+#CCG codes data
+ccg_codes <- read.csv("src/r/data/Clinical_Commissioning_Groups_April_2017_Names_and_Codes_in_England.csv")
+#CCG to NHS region lookup data
+ccg_to_NHS_region <- read.csv("src/r/data/Clinical_Commissioning_Group_to_NHS_England_Region_Local_Office_and_NHS_England_Region_April_2017_Lookup_in_England_Version_3.csv")
 
 ####Model
 ##Prevalence datasets
@@ -794,6 +800,89 @@ run_model_spending <- function(spending_data, shapefile, metadata){
   return(list(region_shapefile_with_joined_spending_data, spending_data_with_ranks, England_spending))
 }
 
+#EIP Waiting times
+#function to join statistical codes to waiting times data
+join_waiting_times_with_ccg_codes <- function(EIP_waiting_times, stat_ccg_codes) {
+  waiting_times_with_ccg_codes <- EIP_waiting_times %>%
+    left_join(stat_ccg_codes, by = 'CCG_Code')
+  return(waiting_times_with_ccg_codes)
+}
+
+#function to join above file to nhs region lookup
+join_waiting_times_with_nhs_region <- function(waiting_times_with_ccg_codes, ccg_nhs_lookup) {
+  waiting_times_with_nhs_region <- waiting_times_with_ccg_codes %>%
+    left_join(ccg_nhs_lookup, by = 'CCG17CD')
+  return(waiting_times_with_nhs_region)
+}
+
+#Function to aggregate waiting times to NHS region
+aggregate_EIP_waiting_to_region <- function(waiting_times_with_nhs_region) {
+  nhs_region_waiting_times <- waiting_times_with_nhs_region %>%
+    group_by(NHSRLO17CD, NHSRLO17NM) %>%
+    summarise(A = sum(A),
+              B = sum(B),
+              C = sum(C),
+              D = sum(D),
+              Total = sum(Total))%>%
+    mutate(Proportion=round((A/Total)*100, digits =1))
+  
+  return(nhs_region_waiting_times)
+}
+
+#Function to aggregate to England
+aggregate_waiting_to_England <- function(nhs_region_waiting_times) {
+  England_2weeks <- sum(N=nhs_region_waiting_times$A)
+  England_total <- sum(nhs_region_waiting_times$Total)
+  England_Proportion <- round((England_2weeks / England_total)*100, digits = 1)
+  
+  return(England_Proportion)
+}
+#create function to rename nhs regions to match others in dashboard
+#########################
+
+
+#Create barchart6 - EIP waiting times
+create_barchart_of_EIP_waiting_times <- function(nhs_region_waiting_times, England_waiting, nhs_region){
+  
+  #Order by rank
+  nhs_region_waiting_times$NHSRLO17NM <- factor(nhs_region_waiting_times$NHSRLO17NM,
+                                      levels = nhs_region_waiting_times$NHSRLO17NM[order(nhs_region_waiting_times$Proportion)])
+  #Create themes for formatting text size, colour etc
+  axis_labels <- element_text(face = "bold", size = 20)
+  region_labels <- element_text(size = 20, hjust = 1, colour = "black")
+  proportion_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
+  
+  #Create dataframe for England average line
+  england_wait_rep <- rep(England_waiting, length(nhs_region_waiting_times$NHSRLO17NM))
+  region_names <- as.vector(nhs_region_waiting_times$NHSRLO17NM)
+  england_wait_line <- data.frame(england_wait_rep, region_names)
+  
+  ColourSchemeBlue <- brewer.pal(2,"Blues")
+  
+  #Plot
+  ggplot(nhs_region_waiting_times, aes(x=NHSRLO17NM, y=Proportion)) +
+    coord_flip() +
+    theme(axis.title = axis_labels, axis.text.x = proportion_labels, axis.text.y = region_labels) +
+    labs(x = "NHS Region", y = "Proportion in 2 weeks") +
+    scale_fill_manual(values = ColourSchemeBlue) +
+    geom_bar(stat = "identity", colour="black", aes(fill=NHSRLO17NM==nhs_region), show.legend = FALSE) +
+    
+    geom_line(data = england_wait_line, aes(x=as.numeric(region_names), y=england_wait_rep), color = "navyblue", size = 2) +
+    annotate("text", x=0.75, y= 155, label = "England", color = "navyblue", size  = 7)
+  
+}
+
+  
+  
+  
+#Create run model function for EIP waiting times
+run_model_waiting <- function(waiting_times, ccg_codes, ccg_nhs_lookup) {
+  waiting_times_with_ccg_codes <- join_waiting_times_with_ccg_codes(waiting_times, ccg_codes)
+  waiting_times_with_nhs_region <- join_waiting_times_with_nhs_region(waiting_times_with_ccg_codes, ccg_nhs_lookup)
+  nhs_region_waiting_times <- aggregate_EIP_waiting_to_region(waiting_times_with_nhs_region)
+  England_Proportion <- aggregate_waiting_to_England(nhs_region_waiting_times)
+  return(list(nhs_region_waiting_times, England_Proportion))
+}
 
 
 #Run model
@@ -803,7 +892,7 @@ model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
 model_outputs4 <- run_model_rates(suicide_rates, region_shapefile, "metadata")
 model_outputs5 <- run_model_spending(CCG_spending, region_shapefile, "metadata")
 model_outputs6 <- join_prevalence_data_to_CCG_shapefile(CCG_prevalence, CCG_shapefile)
-
+model_outputs7 <- run_model_waiting(EIP_waiting_times, ccg_codes, ccg_to_NHS_region)
 
 
 
