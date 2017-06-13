@@ -853,6 +853,14 @@ manipulate_waiting_time_regions_for_shapefile <- function(nhs_region_waiting_tim
   return(thirteen_level_NHS_regional_waiting)
 }
 
+#Add rank column/variable to dataset - waiting
+rank_waiting_by_region <- function(thirteen_level_NHS_regional_waiting){
+  thirteen_level_NHS_regional_waiting$rank <- NA
+  thirteen_level_NHS_regional_waiting$rank[order(-thirteen_level_NHS_regional_waiting$Proportion)] <- 1:nrow(thirteen_level_NHS_regional_waiting)
+  
+  return(thirteen_level_NHS_regional_waiting)
+}
+
 
 #Create barchart6 - EIP waiting times
 create_barchart_of_EIP_waiting_times <- function(thirteen_level_NHS_regional_waiting, nhs_region){
@@ -889,12 +897,14 @@ create_barchart_of_EIP_waiting_times <- function(thirteen_level_NHS_regional_wai
   
   
 #Create run model function for EIP waiting times
-run_model_waiting <- function(waiting_times, ccg_codes, ccg_nhs_lookup) {
+run_model_waiting <- function(waiting_times, ccg_codes, ccg_nhs_lookup, region_shapefile) {
   waiting_times_with_ccg_codes <- join_waiting_times_with_ccg_codes(waiting_times, ccg_codes)
   waiting_times_with_nhs_region <- join_waiting_times_with_nhs_region(waiting_times_with_ccg_codes, ccg_nhs_lookup)
   nhs_region_waiting_times <- aggregate_EIP_waiting_to_region(waiting_times_with_nhs_region)
   thirteen_level_nhs_regional_waiting <- manipulate_waiting_time_regions_for_shapefile(nhs_region_waiting_times)
-  return(thirteen_level_nhs_regional_waiting)
+  thirteen_level_nhs_regional_waiting_with_ranks <- rank_waiting_by_region(thirteen_level_nhs_regional_waiting)
+
+  return(thirteen_level_nhs_regional_waiting_with_ranks)
 }
 
 
