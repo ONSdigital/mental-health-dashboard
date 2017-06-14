@@ -890,9 +890,6 @@ create_barchart_of_CAMHS_spending_by_region <- function(regional_CAMHS_spending_
   
 }
 
-
-
-
 #subset shapefile by region
 region_subset <- function(shapefile, nhs_region) {
   subset(shapefile, shapefile$Parent.Name == nhs_region)
@@ -933,6 +930,25 @@ create_choropleth_map_by_CAMHS_spending_GnBu <- function(shapefile, nhs_region){
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
+#Narrative function for CAMHS spending
+create_narrative99 <- function(model_outputs, nhs_region){
+  Eng_Average <- model_outputs[[3]]
+  
+  Year <- "2012/13"
+  single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
+  Region_Name<-single_region$Parent.Name
+  above_or_below<-ifelse(single_region$spending < Eng_Average,"lower than ",
+                         ifelse(single_region$spending > Eng_Average, "higher than ",
+                                ifelse(single_region$spending <- Eng_Average, "equal to ")))
+  narrative_text<-paste("In ", Year, " the proportion of mental health spending on CAMHS in ",
+                        Region_Name," NHS region was ",
+                        single_region$spending,"%. This was ",
+                        above_or_below, "the average spend of ",
+                        Eng_Average, "% in England. In comparison to other NHS regions, ",
+                        Region_Name," was ranked ", 
+                        int_to_ranking(single_region$rank), " in England.", sep = "")
+  return(narrative_text)
+}
 
 #Create run model function for dataset - CAMHS spending
 run_model_CAMHS_spending <- function(spending_data, shapefile, metadata){
