@@ -886,7 +886,7 @@ create_barchart_of_CAMHS_spending_by_region <- function(regional_CAMHS_spending_
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_CAMHS_spending_line, aes(x=as.numeric(region_names), y=england_CAMHS_spending), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 6.3, label = "England average", color = "navyblue", size  = 7)
   
 }
 
