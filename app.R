@@ -138,6 +138,15 @@ Read on to learn about England overall, or click the tabs above to explore regio
                               "chartcompare3",
                               "chartcompare4"),
                
+               format_tab("Early Intervention in Psychosis Waiting Times",
+                          "Percentage of first episode psychosis patients that started treatment in within two weeks of referral, in April 2017, by NHS Region, in England",
+                          "region7",
+                          "map7",
+                          "chart7",
+                          "narrative7",
+                          "metadata"),
+               
+               
                format_tab("Age-Standardised Suicide Rates",
                           "Age-standardised suicide rates per 100,000 population, by NHS Region \n in England, 2015 death registrations",
                           "region4",
@@ -149,7 +158,7 @@ Read on to learn about England overall, or click the tabs above to explore regio
               
                timeseries_tab("Age-Standardised Suicide Rates Time Series",
                           "Age-Standardised suicide rates per 100,000 population, by NHS Region \n in England 2006-2015 death registrations",
-                          "region7",
+                          "region8",
                           "suicidestimeseries"
                           )
 
@@ -225,7 +234,16 @@ server <- function(input, output) {
   output$narrative5 <- renderText({create_narrative5(model_outputs5, input$region5)})
   
   output$suicidestimeseries <- renderPlot( {
-    create_suicide_time_series(reshaped_suicide_data, input$region7)})
-}
+    create_suicide_time_series(reshaped_suicide_data, input$region8)})
+  
+  output$map7 <- renderPlot( {
+    create_choropleth_map_of_waiting(model_outputs7[[1]], input$region7)
+  })
+  output$chart7 <- renderPlot({
+    create_barchart_of_EIP_waiting_times(model_outputs7[[2]], input$region7)
+  })
+  output$narrative7 <- renderText({create_narrative7(model_outputs7, input$region7)})
+  
+  }
 
 shinyApp(ui = ui, server = server) 

@@ -30,6 +30,12 @@ region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_
 CCG_shapefile <- readShapePoly("src/r/data/CCG_Shapefiles/Clinical_Commissioning_Groups_July_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 #Suicides Time series Data
 Suicides_time_series_raw <- read.csv("src/r/data/REgion_Suicide_Time_Series.csv", check.names = F)
+#EIP Waiting Times Data
+EIP_waiting_times <- read.csv("src/r/data/EIP_Waiting_Times.csv")
+#CCG codes data
+ccg_codes <- read.csv("src/r/data/Clinical_Commissioning_Groups_April_2017_Names_and_Codes_in_England.csv")
+#CCG to NHS region lookup data
+ccg_to_NHS_region <- read.csv("src/r/data/Clinical_Commissioning_Group_to_NHS_England_Region_Local_Office_and_NHS_England_Region_April_2017_Lookup_in_England_Version_3.csv")
 
 ####Model
 ##Prevalence datasets
@@ -794,6 +800,159 @@ run_model_spending <- function(spending_data, shapefile, metadata){
   return(list(region_shapefile_with_joined_spending_data, spending_data_with_ranks, England_spending))
 }
 
+#EIP Waiting times
+#function to join statistical codes to waiting times data
+join_waiting_times_with_ccg_codes <- function(EIP_waiting_times, stat_ccg_codes) {
+  waiting_times_with_ccg_codes <- EIP_waiting_times %>%
+    left_join(stat_ccg_codes, by = 'CCG_Code')
+  return(waiting_times_with_ccg_codes)
+}
+
+#function to join above file to nhs region lookup
+join_waiting_times_with_nhs_region <- function(waiting_times_with_ccg_codes, ccg_nhs_lookup) {
+  waiting_times_with_nhs_region <- waiting_times_with_ccg_codes %>%
+    left_join(ccg_nhs_lookup, by = 'CCG17CD')
+  return(waiting_times_with_nhs_region)
+}
+
+#Function to aggregate waiting times to NHS region
+aggregate_EIP_waiting_to_region <- function(waiting_times_with_nhs_region) {
+  nhs_region_waiting_times <- waiting_times_with_nhs_region %>%
+    group_by(NHSRLO17CD, NHSRLO17NM) %>%
+    summarise(A = sum(A),
+              B = sum(B),
+              C = sum(C),
+              D = sum(D),
+              Total = sum(Total))%>%
+    mutate(Proportion=round((A/Total)*100, digits =1))
+  
+  return(nhs_region_waiting_times)
+}
+
+#Function to manipulate regions to match shapefile
+manipulate_waiting_time_regions_for_shapefile <- function(nhs_region_waiting_times) {
+  #Combining regions to match shapefile
+  removed_regions <- nhs_region_waiting_times %>%
+    filter(NHSRLO17CD != "E39000037") %>%
+    filter(NHSRLO17CD != "E39000040")
+  
+  #Sum regions
+  summed_regions <- nhs_region_waiting_times %>%
+    filter(NHSRLO17CD %in% c("E39000037","E39000040")) %>%
+    group_by() %>%
+    summarise(NHSRLO17CD = "E39000028",
+              NHSRLO17NM = "Lancashire and Greater Manchester",
+              A = sum(A),
+              Total = sum(Total)) %>%
+    mutate(Proportion = round((A/Total)*100, digits =1))
+  
+  #Add row
+  thirteen_level_NHS_regional_waiting <- summed_regions %>%
+    bind_rows(removed_regions)
+  
+  return(thirteen_level_NHS_regional_waiting)
+}
+
+#Add rank column/variable to dataset - waiting
+rank_waiting_by_region <- function(thirteen_level_NHS_regional_waiting){
+  thirteen_level_NHS_regional_waiting$rank <- NA
+  thirteen_level_NHS_regional_waiting$rank[order(-thirteen_level_NHS_regional_waiting$Proportion)] <- 1:nrow(thirteen_level_NHS_regional_waiting)
+  
+  return(thirteen_level_NHS_regional_waiting)
+}
+
+#join shapefile to regional waiting data
+join_waiting_data_to_shapefile <- function(thirteen_level_NHS_regional_waiting, region_shapefile){
+  thirteen_level_NHS_regional_waiting <- setnames(thirteen_level_NHS_regional_waiting, "NHSRLO17CD", "nhsrg15cd")
+  region_shapefile@data <-  region_shapefile@data %>% 
+    left_join(thirteen_level_NHS_regional_waiting, by='nhsrg15cd')
+  
+  return(region_shapefile)
+}
+
+#Create barchart6 - EIP waiting times
+create_barchart_of_EIP_waiting_times <- function(thirteen_level_NHS_regional_waiting, nhs_region){
+  
+  #Order by rank
+  thirteen_level_NHS_regional_waiting$NHSRLO17NM <- factor(thirteen_level_NHS_regional_waiting$NHSRLO17NM,
+                                      levels = thirteen_level_NHS_regional_waiting$NHSRLO17NM[order(thirteen_level_NHS_regional_waiting$Proportion)])
+  #Create themes for formatting text size, colour etc
+  axis_labels <- element_text(face = "bold", size = 20)
+  region_labels <- element_text(size = 20, hjust = 1, colour = "black")
+  proportion_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
+  
+  #Create dataframe for England average line
+  england_standard <- c(50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50)
+  region_names <- as.vector(thirteen_level_NHS_regional_waiting$NHSRLO17NM)
+  standard_line <- data.frame(england_standard, region_names)
+  
+  ColourSchemeGrey <- brewer.pal(2,"Greys")
+  
+  #Plot
+  ggplot(thirteen_level_NHS_regional_waiting, aes(x=NHSRLO17NM, y=Proportion)) +
+    coord_flip() +
+    theme(axis.title = axis_labels, axis.text.x = proportion_labels, axis.text.y = region_labels) +
+    labs(x = "NHS Region", y = "Proportion (%) started treatment in 2 weeks") +
+    scale_fill_manual(values = ColourSchemeGrey) +
+    geom_bar(stat = "identity", colour="black", aes(fill=NHSRLO17NM==nhs_region), show.legend = FALSE) +
+    
+    geom_line(data = standard_line, aes(x=as.numeric(region_names), y=england_standard), color = "red", size = 2) +
+    annotate("text", x=0.9, y= 50, label = "Required standard", color = "red", size  = 7)
+  
+}
+
+#subset shapefile by region
+region_subset_waiting <- function(shapefile, nhs_region) {
+  subset(shapefile, shapefile$NHSRLO17NM == nhs_region)
+}
+
+# Create a map of waiting by NHS Region - greys
+create_choropleth_map_of_waiting <- function(shapefile, nhs_region){
+  
+  # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+  breaks=classIntervals(shapefile@data$Proportion,
+                        n=4, # set the number of ranges to create
+                        style="jenks") # set the algorithm to use to create the ranges
+  
+  #get 4 Green ColorBrewer Colours
+  ColourSchemePuRd <- brewer.pal(4,"PuRd")
+  
+  # plot a map using the new class breaks and colours we created just now.
+  plot(shapefile,
+       col= ColourSchemePuRd[findInterval(shapefile@data$Proportion, breaks$brks, all.inside = TRUE)],
+       axes =FALSE,
+       border = rgb(0.6,0.6,0.6))
+  
+  # overlay map with selected region, highlighted in black
+  plot(region_subset_waiting(shapefile, nhs_region),
+       border = rgb(0.0,0.0,0.0),
+       add = TRUE)
+  
+  # Create a legend
+  par(xpd=TRUE) # disables clipping of the legend by the map extent
+  legend("left", # sets where to place legend
+         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
+         fill = rev(ColourSchemePuRd), # use the colour scheme created earlier
+         bty = "n",
+         cex = 1.8, #expansion factor - expands text to make larger
+         title = "% in 2 weeks"
+  )
+  par(xpd=FALSE)# disables clipping of the legend by the map extent
+}
+  
+  
+#Create run model function for EIP waiting times
+run_model_waiting <- function(waiting_times, ccg_codes, ccg_nhs_lookup, region_shapefile) {
+  waiting_times_with_ccg_codes <- join_waiting_times_with_ccg_codes(waiting_times, ccg_codes)
+  waiting_times_with_nhs_region <- join_waiting_times_with_nhs_region(waiting_times_with_ccg_codes, ccg_nhs_lookup)
+  nhs_region_waiting_times <- aggregate_EIP_waiting_to_region(waiting_times_with_nhs_region)
+  thirteen_level_nhs_regional_waiting <- manipulate_waiting_time_regions_for_shapefile(nhs_region_waiting_times)
+  thirteen_level_nhs_regional_waiting_with_ranks <- rank_waiting_by_region(thirteen_level_nhs_regional_waiting)
+  joined_waiting_and_shapefile <- join_waiting_data_to_shapefile(thirteen_level_nhs_regional_waiting_with_ranks, region_shapefile)
+
+  return(list(joined_waiting_and_shapefile, thirteen_level_nhs_regional_waiting_with_ranks))
+}
 
 
 #Run model
@@ -803,7 +962,7 @@ model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
 model_outputs4 <- run_model_rates(suicide_rates, region_shapefile, "metadata")
 model_outputs5 <- run_model_spending(CCG_spending, region_shapefile, "metadata")
 model_outputs6 <- join_prevalence_data_to_CCG_shapefile(CCG_prevalence, CCG_shapefile)
-
+model_outputs7 <- run_model_waiting(EIP_waiting_times, ccg_codes, ccg_to_NHS_region, region_shapefile)
 
 
 
