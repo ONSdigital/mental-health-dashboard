@@ -72,7 +72,7 @@ comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, char
            fluidRow (column(10, h3("For more information on these datasets please see the metadata links in the relevant tabs."))
            ))}
   
-  donut_tab <- function (title, header, region_no, donut1, donut2, narrative, metadata) {
+  donut_tab <- function (title, header, region_no, donut1, donut2, narrative_no, metadata) {
     tabPanel(title,(tags$style(type='text/css', 
                                ".nav-tabs {font-size: 20px} ")),
              fluidRow(column(1), column( 10,h1(header)),column(1)), 

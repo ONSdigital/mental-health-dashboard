@@ -815,7 +815,9 @@ create_donut_started_treatment <- function(psychosis_started, nhs_region){
     theme(axis.ticks=element_blank()) +
     theme(axis.title.x = element_blank()) +
     theme(axis.title.y = element_blank()) +
-    annotate("text", x = 0, y = 0, label = "Patients who have started treatment")
+    theme(legend.text = element_text(size=14)) +
+    theme(legend.title = element_text(size=14))+
+    annotate("text", x = 0, y = 0, label = "Patients who have \n started treatment", size=7)
 }
 
 
