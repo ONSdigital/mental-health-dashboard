@@ -150,9 +150,17 @@ Read on to learn about England overall, or click the tabs above to explore regio
                timeseries_tab("Age-Standardised Suicide Rates Time Series",
                           "Age-Standardised suicide rates per 100,000 population, by NHS Region \n in England 2006-2015 death registrations",
                           "region7",
-                          "suicidestimeseries"
-                          )
-
+                          "suicidestimeseries"),
+               
+               
+               format_tab("CAMHS Spending",
+                          "Percentage of mental health spend categorised under CAMHS, by NHS Region \n in England, 2012/13",
+                          "region8",
+                          "map8",
+                          "chart8",
+                          "narrative8",
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata8.md")
+                          
              )
              
       ),
@@ -226,6 +234,14 @@ server <- function(input, output) {
   
   output$suicidestimeseries <- renderPlot( {
     create_suicide_time_series(reshaped_suicide_data, input$region7)})
+  
+  output$map8 <- renderPlot( {
+    create_choropleth_map_by_CAMHS_spending_GnBu(model_outputs8[[1]], input$region8)
+  })
+  output$chart8 <- renderPlot({
+    create_barchart_of_CAMHS_spending_by_region(model_outputs8[[2]], model_outputs8[[3]], input$region8)
+  })
+  output$narrative8 <- renderText({create_narrative8(model_outputs8, input$region8)})
 }
 
 shinyApp(ui = ui, server = server) 
