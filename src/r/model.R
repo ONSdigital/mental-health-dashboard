@@ -798,7 +798,7 @@ run_model_spending <- function(spending_data, shapefile, metadata){
   return(list(region_shapefile_with_joined_spending_data, spending_data_with_ranks, England_spending))
 }
 
-
+##Early episode psychosis waiting times
 #function to create donut chart for patients who have started treatment
 
 create_donut_started_treatment <- function(psychosis_started, nhs_region){
@@ -818,16 +818,6 @@ create_donut_started_treatment <- function(psychosis_started, nhs_region){
     annotate("text", x = 0, y = 0, label = "Patients who have started treatment")
 }
 
-
-#Function to filter data by single region
-create_suicide_time_series <- function (reshaped_suicide_data, nhs_region) {
-  specificregion <-subset(reshaped_suicide_data, reshaped_suicide_data$Region.name == nhs_region)
-  ggplot(data = specificregion, aes(x=Year, y=Rate, group = Region.name)) +
-    geom_line(size = 1.5, colour="navyblue") +
-    expand_limits(y = 0) +
-    theme(text = element_text(size=25)) +
-    xlab("Year") + ylab("Suicide rate per 100,000 population")
-}
 
 
 
