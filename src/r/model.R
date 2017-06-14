@@ -806,7 +806,7 @@ create_donut_started_treatment <- function(psychosis_started, nhs_region){
   specific = specific[order(specific$Fraction), ]
   specific$ymax = cumsum(specific$Fraction)
   specific$ymin = c(0, head(specific$ymax, n=-1))
-  ggplot(specific, aes(fill=Waiting.Times, ymax=ymax, ymin=ymin, xmax=4, xmin=3)) +
+  ggplot(specific, aes(fill=Waiting.Times, ymax=ymax, ymin=ymin, xmax=4, xmin=3), labels()) +
     geom_rect() + 
     coord_polar(theta="y") +
     xlim(c(0, 4)) +
@@ -817,6 +817,8 @@ create_donut_started_treatment <- function(psychosis_started, nhs_region){
     theme(axis.title.y = element_blank()) +
     theme(legend.text = element_text(size=14)) +
     theme(legend.title = element_text(size=14))+
+    scale_fill_brewer(palette = "Set1")+ 
+    geom_label(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2),inherit.aes = TRUE, show.legend = FALSE) +
     annotate("text", x = 0, y = 0, label = "Patients who have \n started treatment", size=7)
 }
 
