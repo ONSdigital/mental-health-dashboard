@@ -32,6 +32,8 @@ CCG_shapefile <- readShapePoly("src/r/data/CCG_Shapefiles/Clinical_Commissioning
 Suicides_time_series_raw <- read.csv("src/r/data/REgion_Suicide_Time_Series.csv", check.names = F)
 #CAMHS Spending data
 CAMHS_Spending <- read.csv("src/r/data/CAMHS_Spending.csv")
+#IAPT reliable improvement data
+IAPT_improvement <- read.csv("src/r/data/IAPT-reliable-improvement.csv")
 
 
 ####Model
@@ -122,15 +124,15 @@ create_barchart_of_MH_prevalence_by_region <- function(regional_prevalence_with_
     labs(x = "NHS Region", y = "Prevalence of Common Mental Disorders (%)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
-
+    
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
     annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
-
+  
 }
 
 #Create barchart 2- depression prevalence
 create_barchart_of_depression_prevalence_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
-
+  
   #Order by rank
   regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name,
                                                        levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
@@ -138,14 +140,14 @@ create_barchart_of_depression_prevalence_by_region <- function(regional_prevalen
   axis_labels <- element_text(face = "bold", size = 20)
   region_labels <- element_text(size = 20, hjust = 1, colour = "black")
   prevalence_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
-
+  
   #Create dataframe for England average line
   england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
   region_names <- as.vector(regional_prevalence_with_ranks$Parent.Name)
   england_prevalence_line <- data.frame(england_prev, region_names)
-
+  
   ColourSchemeBlue <- brewer.pal(2,"Blues")
-
+  
   #Plot
   ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
     coord_flip() +
@@ -153,15 +155,15 @@ create_barchart_of_depression_prevalence_by_region <- function(regional_prevalen
     labs(x = "NHS Region", y = "Prevalence of depression (%)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
-
+    
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
     annotate("text", x=0.75, y= 7.25, label = "England average", color = "navyblue", size  = 7)
-
+  
 }
 
 #Create barchart3 - depression follow up
 create_barchart_of_depression_review_by_region <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
-
+  
   #Order by rank
   regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name,
                                                        levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
@@ -169,14 +171,14 @@ create_barchart_of_depression_review_by_region <- function(regional_prevalence_w
   axis_labels <- element_text(face = "bold", size = 20)
   region_labels <- element_text(size = 20, hjust = 1, colour = "black")
   prevalence_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
-
+  
   #Create dataframe for England average line
   england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
   region_names <- as.vector(regional_prevalence_with_ranks$Parent.Name)
   england_prevalence_line <- data.frame(england_prev, region_names)
-
+  
   ColourSchemeBlue <- brewer.pal(2,"Blues")
-
+  
   #Plot
   ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
     coord_flip() +
@@ -184,10 +186,41 @@ create_barchart_of_depression_review_by_region <- function(regional_prevalence_w
     labs(x = "NHS Region", y = "Percentage who had a review 10-56 days after \n diagnosis of depression (%)") +
     scale_fill_manual(values = ColourSchemeBlue) +
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
-
+    
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
     annotate("text", x=0.75, y= 63.80, label = "England average", color = "navyblue", size  = 7)
+  
+}
 
+#Create barchart9 - IAPT reliable improvement
+create_barchart_of_improvement <- function(regional_prevalence_with_ranks, england_prevalence, nhs_region){
+  
+  #Order by rank
+  regional_prevalence_with_ranks$Parent.Name <- factor(regional_prevalence_with_ranks$Parent.Name,
+                                                       levels = regional_prevalence_with_ranks$Parent.Name[order(regional_prevalence_with_ranks$prevalence)])
+  #Create themes for formatting text size, colour etc
+  axis_labels <- element_text(face = "bold", size = 20)
+  region_labels <- element_text(size = 20, hjust = 1, colour = "black")
+  prevalence_labels <- element_text(size = 20, vjust = 0.2, hjust = 0.5)
+  
+  #Create dataframe for England average line
+  england_prev <- rep(england_prevalence, length(regional_prevalence_with_ranks$Parent.Name))
+  region_names <- as.vector(regional_prevalence_with_ranks$Parent.Name)
+  england_prevalence_line <- data.frame(england_prev, region_names)
+  
+  ColourSchemeBlue <- brewer.pal(2,"Blues")
+  
+  #Plot
+  ggplot(regional_prevalence_with_ranks, aes(x=Parent.Name, y=prevalence)) +
+    coord_flip() +
+    theme(axis.title = axis_labels, axis.text.x = prevalence_labels, axis.text.y = region_labels) +
+    labs(x = "NHS Region", y = "Percentage who have completed IAPT treatment who achieved reliable improvement(%)") +
+    scale_fill_manual(values = ColourSchemeBlue) +
+    geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
+    
+    geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
+    annotate("text", x=0.75, y= 64.6, label = "England average", color = "navyblue", size  = 7)
+  
 }
 
 #subset shapefile by region
@@ -197,27 +230,27 @@ region_subset <- function(shapefile, nhs_region) {
 
 # Create map 1 - purple
 create_choropleth_map_by_prevalence_purple <- function(shapefile, nhs_region){
-
+  
   # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
   breaks=classIntervals(shapefile@data$prevalence,
                         n=4, # set the number of ranges to create
                         style="jenks") # set the algorithm to use to create the ranges
-
+  
   #get 4 Purple ColorBrewer Colours
   ColourSchemePurple <- brewer.pal(4,"Purples")
-
+  
   # plot a map using the new class breaks and colours we created just now.
   plot(shapefile,
        col= ColourSchemePurple[findInterval(shapefile@data$prevalence, breaks$brks, all.inside = TRUE)],
        axes =FALSE,
        border = rgb(0.6,0.6,0.6))
-
+  
   # overlay map with selected region, highlighted in black
   plot(region_subset(shapefile, nhs_region),
        border = rgb(0.0,0.0,0.0),
        add = TRUE)
-
-# Create a legend
+  
+  # Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
          inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
@@ -301,6 +334,43 @@ create_choropleth_map_by_prevalence_orange <- function(shapefile, nhs_region){
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
+# Create map 9 - BuPu
+create_choropleth_map_of_IAPT_improvement <- function(shapefile, nhs_region){
+  
+  # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
+  breaks=classIntervals(shapefile@data$prevalence,
+                        n=4, # set the number of ranges to create
+                        style="jenks") # set the algorithm to use to create the ranges
+  
+  #get 4 Purple ColorBrewer Colours
+  ColourSchemeBuPu <- brewer.pal(4,"BuPu")
+  
+  # plot a map using the new class breaks and colours we created just now.
+  plot(shapefile,
+       col= ColourSchemeBuPu[findInterval(shapefile@data$prevalence, breaks$brks, all.inside = TRUE)],
+       axes =FALSE,
+       border = rgb(0.6,0.6,0.6))
+  
+  # overlay map with selected region, highlighted in black
+  plot(region_subset(shapefile, nhs_region),
+       border = rgb(0.0,0.0,0.0),
+       add = TRUE)
+  
+  # Create a legend
+  par(xpd=TRUE) # disables clipping of the legend by the map extent
+  legend("left", # sets where to place legend
+         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
+         fill = rev(ColourSchemeBuPu), # use the colour scheme created earlier
+         bty = "n",
+         cex = 1.8, #expansion factor - expands text to make larger
+         title = "Percentage (%)"
+  )
+  par(xpd=FALSE)# disables clipping of the legend by the map extent
+}
+
+
+
 ### CMD Prevalence data with CCG breakdown
 #join CCG shapefile to regional prevalence data
 join_prevalence_data_to_CCG_shapefile <- function(CCG_prevalence, CCG_shapefile){
@@ -348,7 +418,7 @@ create_choropleth_map_CCG <- function(CCG_shapefile, CCG_region){
          title = "Percentage (%)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
-  }
+}
 
 
 
@@ -381,8 +451,8 @@ create_narrative1 <- function(model_outputs, nhs_region){
   
   Year <- "2014/15 "
   single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
-   Region_Name<-single_region$Parent.Name
-
+  Region_Name<-single_region$Parent.Name
+  
   a<-"In "
   b<-" the prevalence of common mental health disorders in the "
   c<-" NHS region was "
@@ -396,9 +466,9 @@ create_narrative1 <- function(model_outputs, nhs_region){
   i<-" was ranked "
   j<-int_to_ranking(single_region$rank)
   k<-" in England."
-
+  
   narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j,k, sep = "")
-
+  
   return(narrative_text)
 }
 
@@ -456,6 +526,26 @@ create_narrative3 <- function(model_outputs, nhs_region){
   return(narrative_text)
 }
 
+#Narrative function for dataset 9
+create_narrative9 <- function(model_outputs, nhs_region){
+  Eng_Average <- model_outputs[[3]]
+  
+  Year <- "2016/17"
+  single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
+  Region_Name<-single_region$Parent.Name
+  above_or_below<-ifelse(single_region$prevalence < Eng_Average,"lower than ",
+                         ifelse(single_region$prevalence > Eng_Average, "higher than ",
+                                ifelse(single_region$prevalence <- Eng_Average, "equal to ")))
+  narrative_text<-paste("In quarter 2 ", Year, " the proportion of people who have completed IAPT treatment who achieved 'reliable improvement' in the ",
+                        Region_Name," NHS region was ",
+                        single_region$prevalence,"%. This was ",
+                        above_or_below, "the average proportion of ",
+                        Eng_Average, "% in England. In comparison to other NHS regions, ",
+                        Region_Name," was ranked ", 
+                        int_to_ranking(single_region$rank), " in England.", sep = "")
+  return(narrative_text)
+}
+
 #Create run model function for dataset - prevalence
 run_model <- function(prevalence_dataset, shapefile, metadata){
   england_prevalence <- aggregate_prevalence_to_England(prevalence_dataset)
@@ -474,7 +564,7 @@ run_model <- function(prevalence_dataset, shapefile, metadata){
 aggregate_rates_to_England <- function(rates_data) {
   England_rate <- round((sum(rates_data$Rate))/13, digits = 1) #could change 13 to have r count number of rows
   return(England_rate) 
-  }
+}
 
 #Add rank column/variable to dataset - rates
 rank_rates_by_region <- function(rates_data){
@@ -500,7 +590,7 @@ create_barchart_of_suicide_rates_by_region <- function(rates_data, England_rate,
   
   #Order by rank
   rates_data$Region.name <- factor(rates_data$Region.name,
-                                                       levels = rates_data$Region.name[order(rates_data$Rate)])
+                                   levels = rates_data$Region.name[order(rates_data$Rate)])
   #Create themes for formatting text size, colour etc
   axis_labels <- element_text(face = "bold", size = 20)
   region_labels <- element_text(size = 20, hjust = 1, colour = "black")
@@ -599,7 +689,7 @@ run_model_rates <- function(rates_data, shapefile, metadata){
   England_rate <- aggregate_rates_to_England(rates_data)
   rates_data_with_ranks <- rank_rates_by_region(rates_data)
   region_shapefile_with_joined_rate_data <- join_rate_data_to_shapefile(rates_data_with_ranks,
-                                                                                    shapefile)
+                                                                        shapefile)
   return(list(region_shapefile_with_joined_rate_data, rates_data_with_ranks, England_rate))
 }
 
@@ -671,7 +761,7 @@ create_barchart_of_MH_spending_by_region <- function(spending_data, England_spen
   
   #Order by rank
   spending_data$Parent.Name <- factor(spending_data$Parent.Name,
-                                   levels = spending_data$Parent.Name[order(spending_data$CCG.spending.on.mental.health.per.capita)])
+                                      levels = spending_data$Parent.Name[order(spending_data$CCG.spending.on.mental.health.per.capita)])
   #Create themes for formatting text size, colour etc
   axis_labels <- element_text(face = "bold", size = 20)
   region_labels <- element_text(size = 20, hjust = 1, colour = "black")
@@ -709,11 +799,11 @@ reshaped_suicide_data <-reshape_suicide_time_series(Suicides_time_series_raw)
 
 #Function to filter data by single region
 create_suicide_time_series <- function (reshaped_suicide_data, nhs_region) {
-specificregion <-subset(reshaped_suicide_data, reshaped_suicide_data$Region.name == nhs_region)
-ggplot(data = specificregion, aes(x=Year, y=Rate, group = Region.name)) +
-  geom_line(size = 1.5, colour="navyblue") +
-  expand_limits(y = 0) +
-  theme(text = element_text(size=25)) +
+  specificregion <-subset(reshaped_suicide_data, reshaped_suicide_data$Region.name == nhs_region)
+  ggplot(data = specificregion, aes(x=Year, y=Rate, group = Region.name)) +
+    geom_line(size = 1.5, colour="navyblue") +
+    expand_limits(y = 0) +
+    theme(text = element_text(size=25)) +
     xlab("Year") + ylab("Suicide rate per 100,000 population")
 }
 
@@ -793,7 +883,7 @@ run_model_spending <- function(spending_data, shapefile, metadata){
   thirteen_level_NHS_regional_spending <- manipulate_spending_regions_for_shapefile(region_spending)
   spending_data_with_ranks <- rank_spending_by_region(thirteen_level_NHS_regional_spending)
   region_shapefile_with_joined_spending_data <- join_spending_data_to_shapefile(spending_data_with_ranks,
-                                                                        shapefile)
+                                                                                shapefile)
   return(list(region_shapefile_with_joined_spending_data, spending_data_with_ranks, England_spending))
 }
 
@@ -962,11 +1052,6 @@ run_model_CAMHS_spending <- function(spending_data, shapefile, metadata){
 }
 
 
-
-
-
-
-
 #Run model
 model_outputs1 <- run_model(CCG_prevalence, region_shapefile, "metadata")
 model_outputs2 <- run_model(depression_prevalence, region_shapefile, "metadata")
@@ -975,6 +1060,7 @@ model_outputs4 <- run_model_rates(suicide_rates, region_shapefile, "metadata")
 model_outputs5 <- run_model_spending(CCG_spending, region_shapefile, "metadata")
 model_outputs6 <- join_prevalence_data_to_CCG_shapefile(CCG_prevalence, CCG_shapefile)
 model_outputs8 <- run_model_CAMHS_spending(CAMHS_Spending, region_shapefile)
+model_outputs9 <- run_model(IAPT_improvement, region_shapefile, "metadata")
 
 
 
