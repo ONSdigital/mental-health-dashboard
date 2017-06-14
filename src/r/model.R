@@ -5,6 +5,7 @@
 #install.packages("classInt")
 #install.packages("RColorBrewer")
 #install.packages("testthat")
+#install.packages("plotly")
 library(data.table)
 library(dplyr)
 library(maptools)
@@ -12,6 +13,7 @@ library(ggplot2)
 library(classInt)
 library(RColorBrewer)
 library(testthat)
+library(plotly)
 
 ####Data
 #CCG Data
@@ -794,6 +796,36 @@ run_model_spending <- function(spending_data, shapefile, metadata){
   region_shapefile_with_joined_spending_data <- join_spending_data_to_shapefile(spending_data_with_ranks,
                                                                         shapefile)
   return(list(region_shapefile_with_joined_spending_data, spending_data_with_ranks, England_spending))
+}
+
+
+specific <-subset(psychosis_started, psychosis_started$Name == "Wessex")
+
+specific = specific[order(specific$Fraction), ]
+specific$ymax = cumsum(specific$Fraction)
+specific$ymin = c(0, head(specific$ymax, n=-1))
+
+started_waiting <- ggplot(specific, aes(fill=Waiting.Times, ymax=ymax, ymin=ymin, xmax=4, xmin=3)) +
+  geom_rect() +
+  coord_polar(theta="y") +
+  xlim(c(0, 4)) +
+  theme(panel.grid=element_blank()) +
+  theme(axis.text=element_blank()) +
+  theme(axis.ticks=element_blank()) +
+  annotate("text", x = 0, y = 0, label = "Patients who have started treatment")
+started_waiting
+
+
+
+
+#Function to filter data by single region
+create_suicide_time_series <- function (reshaped_suicide_data, nhs_region) {
+  specificregion <-subset(reshaped_suicide_data, reshaped_suicide_data$Region.name == nhs_region)
+  ggplot(data = specificregion, aes(x=Year, y=Rate, group = Region.name)) +
+    geom_line(size = 1.5, colour="navyblue") +
+    expand_limits(y = 0) +
+    theme(text = element_text(size=25)) +
+    xlab("Year") + ylab("Suicide rate per 100,000 population")
 }
 
 

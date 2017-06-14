@@ -1,53 +1,53 @@
-Code,Name,Category,Count,Fraction
-E39000018,London,A,113,0.729032258
-E39000018,London,B,32,0.206451613
-E39000018,London,C,6,0.038709677
-E39000018,London,D,4,0.025806452
-E39000025,Wessex,A,32,0.727272727
-E39000025,Wessex,B,11,0.25
-E39000025,Wessex,C,1,0.022727273
-E39000025,Wessex,D,0,0
-E39000026,Cheshire and Merseyside,A,32,0.727272727
-E39000026,Cheshire and Merseyside,B,9,0.204545455
-E39000026,Cheshire and Merseyside,C,3,0.068181818
-E39000026,Cheshire and Merseyside,D,0,0
-E39000029,Yorkshire and Humber,A,105,0.795454545
-E39000029,Yorkshire and Humber,B,20,0.151515152
-E39000029,Yorkshire and Humber,C,5,0.037878788
-E39000029,Yorkshire and Humber,D,2,0.015151515
-E39000030,Central Midlands,A,58,0.716049383
-E39000030,Central Midlands,B,20,0.24691358
-E39000030,Central Midlands,C,2,0.024691358
-E39000030,Central Midlands,D,1,0.012345679
-E39000031,East,A,38,0.612903226
-E39000031,East,B,18,0.290322581
-E39000031,East,C,3,0.048387097
-E39000031,East,D,3,0.048387097
-E39000032,North Midlands,A,33,0.75
-E39000032,North Midlands,B,10,0.227272727
-E39000032,North Midlands,C,1,0.022727273
-E39000032,North Midlands,D,0,0
-E39000033,West Midlands,A,33,0.75
-E39000033,West Midlands,B,7,0.159090909
-E39000033,West Midlands,C,3,0.068181818
-E39000033,West Midlands,D,1,0.022727273
-E39000034,South Central,A,31,0.720930233
-E39000034,South Central,B,10,0.23255814
-E39000034,South Central,C,2,0.046511628
-E39000034,South Central,D,0,0
-E39000035,South East,A,41,0.745454545
-E39000035,South East,B,11,0.2
-E39000035,South East,C,3,0.054545455
-E39000035,South East,D,0,0
-E39000036,South West,A,37,0.725490196
-E39000036,South West,B,11,0.215686275
-E39000036,South West,C,1,0.019607843
-E39000036,South West,D,2,0.039215686
-E39000028,Lancashire and Great Manchester,A,71,0.633928571
-E39000028,Lancashire and Great Manchester,B,30,0.267857143
-E39000028,Lancashire and Great Manchester,C,8,0.071428571
-E39000028,Lancashire and Great Manchester,D,3,0.026785714
-E39000039,Cumbria and North East,A,50,0.793650794
-E39000039,Cumbria and North East,B,12,0.19047619
-E39000039,Cumbria and North East,C,1,0.015873016
-E39000039,Cumbria and North East,D,0,0
+Code,Name,Waiting Times,Count,Fraction
+E39000018,London,'under 2,113,0.729032258
+E39000018,London,'2 to 6,32,0.206451613
+E39000018,London,'6 to 12,6,0.038709677
+E39000018,London,'over 12,4,0.025806452
+E39000025,Wessex,'under 2,32,0.727272727
+E39000025,Wessex,'2 to 6,11,0.25
+E39000025,Wessex,'6 to 12,1,0.022727273
+E39000025,Wessex,'over 12,0,0
+E39000026,Cheshire and Merseyside,'under 2,32,0.727272727
+E39000026,Cheshire and Merseyside,'2 to 6,9,0.204545455
+E39000026,Cheshire and Merseyside,'6 to 12,3,0.068181818
+E39000026,Cheshire and Merseyside,'over 12,0,0
+E39000029,Yorkshire and Humber,'under 2,105,0.795454545
+E39000029,Yorkshire and Humber,'2 to 6,20,0.151515152
+E39000029,Yorkshire and Humber,'6 to 12,5,0.037878788
+E39000029,Yorkshire and Humber,'over 12,2,0.015151515
+E39000030,Central Midlands,'under 2,58,0.716049383
+E39000030,Central Midlands,'2 to 6,20,0.24691358
+E39000030,Central Midlands,'6 to 12,2,0.024691358
+E39000030,Central Midlands,'over 12,1,0.012345679
+E39000031,East,'under 2,38,0.612903226
+E39000031,East,'2 to 6,18,0.290322581
+E39000031,East,'6 to 12,3,0.048387097
+E39000031,East,'over 12,3,0.048387097
+E39000032,North Midlands,'under 2,33,0.75
+E39000032,North Midlands,'2 to 6,10,0.227272727
+E39000032,North Midlands,'6 to 12,1,0.022727273
+E39000032,North Midlands,'over 12,0,0
+E39000033,West Midlands,'under 2,33,0.75
+E39000033,West Midlands,'2 to 6,7,0.159090909
+E39000033,West Midlands,'6 to 12,3,0.068181818
+E39000033,West Midlands,'over 12,1,0.022727273
+E39000034,South Central,'under 2,31,0.720930233
+E39000034,South Central,'2 to 6,10,0.23255814
+E39000034,South Central,'6 to 12,2,0.046511628
+E39000034,South Central,'over 12,0,0
+E39000035,South East,'under 2,41,0.745454545
+E39000035,South East,'2 to 6,11,0.2
+E39000035,South East,'6 to 12,3,0.054545455
+E39000035,South East,'over 12,0,0
+E39000036,South West,'under 2,37,0.725490196
+E39000036,South West,'2 to 6,11,0.215686275
+E39000036,South West,'6 to 12,1,0.019607843
+E39000036,South West,'over 12,2,0.039215686
+E39000028,Lancashire and Great Manchester,'under 2,71,0.633928571
+E39000028,Lancashire and Great Manchester,'2 to 6,30,0.267857143
+E39000028,Lancashire and Great Manchester,'6 to 12,8,0.071428571
+E39000028,Lancashire and Great Manchester,'over 12,3,0.026785714
+E39000039,Cumbria and North East,'under 2,50,0.793650794
+E39000039,Cumbria and North East,'2 to 6,12,0.19047619
+E39000039,Cumbria and North East,'6 to 12,1,0.015873016
+E39000039,Cumbria and North East,'over 12,0,0
