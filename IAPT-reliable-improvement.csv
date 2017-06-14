@@ -1,0 +1,210 @@
+Parent Code,Parent Name,Area Code,Area Name,Count,Denominator
+E39000029,Yorkshire and Humber NHS region,E38000001,"NHS Airedale, Wharfdale And Craven CCG",355,505
+E39000035,South East NHS region,E38000002,NHS Ashford CCG,295,415
+E39000034,South Central NHS region,E38000003,NHS Aylesbury Vale CCG,340,530
+E39000018,London NHS region,E38000004,NHS Barking And Dagenham CCG,335,540
+E39000018,London NHS region,E38000005,NHS Barnet CCG,460,750
+E39000029,Yorkshire and Humber NHS region,E38000006,NHS Barnsley CCG,260,425
+E39000031,East NHS region,E38000007,NHS Basildon And Brentwood CCG,695,1215
+E39000029,Yorkshire and Humber NHS region,E38000008,NHS Bassetlaw CCG,285,400
+E39000034,South Central NHS region,E38000009,NHS Bath And North East Somerset CCG,360,660
+E39000030,Central Midlands NHS region,E38000010,NHS Bedfordshire CCG,695,1070
+E39000018,London NHS region,E38000011,NHS Bexley CCG,285,455
+E39000033,West Midlands NHS region,E38000012,NHS Birmingham Crosscity CCG,955,1530
+E39000033,West Midlands NHS region,E38000013,NHS Birmingham South And Central CCG,400,665
+E39000038,Lancashire NHS region,E38000014,NHS Blackburn With Darwen CCG,205,335
+E39000038,Lancashire NHS region,E38000015,NHS Blackpool CCG,390,595
+E39000037,Greater Manchester NHS region,E38000016,NHS Bolton CCG,500,820
+E39000034,South Central NHS region,E38000017,NHS Bracknell And Ascot CCG,290,395
+E39000029,Yorkshire and Humber NHS region,E38000018,NHS Bradford City CCG,170,245
+E39000029,Yorkshire and Humber NHS region,E38000019,NHS Bradford Districts CCG,450,735
+E39000018,London NHS region,E38000020,NHS Brent CCG,565,890
+E39000035,South East NHS region,E38000021,NHS Brighton And Hove CCG,425,695
+E39000036,South West NHS region,E38000022,NHS Bristol CCG,990,1485
+E39000018,London NHS region,E38000023,NHS Bromley CCG,580,860
+E39000037,Greater Manchester NHS region,E38000024,NHS Bury CCG,550,870
+E39000029,Yorkshire and Humber NHS region,E38000025,NHS Calderdale CCG,505,735
+E39000031,East NHS region,E38000026,NHS Cambridgeshire and Peterborough CCG,1405,2240
+E39000018,London NHS region,E38000027,NHS Camden CCG,470,890
+E39000032,North Midlands NHS region,E38000028,NHS Cannock Chase CCG,695,1055
+E39000035,South East NHS region,E38000029,NHS Canterbury And Coastal CCG,720,1025
+E39000031,East NHS region,E38000030,NHS Castle Point And Rochford CCG,505,825
+E39000018,London NHS region,E38000031,NHS Central London (Westminster) CCG,275,450
+E39000037,Greater Manchester NHS region,E38000032,NHS Central Manchester CCG,175,385
+E39000034,South Central NHS region,E38000033,NHS Chiltern CCG,495,750
+E39000038,Lancashire NHS region,E38000034,NHS Chorley And South Ribble CCG,275,425
+E39000018,London NHS region,E38000035,NHS City And Hackney CCG,485,830
+E39000030,Central Midlands NHS region,E38000037,NHS Corby CCG,95,180
+E39000033,West Midlands NHS region,E38000038,NHS Coventry And Rugby CCG,705,1030
+E39000035,South East NHS region,E38000039,NHS Crawley CCG,205,300
+E39000018,London NHS region,E38000040,NHS Croydon CCG,565,905
+E39000027,Cumbria and North East NHS region,E38000041,NHS Cumbria CCG,1065,1455
+E39000027,Cumbria and North East NHS region,E38000042,NHS Darlington CCG,290,440
+E39000035,South East NHS region,E38000043,"NHS Dartford, Gravesham And Swanley CCG",515,675
+E39000029,Yorkshire and Humber NHS region,E38000044,NHS Doncaster CCG,595,1070
+E39000025,Wessex NHS region,E38000045,NHS Dorset CCG,1625,2265
+E39000033,West Midlands NHS region,E38000046,NHS Dudley CCG,260,375
+E39000027,Cumbria and North East NHS region,E38000047,"NHS Durham Dales, Easington And Sedgefield CCG",450,715
+E39000018,London NHS region,E38000048,NHS Ealing CCG,550,865
+E39000030,Central Midlands NHS region,E38000049,NHS East And North Hertfordshire CCG,930,1460
+E39000038,Lancashire NHS region,E38000050,NHS East Lancashire CCG,535,845
+E39000030,Central Midlands NHS region,E38000051,NHS East Leicestershire And Rutland CCG,475,725
+E39000029,Yorkshire and Humber NHS region,E38000052,NHS East Riding Of Yorkshire CCG,615,885
+E39000032,North Midlands NHS region,E38000053,NHS East Staffordshire CCG,240,375
+E39000035,South East NHS region,E38000054,NHS East Surrey CCG,365,520
+E39000035,South East NHS region,E38000055,"NHS Eastbourne, Hailsham And Seaford CCG",345,515
+E39000026,Cheshire and Merseyside NHS region,E38000056,NHS Eastern Cheshire CCG,375,580
+E39000018,London NHS region,E38000057,NHS Enfield CCG,380,580
+E39000032,North Midlands NHS region,E38000058,NHS Erewash CCG,210,295
+E39000025,Wessex NHS region,E38000059,NHS Fareham And Gosport CCG,210,340
+E39000038,Lancashire NHS region,E38000060,NHS Fylde & Wyre CCG,225,305
+E39000034,South Central NHS region,E38000062,NHS Gloucestershire CCG,700,1160
+E39000031,East NHS region,E38000063,NHS Great Yarmouth And Waveney CCG,395,765
+E39000029,Yorkshire and Humber NHS region,E38000064,NHS Greater Huddersfield CCG,150,245
+E39000038,Lancashire NHS region,E38000065,NHS Greater Preston CCG,215,345
+E39000018,London NHS region,E38000066,NHS Greenwich CCG,470,680
+E39000026,Cheshire and Merseyside NHS region,E38000068,NHS Halton CCG,250,370
+E39000029,Yorkshire and Humber NHS region,E38000069,"NHS Hambleton, Richmondshire And Whitby CCG",290,440
+E39000018,London NHS region,E38000070,NHS Hammersmith And Fulham CCG,430,695
+E39000032,North Midlands NHS region,E38000071,NHS Hardwick CCG,285,385
+E39000018,London NHS region,E38000072,NHS Haringey CCG,520,780
+E39000029,Yorkshire and Humber NHS region,E38000073,NHS Harrogate And Rural District CCG,190,310
+E39000018,London NHS region,E38000074,NHS Harrow CCG,445,655
+E39000027,Cumbria and North East NHS region,E38000075,NHS Hartlepool And Stockton-On-Tees CCG,1330,2075
+E39000035,South East NHS region,E38000076,NHS Hastings And Rother CCG,330,510
+E39000018,London NHS region,E38000077,NHS Havering CCG,530,720
+E39000033,West Midlands NHS region,E38000078,NHS Herefordshire CCG,220,380
+E39000030,Central Midlands NHS region,E38000079,NHS Herts Valleys CCG,1125,1670
+E39000037,Greater Manchester NHS region,E38000080,"NHS Heywood, Middleton And Rochdale CCG",435,730
+E39000035,South East NHS region,E38000081,NHS High Weald Lewes Havens CCG,250,375
+E39000018,London NHS region,E38000082,NHS Hillingdon CCG,520,770
+E39000035,South East NHS region,E38000083,NHS Horsham And Mid Sussex CCG,405,575
+E39000018,London NHS region,E38000084,NHS Hounslow CCG,435,680
+E39000029,Yorkshire and Humber NHS region,E38000085,NHS Hull CCG,965,1440
+E39000031,East NHS region,E38000086,NHS Ipswich And East Suffolk CCG,530,960
+E39000025,Wessex NHS region,E38000087,NHS Isle Of Wight CCG,300,445
+E39000018,London NHS region,E38000088,NHS Islington CCG,395,715
+E39000036,South West NHS region,E38000089,NHS Kernow CCG,1625,2685
+E39000018,London NHS region,E38000090,NHS Kingston CCG,215,380
+E39000026,Cheshire and Merseyside NHS region,E38000091,NHS Knowsley CCG,485,695
+E39000018,London NHS region,E38000092,NHS Lambeth CCG,910,1380
+E39000038,Lancashire NHS region,E38000093,NHS Lancashire North CCG,170,265
+E39000029,Yorkshire and Humber NHS region,E38000094,NHS Leeds North CCG,265,420
+E39000029,Yorkshire and Humber NHS region,E38000095,NHS Leeds South And East CCG,380,595
+E39000029,Yorkshire and Humber NHS region,E38000096,NHS Leeds West CCG,570,840
+E39000030,Central Midlands NHS region,E38000097,NHS Leicester City CCG,190,410
+E39000018,London NHS region,E38000098,NHS Lewisham CCG,640,995
+E39000030,Central Midlands NHS region,E38000099,NHS Lincolnshire East CCG,390,525
+E39000030,Central Midlands NHS region,E38000100,NHS Lincolnshire West CCG,355,475
+E39000026,Cheshire and Merseyside NHS region,E38000101,NHS Liverpool CCG,1100,1815
+E39000030,Central Midlands NHS region,E38000102,NHS Luton CCG,320,490
+E39000032,North Midlands NHS region,E38000103,NHS Mansfield And Ashfield CCG,325,480
+E39000035,South East NHS region,E38000104,NHS Medway CCG,570,795
+E39000018,London NHS region,E38000105,NHS Merton CCG,300,470
+E39000031,East NHS region,E38000106,NHS Mid Essex CCG,375,595
+E39000030,Central Midlands NHS region,E38000107,NHS Milton Keynes CCG,325,545
+E39000030,Central Midlands NHS region,E38000108,NHS Nene CCG,830,1595
+E39000032,North Midlands NHS region,E38000109,NHS Newark & Sherwood CCG,205,290
+E39000034,South Central NHS region,E38000110,NHS Newbury And District CCG,225,315
+E39000018,London NHS region,E38000113,NHS Newham CCG,510,825
+E39000034,South Central NHS region,E38000114,NHS North & West Reading CCG,210,315
+E39000032,North Midlands NHS region,E38000115,NHS North Derbyshire CCG,855,1210
+E39000027,Cumbria and North East NHS region,E38000116,NHS North Durham CCG,480,725
+E39000031,East NHS region,E38000117,NHS North East Essex CCG,335,640
+E39000025,Wessex NHS region,E38000118,NHS North East Hampshire And Farnham CCG,420,635
+E39000029,Yorkshire and Humber NHS region,E38000119,NHS North East Lincolnshire CCG,290,465
+E39000025,Wessex NHS region,E38000120,NHS North Hampshire CCG,235,365
+E39000029,Yorkshire and Humber NHS region,E38000121,NHS North Kirklees CCG,105,160
+E39000029,Yorkshire and Humber NHS region,E38000122,NHS North Lincolnshire CCG,280,465
+E39000037,Greater Manchester NHS region,E38000123,NHS North Manchester CCG,190,365
+E39000031,East NHS region,E38000124,NHS North Norfolk CCG,275,545
+E39000036,South West NHS region,E38000125,NHS North Somerset CCG,345,610
+E39000032,North Midlands NHS region,E38000126,NHS North Staffordshire CCG,385,520
+E39000027,Cumbria and North East NHS region,E38000127,NHS North Tyneside CCG,600,875
+E39000035,South East NHS region,E38000128,NHS North West Surrey CCG,590,840
+E39000036,South West NHS region,E38000129,"NHS Northern, Eastern And Western Devon CCG",1680,2605
+E39000027,Cumbria and North East NHS region,E38000130,NHS Northumberland CCG,685,1080
+E39000031,East NHS region,E38000131,NHS Norwich CCG,355,730
+E39000032,North Midlands NHS region,E38000132,NHS Nottingham City CCG,770,1140
+E39000032,North Midlands NHS region,E38000133,NHS Nottingham North And East CCG,335,470
+E39000032,North Midlands NHS region,E38000134,NHS Nottingham West CCG,250,345
+E39000037,Greater Manchester NHS region,E38000135,NHS Oldham CCG,480,755
+E39000034,South Central NHS region,E38000136,NHS Oxfordshire CCG,990,1535
+E39000025,Wessex NHS region,E38000137,NHS Portsmouth CCG,415,575
+E39000018,London NHS region,E38000138,NHS Redbridge CCG,325,510
+E39000033,West Midlands NHS region,E38000139,NHS Redditch And Bromsgrove CCG,105,180
+E39000018,London NHS region,E38000140,NHS Richmond CCG,355,550
+E39000029,Yorkshire and Humber NHS region,E38000141,NHS Rotherham CCG,510,810
+E39000032,North Midlands NHS region,E38000142,NHS Rushcliffe CCG,270,365
+E39000037,Greater Manchester NHS region,E38000143,NHS Salford CCG,645,1080
+E39000033,West Midlands NHS region,E38000144,NHS Sandwell And West Birmingham CCG,800,1180
+E39000029,Yorkshire and Humber NHS region,E38000145,NHS Scarborough And Ryedale CCG,185,305
+E39000029,Yorkshire and Humber NHS region,E38000146,NHS Sheffield CCG,730,1115
+E39000032,North Midlands NHS region,E38000147,NHS Shropshire CCG,470,665
+E39000034,South Central NHS region,E38000148,NHS Slough CCG,220,300
+E39000033,West Midlands NHS region,E38000149,NHS Solihull CCG,340,465
+E39000036,South West NHS region,E38000150,NHS Somerset CCG,775,1185
+E39000026,Cheshire and Merseyside NHS region,E38000151,NHS South Cheshire CCG,280,410
+E39000036,South West NHS region,E38000152,NHS South Devon And Torbay CCG,540,860
+E39000032,North Midlands NHS region,E38000153,NHS South East Staffs And Seisdon Peninsular CCG,350,490
+E39000025,Wessex NHS region,E38000154,NHS South Eastern Hampshire CCG,205,300
+E39000036,South West NHS region,E38000155,NHS South Gloucestershire CCG,375,595
+E39000035,South East NHS region,E38000156,NHS South Kent Coast CCG,590,795
+E39000030,Central Midlands NHS region,E38000157,NHS South Lincolnshire CCG,240,315
+E39000037,Greater Manchester NHS region,E38000158,NHS South Manchester CCG,195,360
+E39000031,East NHS region,E38000159,NHS South Norfolk CCG,375,745
+E39000034,South Central NHS region,E38000160,NHS South Reading CCG,220,350
+E39000026,Cheshire and Merseyside NHS region,E38000161,NHS South Sefton CCG,305,455
+E39000027,Cumbria and North East NHS region,E38000162,NHS South Tees CCG,725,1040
+E39000027,Cumbria and North East NHS region,E38000163,NHS South Tyneside CCG,485,735
+E39000033,West Midlands NHS region,E38000164,NHS South Warwickshire CCG,325,440
+E39000030,Central Midlands NHS region,E38000165,NHS South West Lincolnshire CCG,220,280
+E39000033,West Midlands NHS region,E38000166,NHS South Worcestershire CCG,220,480
+E39000025,Wessex NHS region,E38000167,NHS Southampton CCG,440,630
+E39000031,East NHS region,E38000168,NHS Southend CCG,405,670
+E39000032,North Midlands NHS region,E38000169,NHS Southern Derbyshire CCG,1460,2065
+E39000026,Cheshire and Merseyside NHS region,E38000170,NHS Southport And Formby CCG,220,315
+E39000018,London NHS region,E38000171,NHS Southwark CCG,405,720
+E39000026,Cheshire and Merseyside NHS region,E38000172,NHS St Helens CCG,185,320
+E39000032,North Midlands NHS region,E38000173,NHS Stafford And Surrounds CCG,665,1060
+E39000037,Greater Manchester NHS region,E38000174,NHS Stockport CCG,495,795
+E39000032,North Midlands NHS region,E38000175,NHS Stoke On Trent CCG,450,600
+E39000027,Cumbria and North East NHS region,E38000176,NHS Sunderland CCG,540,780
+E39000035,South East NHS region,E38000177,NHS Surrey Downs CCG,510,705
+E39000035,South East NHS region,E38000178,NHS Surrey Heath CCG,150,220
+E39000018,London NHS region,E38000179,NHS Sutton CCG,380,585
+E39000035,South East NHS region,E38000180,NHS Swale CCG,230,315
+E39000034,South Central NHS region,E38000181,NHS Swindon CCG,365,705
+E39000037,Greater Manchester NHS region,E38000182,NHS Tameside And Glossop CCG,445,715
+E39000032,North Midlands NHS region,E38000183,NHS Telford And Wrekin CCG,310,400
+E39000035,South East NHS region,E38000184,NHS Thanet CCG,490,705
+E39000031,East NHS region,E38000185,NHS Thurrock CCG,210,340
+E39000018,London NHS region,E38000186,NHS Tower Hamlets CCG,250,395
+E39000037,Greater Manchester NHS region,E38000187,NHS Trafford CCG,410,600
+E39000029,Yorkshire and Humber NHS region,E38000188,NHS Vale Of York CCG,255,430
+E39000026,Cheshire and Merseyside NHS region,E38000189,NHS Vale Royal CCG,180,255
+E39000029,Yorkshire and Humber NHS region,E38000190,NHS Wakefield CCG,500,760
+E39000033,West Midlands NHS region,E38000191,NHS Walsall CCG,95,145
+E39000018,London NHS region,E38000192,NHS Waltham Forest CCG,625,945
+E39000018,London NHS region,E38000193,NHS Wandsworth CCG,600,965
+E39000026,Cheshire and Merseyside NHS region,E38000194,NHS Warrington CCG,370,560
+E39000033,West Midlands NHS region,E38000195,NHS Warwickshire North CCG,280,360
+E39000026,Cheshire and Merseyside NHS region,E38000196,NHS West Cheshire CCG,545,820
+E39000031,East NHS region,E38000197,NHS West Essex CCG,325,450
+E39000025,Wessex NHS region,E38000198,NHS West Hampshire CCG,495,830
+E39000035,South East NHS region,E38000199,NHS West Kent CCG,780,1105
+E39000038,Lancashire NHS region,E38000200,NHS West Lancashire CCG,140,200
+E39000030,Central Midlands NHS region,E38000201,NHS West Leicestershire CCG,515,875
+E39000018,London NHS region,E38000202,NHS West London (K&C & QPP) CCG,460,710
+E39000031,East NHS region,E38000203,NHS West Norfolk CCG,290,585
+E39000031,East NHS region,E38000204,NHS West Suffolk CCG,395,655
+E39000037,Greater Manchester NHS region,E38000205,NHS Wigan Borough CCG,950,1345
+E39000034,South Central NHS region,E38000206,NHS Wiltshire CCG,445,870
+E39000034,South Central NHS region,E38000207,"NHS Windsor, Ascot And Maidenhead CCG",250,375
+E39000026,Cheshire and Merseyside NHS region,E38000208,NHS Wirral CCG,500,765
+E39000034,South Central NHS region,E38000209,NHS Wokingham CCG,285,410
+E39000033,West Midlands NHS region,E38000210,NHS Wolverhampton CCG,380,540
+E39000033,West Midlands NHS region,E38000211,NHS Wyre Forest CCG,75,160
+E39000027,Cumbria and North East NHS region,E38000212,NHS Newcastle And Gateshead CCG,1080,1595
+E39000035,South East NHS region,E38000213,NHS Coastal West Sussex CCG,815,1165
+E39000035,South East NHS region,E38000214,NHS Guildford and Waverley CCG,350,550
