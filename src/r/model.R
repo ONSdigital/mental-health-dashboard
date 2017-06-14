@@ -799,22 +799,6 @@ run_model_spending <- function(spending_data, shapefile, metadata){
 }
 
 
-specific <-subset(psychosis_started, psychosis_started$Name == "East")
-
-specific = specific[order(specific$Fraction), ]
-specific$ymax = cumsum(specific$Fraction)
-specific$ymin = c(0, head(specific$ymax, n=-1))
-
-started_waiting <- ggplot(specific, aes(fill=Waiting.Times, ymax=ymax, ymin=ymin, xmax=4, xmin=3)) +
-  geom_rect() +
-  coord_polar(theta="y") +
-  xlim(c(0, 4)) +
-  theme(panel.grid=element_blank()) +
-  theme(axis.text=element_blank()) +
-  theme(axis.ticks=element_blank()) +
-  annotate("text", x = 0, y = 0, label = "Patients who have started treatment")
-started_waiting
-
 #function to create donut chart for patients who have started treatment
 
 create_donut_started_treatment <- function(psychosis_started, nhs_region){
@@ -823,7 +807,7 @@ create_donut_started_treatment <- function(psychosis_started, nhs_region){
   specific$ymax = cumsum(specific$Fraction)
   specific$ymin = c(0, head(specific$ymax, n=-1))
   ggplot(specific, aes(fill=Waiting.Times, ymax=ymax, ymin=ymin, xmax=4, xmin=3)) +
-    geom_rect() +
+    geom_rect() + 
     coord_polar(theta="y") +
     xlim(c(0, 4)) +
     theme(panel.grid=element_blank()) +
