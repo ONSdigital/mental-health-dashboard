@@ -859,7 +859,7 @@ join_CAMHS_spending_data_to_shapefile <- function(regional_CAMHS_spending_with_r
   return(region_shapefile)
 }
 
-#Create barchart 99 - CAMHS Spending
+#Create barchart 8 - CAMHS Spending
 create_barchart_of_CAMHS_spending_by_region <- function(regional_CAMHS_spending_with_ranks, england_CAMHS_spending, nhs_region){
   
   #Order by rank
@@ -895,7 +895,7 @@ region_subset <- function(shapefile, nhs_region) {
   subset(shapefile, shapefile$Parent.Name == nhs_region)
 }
 
-# Create map 99 - GnBu
+# Create map 8 - GnBu
 create_choropleth_map_by_CAMHS_spending_GnBu <- function(shapefile, nhs_region){
   
   # Uses RColorBrewer to generate 4 classes using the "Jenks" natural breaks methods (it can use other methods also)
@@ -931,7 +931,7 @@ create_choropleth_map_by_CAMHS_spending_GnBu <- function(shapefile, nhs_region){
 }
 
 #Narrative function for CAMHS spending
-create_narrative99 <- function(model_outputs, nhs_region){
+create_narrative8 <- function(model_outputs, nhs_region){
   Eng_Average <- model_outputs[[3]]
   
   Year <- "2012/13"
@@ -974,7 +974,7 @@ model_outputs3 <- run_model(depression_review, region_shapefile, "metadata")
 model_outputs4 <- run_model_rates(suicide_rates, region_shapefile, "metadata")
 model_outputs5 <- run_model_spending(CCG_spending, region_shapefile, "metadata")
 model_outputs6 <- join_prevalence_data_to_CCG_shapefile(CCG_prevalence, CCG_shapefile)
-model_outputs99 <- run_model_CAMHS_spending(CAMHS_Spending, region_shapefile)
+model_outputs8 <- run_model_CAMHS_spending(CAMHS_Spending, region_shapefile)
 
 
 
