@@ -70,7 +70,21 @@ comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, char
            fluidRow (column(6, plotOutput(chart2_no, width = "900")),
                      (column(6, plotOutput(chart3_no, width = "975")))),
            fluidRow (column(10, h3("For more information on these datasets please see the metadata links in the relevant tabs."))
-           ))
+           ))}
+  
+  donut_tab <- function (title, header, region_no, donut1, donut2, narrative_no, metadata_url_no) {
+    tabPanel(title,(tags$style(type='text/css', 
+                               ".nav-tabs {font-size: 20px} ")),
+             fluidRow(column(1), column( 10,h1(header)),column(1)), 
+             fluidRow(column(1), column( 10,sidebarPanel( 
+               tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+               selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
+             fluidRow (column(6, plotOutput(donut1, width = "900")),
+                      (column(6, plotOutput(donut2, width = "900")))),
+             fluidRow(column(1), column(10, h2(textOutput(narrative_no)))), column(1),
+             fluidRow(column(1), column(10, h3("For more information on this dataset click",
+                                               a("here", href= metadata_url_no, target="_blank"), "."),column(1))
+             ))
 }
 
 ui <- shinyUI(
@@ -137,6 +151,14 @@ ui <- shinyUI(
                               "chartcompare2",
                               "chartcompare3",
                               "chartcompare4"),
+               
+               donut_tab("Psychosis Waiting Times",
+                          "Waiting times for patients started treatment and still waiting for treatment \n for Early Intervention Psychosis, in England, April 2017",
+                          "region9",
+                          "donut1",
+                          "donut2",
+                          "narrative9",
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md"),
                
                format_tab("Age-Standardised Suicide Rates",
                           "Age-standardised suicide rates per 100,000 population, by NHS Region \n in England, 2015 death registrations",
@@ -234,6 +256,12 @@ server <- function(input, output) {
   
   output$map5 <- renderPlot( {
     create_choropleth_map_of_spending(model_outputs5[[1]], input$region5)
+  })
+  output$donut1 <- renderPlot({
+    create_donut_started_treatment(psychosis_started, input$region9)
+  })
+  output$donut2 <- renderPlot({
+    create_donut_not_started_treatment(psychosis_not_started, input$region9)
   })
   output$chart5 <- renderPlot({
     create_barchart_of_MH_spending_by_region(model_outputs5[[2]], model_outputs5[[3]], input$region5)

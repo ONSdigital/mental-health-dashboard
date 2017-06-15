@@ -1,0 +1,53 @@
+Code,Name,Waiting_Times,Count,Fraction
+E39000018,London,< 2 weeks,113,0.729032258
+E39000018,London,2 to 6 weeks,32,0.206451613
+E39000018,London,6 to 12 weeks,6,0.038709677
+E39000018,London,Over 12 weeks,4,0.025806452
+E39000025,Wessex,< 2 weeks,32,0.727272727
+E39000025,Wessex,2 to 6 weeks,11,0.25
+E39000025,Wessex,6 to 12 weeks,1,0.022727273
+E39000025,Wessex,Over 12 weeks,0,0
+E39000026,Cheshire and Merseyside,< 2 weeks,32,0.727272727
+E39000026,Cheshire and Merseyside,2 to 6 weeks,9,0.204545455
+E39000026,Cheshire and Merseyside,6 to 12 weeks,3,0.068181818
+E39000026,Cheshire and Merseyside,Over 12 weeks,0,0
+E39000029,Yorkshire and Humber,< 2 weeks,105,0.795454545
+E39000029,Yorkshire and Humber,2 to 6 weeks,20,0.151515152
+E39000029,Yorkshire and Humber,6 to 12 weeks,5,0.037878788
+E39000029,Yorkshire and Humber,Over 12 weeks,2,0.015151515
+E39000030,Central Midlands,< 2 weeks,58,0.716049383
+E39000030,Central Midlands,2 to 6 weeks,20,0.24691358
+E39000030,Central Midlands,6 to 12 weeks,2,0.024691358
+E39000030,Central Midlands,Over 12 weeks,1,0.012345679
+E39000031,East,< 2 weeks,38,0.612903226
+E39000031,East,2 to 6 weeks,18,0.290322581
+E39000031,East,6 to 12 weeks,3,0.048387097
+E39000031,East,Over 12 weeks,3,0.048387097
+E39000032,North Midlands,< 2 weeks,33,0.75
+E39000032,North Midlands,2 to 6 weeks,10,0.227272727
+E39000032,North Midlands,6 to 12 weeks,1,0.022727273
+E39000032,North Midlands,Over 12 weeks,0,0
+E39000033,West Midlands,< 2 weeks,33,0.75
+E39000033,West Midlands,2 to 6 weeks,7,0.159090909
+E39000033,West Midlands,6 to 12 weeks,3,0.068181818
+E39000033,West Midlands,Over 12 weeks,1,0.022727273
+E39000034,South Central,< 2 weeks,31,0.720930233
+E39000034,South Central,2 to 6 weeks,10,0.23255814
+E39000034,South Central,6 to 12 weeks,2,0.046511628
+E39000034,South Central,Over 12 weeks,0,0
+E39000035,South East,< 2 weeks,41,0.745454545
+E39000035,South East,2 to 6 weeks,11,0.2
+E39000035,South East,6 to 12 weeks,3,0.054545455
+E39000035,South East,Over 12 weeks,0,0
+E39000036,South West,< 2 weeks,37,0.725490196
+E39000036,South West,2 to 6 weeks,11,0.215686275
+E39000036,South West,6 to 12 weeks,1,0.019607843
+E39000036,South West,Over 12 weeks,2,0.039215686
+E39000028,Lancashire and Greater Manchester,< 2 weeks,71,0.633928571
+E39000028,Lancashire and Greater Manchester,2 to 6 weeks,30,0.267857143
+E39000028,Lancashire and Greater Manchester,6 to 12 weeks,8,0.071428571
+E39000028,Lancashire and Greater Manchester,Over 12 weeks,3,0.026785714
+E39000039,Cumbria and North East,< 2 weeks,50,0.793650794
+E39000039,Cumbria and North East,2 to 6 weeks,12,0.19047619
+E39000039,Cumbria and North East,6 to 12 weeks,1,0.015873016
+E39000039,Cumbria and North East,Over 12 weeks,0,0
