@@ -819,7 +819,7 @@ create_donut_started_treatment <- function(psychosis_started, nhs_region){
     theme(axis.title.y = element_blank()) +
     theme(legend.text = element_text(size=14)) +
     theme(legend.title = element_text(size=14), legend.position = "bottom")+
-    scale_fill_brewer(palette = "Set1")+ 
+    scale_fill_brewer(palette = "Dark2")+ 
     geom_label(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
     annotate("text", x = 0, y = 0, label = "Patients who have \n started treatment", size=7)
 }
@@ -842,7 +842,7 @@ create_donut_not_started_treatment <- function(psychosis_not_started, nhs_region
     theme(axis.title.y = element_blank()) +
     theme(legend.text = element_text(size=14)) +
     theme(legend.title = element_text(size=14), legend.position = "bottom")+
-    scale_fill_brewer(palette = "Set1")+ 
+    scale_fill_brewer(palette = "Dark2")+ 
     geom_label(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
     annotate("text", x = 0, y = 0, label = "Patients still waiting \n to start treatment", size=7)
 }
@@ -867,15 +867,15 @@ create_narrative9 <- function(psychosis_started, psychosis_not_started, nhs_regi
   c<-" NHS region was "
   d<-StartedFraction
   e<-"%. This is "
-  f<-ifelse(StartedFraction< 50,"lower than ",
-            ifelse(StartedFraction > 50, "higher than ",
+  f<-ifelse(StartedFraction< 50,"lower (worse) than ",
+            ifelse(StartedFraction > 50, "higher (better) than ",
                    ifelse(StartedFraction <- 50, "equal to ")))
-  g<-"the Early Intervention in Psychosis Access and Waiting Time standard that requires at least 50% of people with first episode psychosis to be treated within 2 weeks of referral."
+  g<-"the Early Intervention in Psychosis Access and Waiting Time standard."
   h<-" The proportion of patients still waiting for treatment that have waited less than 2 weeks so far was  "
   i<-NotStartedFraction
   j<-"%. This is "
-  k<-ifelse(NotStartedFraction < 50,"lower than ",
-            ifelse(NotStartedFraction > 50, "higher than ",
+  k<-ifelse(NotStartedFraction < 50,"lower (worse) than ",
+            ifelse(NotStartedFraction > 50, "higher (better) than ",
                    ifelse(NotStartedFraction <- 50, "equal to ")))
   l<-" the standard."
   
