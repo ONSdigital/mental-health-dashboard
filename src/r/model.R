@@ -1118,15 +1118,15 @@ create_narrative9 <- function(psychosis_started, psychosis_not_started, nhs_regi
   Region_Name<-StartedsubsetNoNA$Name
   
   a<-"In "
-  b<-" the proportion of patients started treatment that waited less than 2 weeks in the "
+  b<-" the proportion of patients started treatment that waited fewer than 2 weeks in the "
   c<-" NHS region was "
   d<-StartedFraction
   e<-"%. This is "
   f<-ifelse(StartedFraction< 50,"lower (worse) than ",
             ifelse(StartedFraction > 50, "higher (better) than ",
                    ifelse(StartedFraction <- 50, "equal to ")))
-  g<-"the Early Intervention in Psychosis Access and Waiting Time standard."
-  h<-" The proportion of patients still waiting for treatment that have waited less than 2 weeks so far was  "
+  g<-"the Early Intervention in Psychosis Access and Waiting Time standard of 50%."
+  h<-" The proportion of patients still waiting for treatment who have been waiting for fewer than 2 weeks so far was  "
   i<-NotStartedFraction
   j<-"%. This is "
   k<-ifelse(NotStartedFraction < 50,"lower (worse) than ",
