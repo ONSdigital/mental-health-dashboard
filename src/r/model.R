@@ -34,6 +34,10 @@ Suicides_time_series_raw <- read.csv("src/r/data/REgion_Suicide_Time_Series.csv"
 CAMHS_Spending <- read.csv("src/r/data/CAMHS_Spending.csv")
 #IAPT reliable improvement data
 IAPT_improvement <- read.csv("src/r/data/IAPT-reliable-improvement.csv")
+#psychosis waited time started treatment data
+psychosis_started <- read.csv("src/r/data/waiting_times_started.csv")
+#psychosis waited time NOT started treatment data
+psychosis_not_started <- read.csv("src/r/data/waiting_times_not_started.csv")
 
 
 ####Model
@@ -1050,6 +1054,90 @@ run_model_CAMHS_spending <- function(spending_data, shapefile, metadata){
                                                                                             shapefile)
   return(list(region_shapefile_with_joined_CAMHS_spending_data, CAMHS_spending_data_with_ranks, England_CAMHS_spending))
 }
+
+##Early episode psychosis waiting times
+#function to create donut chart for patients who have started treatment
+
+create_donut_started_treatment <- function(psychosis_started, nhs_region){
+  specific <-subset(psychosis_started, psychosis_started$Name == nhs_region)
+  specific = specific[order(specific$Fraction), ]
+  specific$ymax = cumsum(specific$Fraction)
+  specific$ymin = c(0, head(specific$ymax, n=-1))
+  ggplot(specific, aes(fill=Waiting_Times, ymax=ymax, ymin=ymin, xmax=4, xmin=3), labels()) +
+    geom_rect() + 
+    coord_polar(theta="y") +
+    xlim(c(0, 4)) +
+    theme(panel.grid=element_blank()) +
+    theme(axis.text=element_blank()) +
+    theme(axis.ticks=element_blank()) +
+    theme(axis.title.x = element_blank()) +
+    theme(axis.title.y = element_blank()) +
+    theme(legend.text = element_text(size=14)) +
+    theme(legend.title = element_text(size=14), legend.position = "bottom")+
+    scale_fill_brewer(palette = "Set1")+ 
+    geom_label(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
+    annotate("text", x = 0, y = 0, label = "Patients who have \n started treatment", size=7)
+}
+#function to create donut chart for patients who have NOT started treatment
+
+create_donut_not_started_treatment <- function(psychosis_not_started, nhs_region){
+  specific <-subset(psychosis_not_started, psychosis_not_started$Name == nhs_region)
+  specific = specific[order(specific$Fraction), ]
+  specific$ymax = cumsum(specific$Fraction)
+  specific$ymin = c(0, head(specific$ymax, n=-1))
+  ggplot(specific, aes(fill=Waiting_Times, ymax=ymax, ymin=ymin, xmax=4, xmin=3), labels()) +
+    geom_rect() + 
+    coord_polar(theta="y") +
+    xlim(c(0, 4)) +
+    theme(panel.grid=element_blank()) +
+    theme(axis.text=element_blank()) +
+    theme(axis.ticks=element_blank()) +
+    theme(axis.title.x = element_blank()) +
+    theme(axis.title.y = element_blank()) +
+    theme(legend.text = element_text(size=14)) +
+    theme(legend.title = element_text(size=14), legend.position = "bottom")+
+    scale_fill_brewer(palette = "Set1")+ 
+    geom_label(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
+    annotate("text", x = 0, y = 0, label = "Patients still waiting \n to start treatment", size=7)
+}
+
+#Narrative function for waiting times
+create_narrative10 <- function(psychosis_started, psychosis_not_started, nhs_region){
+  Year <- "April 2017"
+  
+  single_region_started <- subset(psychosis_started, Name == nhs_region)
+  single_region_not_started <- subset(psychosis_not_started, Name == nhs_region)
+  Startedsubset <- subset(single_region_started, psychosis_started$Waiting_Times == "< 2 weeks")
+  StartedsubsetNoNA <- Startedsubset[rowSums(is.na(Startedsubset)) !=ncol(Startedsubset),]
+  StartedFraction <-round(StartedsubsetNoNA$Fraction*100, digits =1)
+  Notstartedsubset <- subset(single_region_not_started, psychosis_not_started$Waiting_Times == "< 2 weeks")
+  NotStartedsubsetNoNA <- Notstartedsubset[rowSums(is.na(Notstartedsubset)) !=ncol(Notstartedsubset),]
+  NotStartedFraction <- round(NotStartedsubsetNoNA$Fraction*100, digits=1)
+  
+  Region_Name<-StartedsubsetNoNA$Name
+  
+  a<-"In "
+  b<-" the proportion of patients started treatment that waited less than 2 weeks in the "
+  c<-" NHS region was "
+  d<-StartedFraction
+  e<-"%. This is "
+  f<-ifelse(StartedFraction< 50,"lower than ",
+            ifelse(StartedFraction > 50, "higher than ",
+                   ifelse(StartedFraction <- 50, "equal to ")))
+  g<-"the Early Intervention in Psychosis Access and Waiting Time standard that requires at least 50% of people with first episode psychosis to be treated within 2 weeks of referral."
+  h<-" The proportion of patients still waiting for treatment that have waited less than 2 weeks so far was  "
+  i<-NotStartedFraction
+  j<-"%. This is "
+  k<-ifelse(NotStartedFraction < 50,"lower than ",
+            ifelse(NotStartedFraction > 50, "higher than ",
+                   ifelse(NotStartedFraction <- 50, "equal to ")))
+  l<-" the standard."
+  
+  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,h,i,j,k,l, sep = "")
+  
+  return(narrative_text)
+}
+
 
 
 #Run model

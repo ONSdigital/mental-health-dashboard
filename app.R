@@ -73,6 +73,21 @@ comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, char
            ))
 }
 
+donut_tab <- function (title, header, region_no, donut1, donut2, narrative_no, metadata_url_no) {
+  tabPanel(title,(tags$style(type='text/css', 
+                             ".nav-tabs {font-size: 20px} ")),
+           fluidRow(column(1), column( 10,h1(header)),column(1)), 
+           fluidRow(column(1), column( 10,sidebarPanel( 
+             tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+             selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
+           fluidRow (column(6, plotOutput(donut1, width = "900")),
+                     (column(6, plotOutput(donut2, width = "900")))),
+           fluidRow(column(1), column(10, h2(textOutput(narrative_no)))), column(1),
+           fluidRow(column(1), column(10, h3("For more information on this dataset click",
+                                             a("here", href= metadata_url_no, target="_blank"), "."),column(1))
+           ))
+}
+
 ui <- shinyUI(
   fluidPage(
     titlePanel("Mental Health Dashboard"),
@@ -167,7 +182,15 @@ ui <- shinyUI(
                           "map9",
                           "chart9",
                           "narrative9",
-                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md")
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md"),
+               
+               donut_tab("Psychosis Waiting Times",
+                         "Waiting times for patients started treatment and still waiting for treatment \n for Early Intervention Psychosis, in England, April 2017",
+                         "region10",
+                         "donut1",
+                         "donut2",
+                         "narrative10",
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md")
                
              )
              
@@ -257,7 +280,16 @@ server <- function(input, output) {
   output$chart9 <- renderPlot({
     create_barchart_of_improvement(model_outputs9[[2]], model_outputs9[[3]], input$region9)
   })
-  output$narrative9 <- renderText({create_narrative9(model_outputs9, input$region9)})
+  output$narrative9 <- renderText({create_narrative9(model_outputs9, input$region9)
+    })
+  output$donut1 <- renderPlot({
+    create_donut_started_treatment(psychosis_started, input$region10)
+  })
+  output$donut2 <- renderPlot({
+    create_donut_not_started_treatment(psychosis_not_started, input$region10)
+  })
+  output$narrative10 <- renderText({create_narrative10(psychosis_started, psychosis_not_started, input$region10)
+  })
 }
 
 shinyApp(ui = ui, server = server) 
