@@ -263,8 +263,6 @@ server <- function(input, output) {
   output$donut2 <- renderPlot({
     create_donut_not_started_treatment(psychosis_not_started, input$region9)
   })
-  output$narrative9 <- renderText({create_narrative9(psychosis_started, psychosis_not_started, input$region9)})
-  
   output$chart5 <- renderPlot({
     create_barchart_of_MH_spending_by_region(model_outputs5[[2]], model_outputs5[[3]], input$region5)
   })

@@ -847,42 +847,6 @@ create_donut_not_started_treatment <- function(psychosis_not_started, nhs_region
     annotate("text", x = 0, y = 0, label = "Patients still waiting \n to start treatment", size=7)
 }
 
-#Narrative function for waiting times
-create_narrative9 <- function(psychosis_started, psychosis_not_started, nhs_region){
-  Year <- "April 2017"
- 
-  single_region_started <- subset(psychosis_started, Name == nhs_region)
-  single_region_not_started <- subset(psychosis_not_started, Name == nhs_region)
-  Startedsubset <- subset(single_region_started, psychosis_started$Waiting_Times == "< 2 weeks")
-  StartedsubsetNoNA <- Startedsubset[rowSums(is.na(Startedsubset)) !=ncol(Startedsubset),]
-  StartedFraction <-round(StartedsubsetNoNA$Fraction*100, digits =1)
-  Notstartedsubset <- subset(single_region_not_started, psychosis_not_started$Waiting_Times == "< 2 weeks")
-  NotStartedsubsetNoNA <- Notstartedsubset[rowSums(is.na(Notstartedsubset)) !=ncol(Notstartedsubset),]
-  NotStartedFraction <- round(NotStartedsubsetNoNA$Fraction*100, digits=1)
-  
-  Region_Name<-StartedsubsetNoNA$Name
-  
-  a<-"In "
-  b<-" the proportion of patients started treatment that waited less than 2 weeks in the "
-  c<-" NHS region was "
-  d<-StartedFraction
-  e<-"%. This is "
-  f<-ifelse(StartedFraction< 50,"lower than ",
-            ifelse(StartedFraction > 50, "higher than ",
-                   ifelse(StartedFraction <- 50, "equal to ")))
-  g<-"the Early Intervention in Psychosis Access and Waiting Time standard that requires at least 50% of people with first episode psychosis to be treated within 2 weeks of referral."
-  h<-" The proportion of patients still waiting for treatment that have waited less than 2 weeks so far was  "
-  i<-NotStartedFraction
-  j<-"%. This is "
-  k<-ifelse(NotStartedFraction < 50,"lower than ",
-            ifelse(NotStartedFraction > 50, "higher than ",
-                   ifelse(NotStartedFraction <- 50, "equal to ")))
-  l<-" the standard."
-  
-  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,h,i,j,k,l, sep = "")
-  
-  return(narrative_text)
-}
 
 #Run model
 model_outputs1 <- run_model(CCG_prevalence, region_shapefile, "metadata")
