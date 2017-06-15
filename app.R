@@ -288,7 +288,7 @@ server <- function(input, output) {
   output$donut2 <- renderPlot({
     create_donut_not_started_treatment(psychosis_not_started, input$region10)
   })
-  output$narrative10 <- renderText({create_narrative1(psychosis_started, psychosis_not_started, input$region10)
+  output$narrative10 <- renderText({create_narrative10(psychosis_started, psychosis_not_started, input$region10)
   })
 }
 
