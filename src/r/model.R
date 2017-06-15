@@ -34,6 +34,10 @@ Suicides_time_series_raw <- read.csv("src/r/data/REgion_Suicide_Time_Series.csv"
 CAMHS_Spending <- read.csv("src/r/data/CAMHS_Spending.csv")
 #IAPT reliable improvement data
 IAPT_improvement <- read.csv("src/r/data/IAPT-reliable-improvement.csv")
+#psychosis waited time started treatment data
+psychosis_started <- read.csv("src/r/data/waiting_times_started.csv")
+#psychosis waited time NOT started treatment data
+psychosis_not_started <- read.csv("src/r/data/waiting_times_not_started.csv")
 
 
 ####Model
