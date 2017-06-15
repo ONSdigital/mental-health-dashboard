@@ -97,13 +97,13 @@ ui <- shinyUI(
                
                home_tab("Overview", 
                         "This dashboard presents mental health data taken from Public Health England (PHE) Fingertips tool and the Office for National Statistics (ONS). 
-Read on to learn about England overall, or click the tabs above to explore regional breakdowns.",
+                        Read on to learn about England overall, or click the tabs above to explore regional breakdowns.",
                         "In 2013/14 the spending on mental health in England was £145.80 per 1,000 population.",
                         "In 2014/15 the overall prevalence of common mental disorders in England was 15.6%.",
                         "In 2014/15 the percentage of patients on GP practice register recorded as having depression in England was 7.3%.",
                         "In 2014/15 the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in England was 63.8%.",
                         "In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population."
-                        ),
+               ),
                
                
                format_tab("Spending on Mental Health 2013/14", 
@@ -168,13 +168,29 @@ Read on to learn about England overall, or click the tabs above to explore regio
                           "narrative4",
                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md"),
                
-              
+               
                timeseries_tab("Age-Standardised Suicide Rates Time Series",
-                          "Age-Standardised suicide rates per 100,000 population, by NHS Region \n in England 2006-2015 death registrations",
-                          "region7",
-                          "suicidestimeseries"
-                          )
-
+                              "Age-Standardised suicide rates per 100,000 population, by NHS Region \n in England 2006-2015 death registrations",
+                              "region7",
+                              "suicidestimeseries"),
+               
+               
+               format_tab("CAMHS Spending",
+                          "Percentage of mental health spend categorised under CAMHS, by NHS Region \n in England, 2012/13",
+                          "region8",
+                          "map8",
+                          "chart8",
+                          "narrative8",
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata8.md"),
+               
+               format_tab("IAPT Reliable Improvement",
+                          "Percentage of people who have completed IAPT treatment who achieved reliable improvement, by NHS Region \n in England, Q2 2016/17",
+                          "region9",
+                          "map9",
+                          "chart9",
+                          "narrative9",
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md")
+               
              )
              
       ),
@@ -256,6 +272,22 @@ server <- function(input, output) {
   
   output$suicidestimeseries <- renderPlot( {
     create_suicide_time_series(reshaped_suicide_data, input$region7)})
+  
+  output$map8 <- renderPlot( {
+    create_choropleth_map_by_CAMHS_spending_GnBu(model_outputs8[[1]], input$region8)
+  })
+  output$chart8 <- renderPlot({
+    create_barchart_of_CAMHS_spending_by_region(model_outputs8[[2]], model_outputs8[[3]], input$region8)
+  })
+  output$narrative8 <- renderText({create_narrative8(model_outputs8, input$region8)})
+  
+  output$map9 <- renderPlot( {
+    create_choropleth_map_of_IAPT_improvement(model_outputs9[[1]], input$region9)
+  })
+  output$chart9 <- renderPlot({
+    create_barchart_of_improvement(model_outputs9[[2]], model_outputs9[[3]], input$region9)
+  })
+  output$narrative9 <- renderText({create_narrative9(model_outputs9, input$region9)})
 }
 
 shinyApp(ui = ui, server = server) 
