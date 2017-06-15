@@ -1,466 +1,106 @@
-E39000018,London,         African,574000,8770,1527.9,,Black or black British
-E39000018,London,         Any other Asian background,398800,8425,2112.6,,Mixed
-E39000018,London,         Any other black background,170100,10530,6190.5,,Not known
-E39000018,London,         Any other ethnic group,175000,20885,11934.3,,Not stated
-E39000018,London,         Any other mixed background,118600,2460,2074.2,,Other ethnic groups
-E39000018,London,         Any other white background,1034300,27570,2665.6,,Unspecified
-E39000018,London,         Arab,106000,0,0,,White
-E39000018,London,         Bangladeshi,222300,5270,2370.7,,Total for Black and Minority Ethnic groups
-E39000018,London,         British,3669200,100920,2750.5,,Grand total 
-E39000018,London,         Caribbean,344500,11285,3275.8,,
-E39000018,London,         Chinese,124400,1000,803.9,,
-E39000018,London,         Gypsy or Irish Traveller,8400,0,0,,
-E39000018,London,         Indian,542700,7890,1453.8,,
-E39000018,London,         Irish,176100,5540,3145.9,,
-E39000018,London,         Not known,0,9940,0,,
-E39000018,London,         Not stated,0,15365,0,,
-E39000018,London,         Pakistani,223700,4010,1792.6,,
-E39000018,London,         Unspecified,0,0,0,,
-E39000018,London,         White and Asian,101600,0,0,,
-E39000018,London,         White and Black African,65400,0,0,,
-E39000018,London,         White and Black Caribbean,119600,1925,1609.5,,
-E39000018,London,Not known,0,9940,0,,
-E39000018,London,Not stated,0,15365,0,,
-E39000018,London,Unspecified,0,0,0,,
-E39000025,Wessex,         African,13900,155,1115.1,,
-E39000025,Wessex,         Any other Asian background,29200,0,0,,
-E39000025,Wessex,         Any other black background,2100,0,0,,
-E39000025,Wessex,         Any other ethnic group,7000,445,6357.1,,
-E39000025,Wessex,         Any other mixed background,9300,205,2204.3,,
-E39000025,Wessex,         Any other white background,88600,2210,2494.4,,
-E39000025,Wessex,         Arab,4800,0,0,,
-E39000025,Wessex,         Bangladeshi,8700,0,0,,
-E39000025,Wessex,         British,2419100,66555,2751.2,,
-E39000025,Wessex,         Caribbean,4700,0,0,,
-E39000025,Wessex,         Chinese,15500,0,0,,
-E39000025,Wessex,         Gypsy or Irish Traveller,3600,0,0,,
-E39000025,Wessex,         Indian,24700,0,0,,
-E39000025,Wessex,         Irish,15300,415,2712.4,,
-E39000025,Wessex,         Not known,0,1300,0,,
-E39000025,Wessex,         Not stated,0,17080,0,,
-E39000025,Wessex,         Pakistani,6000,0,0,,
-E39000025,Wessex,         Unspecified,0,0,0,,
-E39000025,Wessex,         White and Asian,15300,0,0,,
-E39000025,Wessex,         White and Black African,5600,0,0,,
-E39000025,Wessex,         White and Black Caribbean,10700,0,0,,
-E39000025,Wessex,Not known,0,1300,0,,
-E39000025,Wessex,Not stated,0,17080,0,,
-E39000025,Wessex,Unspecified,0,0,0,,
-E39000026,Cheshire and Merseyside,         African,11500,0,0,,
-E39000026,Cheshire and Merseyside,         Any other Asian background,9400,0,0,,
-E39000026,Cheshire and Merseyside,         Any other black background,3100,0,0,,
-E39000026,Cheshire and Merseyside,         Any other ethnic group,4800,0,0,,
-E39000026,Cheshire and Merseyside,         Any other mixed background,7300,0,0,,
-E39000026,Cheshire and Merseyside,         Any other white background,44600,1100,2466.4,,
-E39000026,Cheshire and Merseyside,         Arab,7200,0,0,,
-E39000026,Cheshire and Merseyside,         Bangladeshi,3800,0,0,,
-E39000026,Cheshire and Merseyside,         British,2235700,82130,3673.6,,
-E39000026,Cheshire and Merseyside,         Caribbean,3100,0,0,,
-E39000026,Cheshire and Merseyside,         Chinese,14800,0,0,,
-E39000026,Cheshire and Merseyside,         Gypsy or Irish Traveller,1200,0,0,,
-E39000026,Cheshire and Merseyside,         Indian,13400,0,0,,
-E39000026,Cheshire and Merseyside,         Irish,20000,615,3075,,
-E39000026,Cheshire and Merseyside,         Not known,0,4455,0,,
-E39000026,Cheshire and Merseyside,         Not stated,0,9795,0,,
-E39000026,Cheshire and Merseyside,         Pakistani,5000,0,0,,
-E39000026,Cheshire and Merseyside,         Unspecified,0,0,0,,
-E39000026,Cheshire and Merseyside,         White and Asian,8100,0,0,,
-E39000026,Cheshire and Merseyside,         White and Black African,6600,0,0,,
-E39000026,Cheshire and Merseyside,         White and Black Caribbean,10000,0,0,,
-E39000026,Cheshire and Merseyside,Not known,0,4455,0,,
-E39000026,Cheshire and Merseyside,Not stated,0,9795,0,,
-E39000026,Cheshire and Merseyside,Unspecified,0,0,0,,
-E39000029,Yorkshire and Humber,         African,46100,0,0,,
-E39000029,Yorkshire and Humber,         Any other Asian background,40200,0,0,,
-E39000029,Yorkshire and Humber,         Any other black background,11200,0,0,,
-E39000029,Yorkshire and Humber,         Any other ethnic group,19700,1210,6142.1,,
-E39000029,Yorkshire and Humber,         Any other mixed background,16300,815,5000,,
-E39000029,Yorkshire and Humber,         Any other white background,132800,4945,3723.6,,
-E39000029,Yorkshire and Humber,         Arab,21300,0,0,,
-E39000029,Yorkshire and Humber,         Bangladeshi,22600,0,0,,
-E39000029,Yorkshire and Humber,         British,4631800,148995,3216.8,,
-E39000029,Yorkshire and Humber,         Caribbean,23500,0,0,,
-E39000029,Yorkshire and Humber,         Chinese,28800,0,0,,
-E39000029,Yorkshire and Humber,         Gypsy or Irish Traveller,4600,0,0,,
-E39000029,Yorkshire and Humber,         Indian,69700,0,0,,
-E39000029,Yorkshire and Humber,         Irish,27000,1040,3851.9,,
-E39000029,Yorkshire and Humber,         Not known,0,14980,0,,
-E39000029,Yorkshire and Humber,         Not stated,0,4490,0,,
-E39000029,Yorkshire and Humber,         Pakistani,226300,0,0,,
-E39000029,Yorkshire and Humber,         Unspecified,0,0,0,,
-E39000029,Yorkshire and Humber,         White and Asian,26300,0,0,,
-E39000029,Yorkshire and Humber,         White and Black African,9500,0,0,,
-E39000029,Yorkshire and Humber,         White and Black Caribbean,33600,0,0,,
-E39000029,Yorkshire and Humber,Not known,0,14980,0,,
-E39000029,Yorkshire and Humber,Not stated,0,4490,0,,
-E39000029,Yorkshire and Humber,Unspecified,0,0,0,,
-E39000030,Central Midlands,         African,72500,0,0,,
-E39000030,Central Midlands,         Any other Asian background,56700,1165,2054.7,,
-E39000030,Central Midlands,         Any other black background,14400,0,0,,
-E39000030,Central Midlands,         Any other ethnic group,17800,875,4915.7,,
-E39000030,Central Midlands,         Any other mixed background,20700,620,2995.2,,
-E39000030,Central Midlands,         Any other white background,192300,0,0,,
-E39000030,Central Midlands,         Arab,10400,0,0,,
-E39000030,Central Midlands,         Bangladeshi,35300,0,0,,
-E39000030,Central Midlands,         British,3509600,96445,2748,,
-E39000030,Central Midlands,         Caribbean,35600,0,0,,
-E39000030,Central Midlands,         Chinese,27200,0,0,,
-E39000030,Central Midlands,         Gypsy or Irish Traveller,4200,0,0,,
-E39000030,Central Midlands,         Indian,194800,0,0,,
-E39000030,Central Midlands,         Irish,46700,1310,2805.1,,
-E39000030,Central Midlands,         Not known,0,16130,0,,
-E39000030,Central Midlands,         Not stated,0,8555,0,,
-E39000030,Central Midlands,         Pakistani,62400,0,0,,
-E39000030,Central Midlands,         Unspecified,0,0,0,,
-E39000030,Central Midlands,         White and Asian,27300,0,0,,
-E39000030,Central Midlands,         White and Black African,11500,0,0,,
-E39000030,Central Midlands,         White and Black Caribbean,35000,0,0,,
-E39000030,Central Midlands,Not known,0,16130,0,,
-E39000030,Central Midlands,Not stated,0,8555,0,,
-E39000030,Central Midlands,Unspecified,0,0,0,,
-E39000031,East,         African,36300,0,0,,
-E39000031,East,         Any other Asian background,31600,0,0,,
-E39000031,East,         Any other black background,7300,0,0,,
-E39000031,East,         Any other ethnic group,11200,840,7500,,
-E39000031,East,         Any other mixed background,17100,0,0,,
-E39000031,East,         Any other white background,170600,4855,2845.8,,
-E39000031,East,         Arab,5800,0,0,,
-E39000031,East,         Bangladeshi,10400,0,0,,
-E39000031,East,         British,3684300,91855,2493.1,,
-E39000031,East,         Caribbean,12800,0,0,,
-E39000031,East,         Chinese,21500,0,0,,
-E39000031,East,         Gypsy or Irish Traveller,6200,0,0,,
-E39000031,East,         Indian,36600,0,0,,
-E39000031,East,         Irish,27700,600,2166.1,,
-E39000031,East,         Not known,0,18530,0,,
-E39000031,East,         Not stated,0,16165,0,,
-E39000031,East,         Pakistani,20900,0,0,,
-E39000031,East,         Unspecified,0,0,0,,
-E39000031,East,         White and Asian,19200,0,0,,
-E39000031,East,         White and Black African,10100,0,0,,
-E39000031,East,         White and Black Caribbean,20400,0,0,,
-E39000031,East,Not known,0,18530,0,,
-E39000031,East,Not stated,0,16165,0,,
-E39000031,East,Unspecified,0,0,0,,
-E39000032,North Midlands,         African,21500,0,0,,
-E39000032,North Midlands,         Any other Asian background,23100,0,0,,
-E39000032,North Midlands,         Any other black background,5700,0,0,,
-E39000032,North Midlands,         Any other ethnic group,9400,1055,11223.4,,
-E39000032,North Midlands,         Any other mixed background,9800,0,0,,
-E39000032,North Midlands,         Any other white background,78700,2290,2909.8,,
-E39000032,North Midlands,         Arab,5500,0,0,,
-E39000032,North Midlands,         Bangladeshi,4600,0,0,,
-E39000032,North Midlands,         British,3164100,116580,3684.5,,
-E39000032,North Midlands,         Caribbean,20500,0,0,,
-E39000032,North Midlands,         Chinese,17200,0,0,,
-E39000032,North Midlands,         Gypsy or Irish Traveller,2300,0,0,,
-E39000032,North Midlands,         Indian,44400,905,2038.3,,
-E39000032,North Midlands,         Irish,18400,830,4510.9,,
-E39000032,North Midlands,         Not known,0,12455,0,,
-E39000032,North Midlands,         Not stated,0,10810,0,,
-E39000032,North Midlands,         Pakistani,55300,0,0,,
-E39000032,North Midlands,         Unspecified,0,0,0,,
-E39000032,North Midlands,         White and Asian,15100,0,0,,
-E39000032,North Midlands,         White and Black African,6000,0,0,,
-E39000032,North Midlands,         White and Black Caribbean,32400,650,2006.2,,
-E39000032,North Midlands,Not known,0,12455,0,,
-E39000032,North Midlands,Not stated,0,10810,0,,
-E39000032,North Midlands,Unspecified,0,0,0,,
-E39000033,West Midlands,         African,58800,0,0,,
-E39000033,West Midlands,         Any other Asian background,66000,0,0,,
-E39000033,West Midlands,         Any other black background,29800,0,0,,
-E39000033,West Midlands,         Any other ethnic group,28800,2035,7066,,
-E39000033,West Midlands,         Any other mixed background,18100,540,2983.4,,
-E39000033,West Midlands,         Any other white background,110600,3520,3182.6,,
-E39000033,West Midlands,         Arab,16900,0,0,,
-E39000033,West Midlands,         Bangladeshi,50300,0,0,,
-E39000033,West Midlands,         British,2984000,91320,3060.3,,
-E39000033,West Midlands,         Caribbean,82700,0,0,,
-E39000033,West Midlands,         Chinese,25700,0,0,,
-E39000033,West Midlands,         Gypsy or Irish Traveller,3700,0,0,,
-E39000033,West Midlands,         Indian,205800,0,0,,
-E39000033,West Midlands,         Irish,48600,1700,3497.9,,
-E39000033,West Midlands,         Not known,0,9900,0,,
-E39000033,West Midlands,         Not stated,0,5865,0,,
-E39000033,West Midlands,         Pakistani,207400,0,0,,
-E39000033,West Midlands,         Unspecified,0,0,0,,
-E39000033,West Midlands,         White and Asian,27200,0,0,,
-E39000033,West Midlands,         White and Black African,7600,0,0,,
-E39000033,West Midlands,         White and Black Caribbean,59900,0,0,,
-E39000033,West Midlands,Not known,0,9900,0,,
-E39000033,West Midlands,Not stated,0,5865,0,,
-E39000033,West Midlands,Unspecified,0,0,0,,
-E39000034,South Central,         African,34800,0,0,,
-E39000034,South Central,         Any other Asian background,45100,0,0,,
-E39000034,South Central,         Any other black background,7900,0,0,,
-E39000034,South Central,         Any other ethnic group,11700,1600,13675.2,,
-E39000034,South Central,         Any other mixed background,15900,320,2012.6,,
-E39000034,South Central,         Any other white background,161000,3095,1922.4,,
-E39000034,South Central,         Arab,6400,0,0,,
-E39000034,South Central,         Bangladeshi,8600,0,0,,
-E39000034,South Central,         British,2907000,64820,2229.8,,
-E39000034,South Central,         Caribbean,21800,595,2729.4,,
-E39000034,South Central,         Chinese,20600,0,0,,
-E39000034,South Central,         Gypsy or Irish Traveller,4100,0,0,,
-E39000034,South Central,         Indian,78200,0,0,,
-E39000034,South Central,         Irish,30600,620,2026.1,,
-E39000034,South Central,         Not known,0,0,0,,
-E39000034,South Central,         Not stated,0,15930,0,,
-E39000034,South Central,         Pakistani,71700,0,0,,
-E39000034,South Central,         Unspecified,0,0,0,,
-E39000034,South Central,         White and Asian,22300,0,0,,
-E39000034,South Central,         White and Black African,7700,0,0,,
-E39000034,South Central,         White and Black Caribbean,23900,0,0,,
-E39000034,South Central,Not known,0,0,0,,
-E39000034,South Central,Not stated,0,15930,0,,
-E39000034,South Central,Unspecified,0,0,0,,
-E39000035,South East,         African,33000,435,1318.2,,
-E39000035,South East,         Any other Asian background,54500,545,1000,,
-E39000035,South East,         Any other black background,5100,0,0,,
-E39000035,South East,         Any other ethnic group,16200,935,5771.6,,
-E39000035,South East,         Any other mixed background,20100,495,2462.7,,
-E39000035,South East,         Any other white background,190300,4320,2270.1,,
-E39000035,South East,         Arab,9600,0,0,,
-E39000035,South East,         Bangladeshi,12800,0,0,,
-E39000035,South East,         British,3849700,102565,2664.2,,
-E39000035,South East,         Caribbean,10900,0,0,,
-E39000035,South East,         Chinese,23600,0,0,,
-E39000035,South East,         Gypsy or Irish Traveller,9500,0,0,,
-E39000035,South East,         Indian,59900,0,0,,
-E39000035,South East,         Irish,38400,955,2487,,
-E39000035,South East,         Not known,0,7590,0,,
-E39000035,South East,         Not stated,0,17015,0,,
-E39000035,South East,         Pakistani,20700,0,0,,
-E39000035,South East,         Unspecified,0,0,0,,
-E39000035,South East,         White and Asian,28600,0,0,,
-E39000035,South East,         White and Black African,11500,0,0,,
-E39000035,South East,         White and Black Caribbean,19700,0,0,,
-E39000035,South East,Not known,0,7590,0,,
-E39000035,South East,Not stated,0,17015,0,,
-E39000035,South East,Unspecified,0,0,0,,
-E39000036,South West,         African,16500,0,0,,
-E39000036,South West,         Any other Asian background,14000,240,1714.3,,
-E39000036,South West,         Any other black background,8000,200,2500,,
-E39000036,South West,         Any other ethnic group,5900,645,10932.2,,
-E39000036,South West,         Any other mixed background,9000,235,2611.1,,
-E39000036,South West,         Any other white background,84700,4465,5271.5,,
-E39000036,South West,         Arab,3600,0,0,,
-E39000036,South West,         Bangladeshi,4400,0,0,,
-E39000036,South West,         British,2849900,74780,2624,,
-E39000036,South West,         Caribbean,9400,300,3191.5,,
-E39000036,South West,         Chinese,12700,0,0,,
-E39000036,South West,         Gypsy or Irish Traveller,3000,0,0,,
-E39000036,South West,         Indian,15100,0,0,,
-E39000036,South West,         Irish,15500,435,2806.5,,
-E39000036,South West,         Not known,0,0,0,,
-E39000036,South West,         Not stated,0,9835,0,,
-E39000036,South West,         Pakistani,8600,0,0,,
-E39000036,South West,         Unspecified,0,0,0,,
-E39000036,South West,         White and Asian,12000,120,1000,,
-E39000036,South West,         White and Black African,4900,90,1836.7,,
-E39000036,South West,         White and Black Caribbean,15200,205,1348.7,,
-E39000036,South West,Not known,0,0,0,,
-E39000036,South West,Not stated,0,9835,0,,
-E39000036,South West,Unspecified,0,0,0,,
-E39000039,Cumbria and North East,         African,11600,0,0,,
-E39000039,Cumbria and North East,         Any other Asian background,14900,395,2651,,
-E39000039,Cumbria and North East,         Any other black background,1100,0,0,,
-E39000039,Cumbria and North East,         Any other ethnic group,5400,415,7685.2,,
-E39000039,Cumbria and North East,         Any other mixed background,5500,195,3545.5,,
-E39000039,Cumbria and North East,         Any other white background,42800,1475,3446.3,,
-E39000039,Cumbria and North East,         Arab,6200,0,0,,
-E39000039,Cumbria and North East,         Bangladeshi,11300,0,0,,
-E39000039,Cumbria and North East,         British,2919400,101390,3473,,
-E39000039,Cumbria and North East,         Caribbean,1300,0,0,,
-E39000039,Cumbria and North East,         Chinese,15500,0,0,,
-E39000039,Cumbria and North East,         Gypsy or Irish Traveller,2100,0,0,,
-E39000039,Cumbria and North East,         Indian,16600,0,0,,
-E39000039,Cumbria and North East,         Irish,9500,385,4052.6,,
-E39000039,Cumbria and North East,         Not known,0,6270,0,,
-E39000039,Cumbria and North East,         Not stated,0,4000,0,,
-E39000039,Cumbria and North East,         Pakistani,20200,0,0,,
-E39000039,Cumbria and North East,         Unspecified,0,0,0,,
-E39000039,Cumbria and North East,         White and Asian,8900,0,0,,
-E39000039,Cumbria and North East,         White and Black African,3900,0,0,,
-E39000039,Cumbria and North East,         White and Black Caribbean,6600,0,0,,
-E39000039,Cumbria and North East,Not known,0,6270,0,,
-E39000039,Cumbria and North East,Not stated,0,4000,0,,
-E39000039,Cumbria and North East,Unspecified,0,0,0,,
-E39000040,Lancashire and South Cumbria,         African,2600,0,0,,
-E39000040,Lancashire and South Cumbria,         Any other Asian background,7500,0,0,,
-E39000040,Lancashire and South Cumbria,         Any other black background,800,0,0,,
-E39000040,Lancashire and South Cumbria,         Any other ethnic group,2200,275,12500,,
-E39000040,Lancashire and South Cumbria,         Any other mixed background,3200,0,0,,
-E39000040,Lancashire and South Cumbria,         Any other white background,28300,770,2720.8,,
-E39000040,Lancashire and South Cumbria,         Arab,2200,0,0,,
-E39000040,Lancashire and South Cumbria,         Bangladeshi,7500,0,0,,
-E39000040,Lancashire and South Cumbria,         British,1281400,46745,3648,,
-E39000040,Lancashire and South Cumbria,         Caribbean,2000,0,0,,
-E39000040,Lancashire and South Cumbria,         Chinese,6100,0,0,,
-E39000040,Lancashire and South Cumbria,         Gypsy or Irish Traveller,1200,0,0,,
-E39000040,Lancashire and South Cumbria,         Indian,39600,0,0,,
-E39000040,Lancashire and South Cumbria,         Irish,8900,320,3595.5,,
-E39000040,Lancashire and South Cumbria,         Not known,0,6855,0,,
-E39000040,Lancashire and South Cumbria,         Not stated,0,7220,0,,
-E39000040,Lancashire and South Cumbria,         Pakistani,54000,0,0,,
-E39000040,Lancashire and South Cumbria,         Unspecified,0,0,0,,
-E39000040,Lancashire and South Cumbria,         White and Asian,6000,0,0,,
-E39000040,Lancashire and South Cumbria,         White and Black African,1800,0,0,,
-E39000040,Lancashire and South Cumbria,         White and Black Caribbean,5700,0,0,,
-E39000040,Lancashire and South Cumbria,Not known,0,6855,0,,
-E39000040,Lancashire and South Cumbria,Not stated,0,7220,0,,
-E39000040,Lancashire and South Cumbria,Unspecified,0,0,0,,
-E39000037,Greater Manchester,         African,44700,745,1666.7,,
-E39000037,Greater Manchester,         Any other Asian background,28600,710,2482.5,,
-E39000037,Greater Manchester,         Any other black background,11600,360,3103.4,,
-E39000037,Greater Manchester,         Any other ethnic group,12400,1190,9596.8,,
-E39000037,Greater Manchester,         Any other mixed background,12000,365,3041.7,,
-E39000037,Greater Manchester,         Any other white background,70800,1850,2613,,
-E39000037,Greater Manchester,         Arab,15100,0,0,,
-E39000037,Greater Manchester,         Bangladeshi,34100,0,0,,
-E39000037,Greater Manchester,         British,2173400,83070,3822.1,,
-E39000037,Greater Manchester,         Caribbean,17700,805,4548,,
-E39000037,Greater Manchester,         Chinese,25900,200,772.2,,
-E39000037,Greater Manchester,         Gypsy or Irish Traveller,1700,0,0,,
-E39000037,Greater Manchester,         Indian,53600,765,1427.2,,
-E39000037,Greater Manchester,         Irish,34800,1485,4267.2,,
-E39000037,Greater Manchester,         Not known,0,12145,0,,
-E39000037,Greater Manchester,         Not stated,0,7930,0,,
-E39000037,Greater Manchester,         Pakistani,130100,2545,1956.2,,
-E39000037,Greater Manchester,         Unspecified,0,0,0,,
-E39000037,Greater Manchester,         White and Asian,15600,190,1217.9,,
-E39000037,Greater Manchester,         White and Black African,10100,0,0,,
-E39000037,Greater Manchester,         White and Black Caribbean,23300,465,1995.7,,
-E39000037,Greater Manchester,Not known,0,12145,0,,
-E39000037,Greater Manchester,Not stated,0,7930,0,,
-E39000037,Greater Manchester,Unspecified,0,0,0,,
-E39000028,Lancashire and Greater Manchester,         African,47300,745,1575.05285412262,,
-E39000028,Lancashire and Greater Manchester,         Any other Asian background,36100,710,1966.75900277008,,
-E39000028,Lancashire and Greater Manchester,         Any other black background,12400,360,2903.22580645161,,
-E39000028,Lancashire and Greater Manchester,         Any other ethnic group,14600,1465,10034.2465753425,,
-E39000028,Lancashire and Greater Manchester,         Any other mixed background,15200,365,2401.31578947368,,
-E39000028,Lancashire and Greater Manchester,         Any other white background,99100,2620,2643.79414732593,,
-E39000028,Lancashire and Greater Manchester,         Arab,17300,0,0,,
-E39000028,Lancashire and Greater Manchester,         Bangladeshi,41600,0,0,,
-E39000028,Lancashire and Greater Manchester,         British,3454800,129815,3757.5257612597,,
-E39000028,Lancashire and Greater Manchester,         Caribbean,19700,805,4086.29441624365,,
-E39000028,Lancashire and Greater Manchester,         Chinese,32000,200,625,,
-E39000028,Lancashire and Greater Manchester,         Gypsy or Irish Traveller,2900,0,0,,
-E39000028,Lancashire and Greater Manchester,         Indian,93200,765,820.815450643777,,
-E39000028,Lancashire and Greater Manchester,         Irish,43700,1805,4130.4347826087,,
-E39000028,Lancashire and Greater Manchester,         Not known,0,19000,0,,
-E39000028,Lancashire and Greater Manchester,         Not stated,0,15150,0,,
-E39000028,Lancashire and Greater Manchester,         Pakistani,184100,2545,1382.40086909288,,
-E39000028,Lancashire and Greater Manchester,         Unspecified,0,0,0,,
-E39000028,Lancashire and Greater Manchester,         White and Asian,21600,190,879.62962962963,,
-E39000028,Lancashire and Greater Manchester,         White and Black African,11900,0,0,,
-E39000028,Lancashire and Greater Manchester,         White and Black Caribbean,29000,465,1603.44827586207,,
-E39000028,Lancashire and Greater Manchester,Not known,0,19000,0,,
-E39000028,Lancashire and Greater Manchester,Not stated,0,15150,0,,
-E39000028,Lancashire and Greater Manchester,Unspecified,0,0,0,,
-NHSRLO17CD,NHSRLO17NM,Ethnicity,Population,Count,Rate,,
-E39000018,London,Asian or Asian British,1511400,26590,1759.3,,
-E39000018,London,Black or black British,1088600,30590,2810,,
-E39000018,London,Grand total ,8173900,243780,2982.4,,
-E39000018,London,Mixed,405400,5900,1455.4,,
-E39000018,London,Other ethnic groups,281100,20885,7429.7,,
-E39000018,London,Total for Black and Minority Ethnic groups,3286600,83955,2554.5,,
-E39000018,London,White,4887100,134035,2742.6,,
-E39000025,Wessex,Asian or Asian British,84300,690,818.5,,
-E39000025,Wessex,Black or black British,20800,405,1947.1,,
-E39000025,Wessex,Grand total ,2684500,89760,3343.6,,
-E39000025,Wessex,Mixed,40900,510,1246.9,,
-E39000025,Wessex,Other ethnic groups,11700,445,3803.4,,
-E39000025,Wessex,Total for Black and Minority Ethnic groups,157800,2055,1302.3,,
-E39000025,Wessex,White,2526400,69185,2738.5,,
-E39000026,Cheshire and Merseyside,Asian or Asian British,46300,700,1511.9,,
-E39000026,Cheshire and Merseyside,Black or black British,17800,0,0,,
-E39000026,Cheshire and Merseyside,Grand total ,2408800,100630,4177.6,,
-E39000026,Cheshire and Merseyside,Mixed,31400,0,0,,
-E39000026,Cheshire and Merseyside,Other ethnic groups,11800,0,0,,
-E39000026,Cheshire and Merseyside,Total for Black and Minority Ethnic groups,107400,2525,2351,,
-E39000026,Cheshire and Merseyside,White,2301600,83830,3642.2,,
-E39000029,Yorkshire and Humber,Asian or Asian British,387300,6765,1746.7,,
-E39000029,Yorkshire and Humber,Black or black British,80800,0,0,,
-E39000029,Yorkshire and Humber,Grand total ,5390400,200420,3718.1,,
-E39000029,Yorkshire and Humber,Mixed,85600,1875,2190.4,,
-E39000029,Yorkshire and Humber,Other ethnic groups,41100,1210,2944,,
-E39000029,Yorkshire and Humber,Total for Black and Minority Ethnic groups,594600,11895,2000.5,,
-E39000029,Yorkshire and Humber,White,4796000,154975,3231.3,,
-E39000030,Central Midlands,Asian or Asian British,376600,5810,1542.8,,
-E39000030,Central Midlands,Black or black British,122100,2225,1822.3,,
-E39000030,Central Midlands,Grand total ,4374800,140830,3219.1,,
-E39000030,Central Midlands,Mixed,94800,1665,1756.3,,
-E39000030,Central Midlands,Other ethnic groups,28800,875,3038.2,,
-E39000030,Central Midlands,Total for Black and Minority Ethnic groups,621700,10565,1699.4,,
-E39000030,Central Midlands,White,3752800,100850,2687.3,,
-E39000031,East,Asian or Asian British,121000,1235,1020.7,,
-E39000031,East,Black or black British,56400,870,1542.6,,
-E39000031,East,Grand total ,4149900,136945,3300,,
-E39000031,East,Mixed,66700,1045,1566.7,,
-E39000031,East,Other ethnic groups,17000,840,4941.2,,
-E39000031,East,Total for Black and Minority Ethnic groups,261100,3990,1528.2,,
-E39000031,East,White,3888600,97315,2502.6,,
-E39000032,North Midlands,Asian or Asian British,144800,2755,1902.6,,
-E39000032,North Midlands,Black or black British,47700,1910,4004.2,,
-E39000032,North Midlands,Grand total ,3534300,150075,4246.2,,
-E39000032,North Midlands,Mixed,63200,1345,2128.2,,
-E39000032,North Midlands,Other ethnic groups,14900,1055,7080.5,,
-E39000032,North Midlands,Total for Black and Minority Ethnic groups,270400,7040,2603.6,,
-E39000032,North Midlands,White,3263800,119705,3667.7,,
-E39000033,West Midlands,Asian or Asian British,555300,11120,2002.5,,
-E39000033,West Midlands,Black or black British,171200,5140,3002.3,,
-E39000033,West Midlands,Grand total ,4031600,133945,3322.4,,
-E39000033,West Midlands,Mixed,112600,2215,1967.1,,
-E39000033,West Midlands,Other ethnic groups,45400,2035,4482.4,,
-E39000033,West Midlands,Total for Black and Minority Ethnic groups,884600,20510,2318.6,,
-E39000033,West Midlands,White,3147200,96530,3067.2,,
-E39000034,South Central,Asian or Asian British,224400,2525,1125.2,,
-E39000034,South Central,Black or black British,64700,1135,1754.3,,
-E39000034,South Central,Grand total ,3479300,91115,2618.8,,
-E39000034,South Central,Mixed,69500,835,1201.4,,
-E39000034,South Central,Other ethnic groups,17900,1600,8938.5,,
-E39000034,South Central,Total for Black and Minority Ethnic groups,376400,6085,1616.6,,
-E39000034,South Central,White,3103000,68535,2208.7,,
-E39000035,South East,Asian or Asian British,171100,1645,961.4,,
-E39000035,South East,Black or black British,49400,985,1993.9,,
-E39000035,South East,Grand total ,4414000,137095,3105.9,,
-E39000035,South East,Mixed,79900,1055,1320.4,,
-E39000035,South East,Other ethnic groups,26000,935,3596.2,,
-E39000035,South East,Total for Black and Minority Ethnic groups,326400,4635,1420,,
-E39000035,South East,White,4087700,107830,2637.9,,
-E39000036,South West,Asian or Asian British,54700,625,1142.6,,
-E39000036,South West,Black or black British,33600,775,2306.5,,
-E39000036,South West,Grand total ,3091800,97635,3157.9,,
-E39000036,South West,Mixed,40900,665,1625.9,,
-E39000036,South West,Other ethnic groups,9400,645,6861.7,,
-E39000036,South West,Total for Black and Minority Ethnic groups,139000,2705,1946,,
-E39000036,South West,White,2952800,79685,2698.6,,
-E39000039,Cumbria and North East,Asian or Asian British,78700,1210,1537.5,,
-E39000039,Cumbria and North East,Black or black British,13800,325,2355.1,,
-E39000039,Cumbria and North East,Grand total ,3102700,115950,3737.1,,
-E39000039,Cumbria and North East,Mixed,24900,425,1706.8,,
-E39000039,Cumbria and North East,Other ethnic groups,11600,415,3577.6,,
-E39000039,Cumbria and North East,Total for Black and Minority Ethnic groups,129000,2370,1837.2,,
-E39000039,Cumbria and North East,White,2973900,103270,3472.5,,
-E39000040,Lancashire and South Cumbria,Asian or Asian British,115000,1925,1673.9,,
-E39000040,Lancashire and South Cumbria,Black or black British,5400,0,0,,
-E39000040,Lancashire and South Cumbria,Grand total ,1460900,64625,4423.6,,
-E39000040,Lancashire and South Cumbria,Mixed,16400,300,1829.3,,
-E39000040,Lancashire and South Cumbria,Other ethnic groups,4300,275,6395.3,,
-E39000040,Lancashire and South Cumbria,Total for Black and Minority Ethnic groups,140800,2690,1910.5,,
-E39000040,Lancashire and South Cumbria,White,1319900,47835,3624.1,,
-E39000037,Greater Manchester,Asian or Asian British,272400,4855,1782.3,,
-E39000037,Greater Manchester,Black or black British,74300,1920,2584.1,,
-E39000037,Greater Manchester,Grand total ,2715700,117030,4309.4,,
-E39000037,Greater Manchester,Mixed,61200,1205,1969,,
-E39000037,Greater Manchester,Other ethnic groups,27500,1190,4327.3,,
-E39000037,Greater Manchester,Total for Black and Minority Ethnic groups,435200,9160,2104.8,,
-E39000037,Greater Manchester,White,2280200,86415,3789.8,,
-E39000028,Lancashire and Greater Manchester,Asian or Asian British,82400,1805,2190.53398058252,,
-E39000028,Lancashire and Greater Manchester,Black or black British,4476300,141580,3162.88005719009,,
-E39000028,Lancashire and Greater Manchester,Grand total ,4154400,108875,2620.71538609667,,
-E39000028,Lancashire and Greater Manchester,Mixed,71700,1465,2043.23570432357,,
-E39000028,Lancashire and Greater Manchester,Other ethnic groups,294700,4765,1616.89854088904,,
-E39000028,Lancashire and Greater Manchester,Total for Black and Minority Ethnic groups,6980400,194950,2792.81989570798,,
-E39000028,Lancashire and Greater Manchester,White,185700,3420,1841.68012924071,,
+NHSRLO17CD,NHSRLO17NM,Ethnicity,Population,Count,Rate
+E39000018,London,Asian or Asian British,1511400,26590,1759.3
+E39000018,London,Black or black British,1088600,30590,2810
+E39000018,London,Grand total ,8173900,243780,2982.4
+E39000018,London,Mixed,405400,5900,1455.4
+E39000018,London,Other ethnic groups,281100,20885,7429.7
+E39000018,London,Total for Black and Minority Ethnic groups,3286600,83955,2554.5
+E39000018,London,White,4887100,134035,2742.6
+E39000025,Wessex,Asian or Asian British,84300,690,818.5
+E39000025,Wessex,Black or black British,20800,405,1947.1
+E39000025,Wessex,Grand total ,2684500,89760,3343.6
+E39000025,Wessex,Mixed,40900,510,1246.9
+E39000025,Wessex,Other ethnic groups,11700,445,3803.4
+E39000025,Wessex,Total for Black and Minority Ethnic groups,157800,2055,1302.3
+E39000025,Wessex,White,2526400,69185,2738.5
+E39000026,Cheshire and Merseyside,Asian or Asian British,46300,700,1511.9
+E39000026,Cheshire and Merseyside,Black or black British,17800,0,0
+E39000026,Cheshire and Merseyside,Grand total ,2408800,100630,4177.6
+E39000026,Cheshire and Merseyside,Mixed,31400,0,0
+E39000026,Cheshire and Merseyside,Other ethnic groups,11800,0,0
+E39000026,Cheshire and Merseyside,Total for Black and Minority Ethnic groups,107400,2525,2351
+E39000026,Cheshire and Merseyside,White,2301600,83830,3642.2
+E39000029,Yorkshire and Humber,Asian or Asian British,387300,6765,1746.7
+E39000029,Yorkshire and Humber,Black or black British,80800,0,0
+E39000029,Yorkshire and Humber,Grand total ,5390400,200420,3718.1
+E39000029,Yorkshire and Humber,Mixed,85600,1875,2190.4
+E39000029,Yorkshire and Humber,Other ethnic groups,41100,1210,2944
+E39000029,Yorkshire and Humber,Total for Black and Minority Ethnic groups,594600,11895,2000.5
+E39000029,Yorkshire and Humber,White,4796000,154975,3231.3
+E39000030,Central Midlands,Asian or Asian British,376600,5810,1542.8
+E39000030,Central Midlands,Black or black British,122100,2225,1822.3
+E39000030,Central Midlands,Grand total ,4374800,140830,3219.1
+E39000030,Central Midlands,Mixed,94800,1665,1756.3
+E39000030,Central Midlands,Other ethnic groups,28800,875,3038.2
+E39000030,Central Midlands,Total for Black and Minority Ethnic groups,621700,10565,1699.4
+E39000030,Central Midlands,White,3752800,100850,2687.3
+E39000031,East,Asian or Asian British,121000,1235,1020.7
+E39000031,East,Black or black British,56400,870,1542.6
+E39000031,East,Grand total ,4149900,136945,3300
+E39000031,East,Mixed,66700,1045,1566.7
+E39000031,East,Other ethnic groups,17000,840,4941.2
+E39000031,East,Total for Black and Minority Ethnic groups,261100,3990,1528.2
+E39000031,East,White,3888600,97315,2502.6
+E39000032,North Midlands,Asian or Asian British,144800,2755,1902.6
+E39000032,North Midlands,Black or black British,47700,1910,4004.2
+E39000032,North Midlands,Grand total ,3534300,150075,4246.2
+E39000032,North Midlands,Mixed,63200,1345,2128.2
+E39000032,North Midlands,Other ethnic groups,14900,1055,7080.5
+E39000032,North Midlands,Total for Black and Minority Ethnic groups,270400,7040,2603.6
+E39000032,North Midlands,White,3263800,119705,3667.7
+E39000033,West Midlands,Asian or Asian British,555300,11120,2002.5
+E39000033,West Midlands,Black or black British,171200,5140,3002.3
+E39000033,West Midlands,Grand total ,4031600,133945,3322.4
+E39000033,West Midlands,Mixed,112600,2215,1967.1
+E39000033,West Midlands,Other ethnic groups,45400,2035,4482.4
+E39000033,West Midlands,Total for Black and Minority Ethnic groups,884600,20510,2318.6
+E39000033,West Midlands,White,3147200,96530,3067.2
+E39000034,South Central,Asian or Asian British,224400,2525,1125.2
+E39000034,South Central,Black or black British,64700,1135,1754.3
+E39000034,South Central,Grand total ,3479300,91115,2618.8
+E39000034,South Central,Mixed,69500,835,1201.4
+E39000034,South Central,Other ethnic groups,17900,1600,8938.5
+E39000034,South Central,Total for Black and Minority Ethnic groups,376400,6085,1616.6
+E39000034,South Central,White,3103000,68535,2208.7
+E39000035,South East,Asian or Asian British,171100,1645,961.4
+E39000035,South East,Black or black British,49400,985,1993.9
+E39000035,South East,Grand total ,4414000,137095,3105.9
+E39000035,South East,Mixed,79900,1055,1320.4
+E39000035,South East,Other ethnic groups,26000,935,3596.2
+E39000035,South East,Total for Black and Minority Ethnic groups,326400,4635,1420
+E39000035,South East,White,4087700,107830,2637.9
+E39000036,South West,Asian or Asian British,54700,625,1142.6
+E39000036,South West,Black or black British,33600,775,2306.5
+E39000036,South West,Grand total ,3091800,97635,3157.9
+E39000036,South West,Mixed,40900,665,1625.9
+E39000036,South West,Other ethnic groups,9400,645,6861.7
+E39000036,South West,Total for Black and Minority Ethnic groups,139000,2705,1946
+E39000036,South West,White,2952800,79685,2698.6
+E39000039,Cumbria and North East,Asian or Asian British,78700,1210,1537.5
+E39000039,Cumbria and North East,Black or black British,13800,325,2355.1
+E39000039,Cumbria and North East,Grand total ,3102700,115950,3737.1
+E39000039,Cumbria and North East,Mixed,24900,425,1706.8
+E39000039,Cumbria and North East,Other ethnic groups,11600,415,3577.6
+E39000039,Cumbria and North East,Total for Black and Minority Ethnic groups,129000,2370,1837.2
+E39000039,Cumbria and North East,White,2973900,103270,3472.5
+E39000040,Lancashire and South Cumbria,Asian or Asian British,115000,1925,1673.9
+E39000040,Lancashire and South Cumbria,Black or black British,5400,0,0
+E39000040,Lancashire and South Cumbria,Grand total ,1460900,64625,4423.6
+E39000040,Lancashire and South Cumbria,Mixed,16400,300,1829.3
+E39000040,Lancashire and South Cumbria,Other ethnic groups,4300,275,6395.3
+E39000040,Lancashire and South Cumbria,Total for Black and Minority Ethnic groups,140800,2690,1910.5
+E39000040,Lancashire and South Cumbria,White,1319900,47835,3624.1
+E39000037,Greater Manchester,Asian or Asian British,272400,4855,1782.3
+E39000037,Greater Manchester,Black or black British,74300,1920,2584.1
+E39000037,Greater Manchester,Grand total ,2715700,117030,4309.4
+E39000037,Greater Manchester,Mixed,61200,1205,1969
+E39000037,Greater Manchester,Other ethnic groups,27500,1190,4327.3
+E39000037,Greater Manchester,Total for Black and Minority Ethnic groups,435200,9160,2104.8
+E39000037,Greater Manchester,White,2280200,86415,3789.8
+E39000028,Lancashire and Greater Manchester,Asian or Asian British,82400,1805,2190.53398058252
+E39000028,Lancashire and Greater Manchester,Black or black British,4476300,141580,3162.88005719009
+E39000028,Lancashire and Greater Manchester,Grand total ,4154400,108875,2620.71538609667
+E39000028,Lancashire and Greater Manchester,Mixed,71700,1465,2043.23570432357
+E39000028,Lancashire and Greater Manchester,Other ethnic groups,294700,4765,1616.89854088904
+E39000028,Lancashire and Greater Manchester,Total for Black and Minority Ethnic groups,6980400,194950,2792.81989570798
+E39000028,Lancashire and Greater Manchester,White,185700,3420,1841.68012924071
