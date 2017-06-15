@@ -56,7 +56,7 @@ donut_tab <- function(region_no, donut1, donut2, narrative_no) {
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
         , width=4)
     
-  )}
+)}
 
 
 
@@ -81,15 +81,15 @@ ui <- dashboardPage(
     tabItems(
       
       tabItem(tabName = "Home",
-              
+
               fluidRow(box("This dashboard presents mental health data taken from Public Health England (PHE) Fingertips tool and the Office for National Statistics (ONS).
-                           Read on to learn about England overall, or click the tabs on the left to explore regional breakdowns.")),
+                            Read on to learn about England overall, or click the tabs on the left to explore regional breakdowns.")),
               fluidRow(box("In 2013/14 the spending on mental health in England was £145.80 per 1,000 population.")),               
               fluidRow(box("In 2014/15 the overall prevalence of common mental disorders in England was 15.6%.")),               
               fluidRow(box("In 2014/15 the percentage of patients on GP practice register recorded as having depression in England was 7.3%.")),
               fluidRow(box("In 2014/15 the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in England was 63.8%.")),
               fluidRow(box("In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population."))),
-      
+                             
       tabItem(tabName = "CMHD_Prevalence",
               
               format_tab("region1", "map1", "chart1", "narrative1")),
@@ -135,7 +135,7 @@ ui <- dashboardPage(
               comparison_tab("regioncompare", "chartcompare1", "chartcompare2", "chartcompare3",
                              "chartcompare4"))
       
-              )
+    )
   ) 
 )
 
@@ -220,7 +220,7 @@ server <- function(input, output) {
     create_barchart_of_improvement(model_outputs9[[2]], model_outputs9[[3]], input$region9)
   })
   output$narrative9 <- renderText({create_narrative9(model_outputs9, input$region9)})
-  
+
   output$donut1 <- renderPlot({
     create_donut_started_treatment(psychosis_started, input$region10)
   })
@@ -230,7 +230,7 @@ server <- function(input, output) {
   output$narrative10 <- renderText({create_narrative10(psychosis_started, psychosis_not_started, input$region10)
   })
   
-}
+  }
 
 
 shinyApp(ui, server)
