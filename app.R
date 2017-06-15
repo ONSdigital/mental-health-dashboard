@@ -73,6 +73,21 @@ comparison_tab <- function (title, header, region_no, chart1_no, chart2_no, char
            ))
 }
 
+donut_tab <- function (title, header, region_no, donut1, donut2, narrative_no, metadata_url_no) {
+  tabPanel(title,(tags$style(type='text/css', 
+                             ".nav-tabs {font-size: 20px} ")),
+           fluidRow(column(1), column( 10,h1(header)),column(1)), 
+           fluidRow(column(1), column( 10,sidebarPanel( 
+             tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+             selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
+           fluidRow (column(6, plotOutput(donut1, width = "900")),
+                     (column(6, plotOutput(donut2, width = "900")))),
+           fluidRow(column(1), column(10, h2(textOutput(narrative_no)))), column(1),
+           fluidRow(column(1), column(10, h3("For more information on this dataset click",
+                                             a("here", href= metadata_url_no, target="_blank"), "."),column(1))
+           ))
+}
+
 ui <- shinyUI(
   fluidPage(
     titlePanel("Mental Health Dashboard"),
