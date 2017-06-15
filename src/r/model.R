@@ -1102,7 +1102,7 @@ create_donut_not_started_treatment <- function(psychosis_not_started, nhs_region
 }
 
 #Narrative function for waiting times
-create_narrative9 <- function(psychosis_started, psychosis_not_started, nhs_region){
+create_narrative10 <- function(psychosis_started, psychosis_not_started, nhs_region){
   Year <- "April 2017"
   
   single_region_started <- subset(psychosis_started, Name == nhs_region)

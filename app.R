@@ -182,7 +182,15 @@ ui <- shinyUI(
                           "map9",
                           "chart9",
                           "narrative9",
-                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md")
+                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md"),
+               
+               donut_tab("Psychosis Waiting Times",
+                         "Waiting times for patients started treatment and still waiting for treatment \n for Early Intervention Psychosis, in England, April 2017",
+                         "region10",
+                         "donut1",
+                         "donut2",
+                         "narrative10",
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md")
                
              )
              
@@ -272,7 +280,16 @@ server <- function(input, output) {
   output$chart9 <- renderPlot({
     create_barchart_of_improvement(model_outputs9[[2]], model_outputs9[[3]], input$region9)
   })
-  output$narrative9 <- renderText({create_narrative9(model_outputs9, input$region9)})
+  output$narrative9 <- renderText({create_narrative9(model_outputs9, input$region9)
+    })
+  output$donut1 <- renderPlot({
+    create_donut_started_treatment(psychosis_started, input$region10)
+  })
+  output$donut2 <- renderPlot({
+    create_donut_not_started_treatment(psychosis_not_started, input$region10)
+  })
+  output$narrative10 <- renderText({create_narrative1(psychosis_started, psychosis_not_started, input$region10)
+  })
 }
 
 shinyApp(ui = ui, server = server) 
