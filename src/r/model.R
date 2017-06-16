@@ -5,6 +5,7 @@
 #install.packages("classInt")
 #install.packages("RColorBrewer")
 #install.packages("testthat")
+#install.packages("ggrepel")
 library(data.table)
 library(dplyr)
 library(maptools)
@@ -12,6 +13,7 @@ library(ggplot2)
 library(classInt)
 library(RColorBrewer)
 library(testthat)
+library(ggrepel)
 
 ####Data
 #CCG Data
@@ -655,12 +657,12 @@ create_choropleth_map_of_rate <- function(shapefile, nhs_region){
   # Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
-         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         inset=c(-0.16), # adds space to the right of legend so it doesn't overlap with map
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
          fill = rev(ColourSchemeRed), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
-         title = "Rate (per 100,000 population)"
+         title = "Rate (per \n100,000 population)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
@@ -847,12 +849,12 @@ create_choropleth_map_of_spending <- function(shapefile, nhs_region){
   # Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
-         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         inset=c(-0.13), # adds space to the right of legend so it doesn't overlap with map
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
          fill = rev(ColourSchemePink), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
-         title = "Spending per 1,000 population (£)"
+         title = "Spending per 1,000 \n population (£)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
@@ -1079,8 +1081,8 @@ create_donut_started_treatment <- function(psychosis_started, nhs_region){
     theme(axis.title.y = element_blank()) +
     theme(legend.text = element_text(size=14)) +
     theme(legend.title = element_text(size=14), legend.position = "bottom")+
-    scale_fill_brewer(palette = "Set1")+ 
-    geom_label(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
+    scale_fill_brewer(palette = "Set3")+ 
+    geom_label_repel(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
     annotate("text", x = 0, y = 0, label = "Patients who have \n started treatment", size=7)
 }
 #function to create donut chart for patients who have NOT started treatment
@@ -1101,8 +1103,8 @@ create_donut_not_started_treatment <- function(psychosis_not_started, nhs_region
     theme(axis.title.y = element_blank()) +
     theme(legend.text = element_text(size=14)) +
     theme(legend.title = element_text(size=14), legend.position = "bottom")+
-    scale_fill_brewer(palette = "Set1")+ 
-    geom_label(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
+    scale_fill_brewer(palette = "Set3")+ 
+    geom_label_repel(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
     annotate("text", x = 0, y = 0, label = "Patients still waiting \n to start treatment", size=7)
 }
 
