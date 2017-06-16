@@ -1155,15 +1155,14 @@ create_barchart_of_ethnicity_access_region <- function(ethnicity_regions, nhs_re
   axis_labels <- element_text(face = "bold", size = 20)
   rate_labels <- element_text(size = 14, hjust = 1, colour = "black")
   eth_labels <- element_text(size = 14, vjust = 0.2, hjust = 0.5)
-  title_text <- element_text(size = 24, hjust = 0.5, face = "bold")
+  title_text <- element_text(size = 24, hjust = 0.5, face = "bold", colour = "#0000CD")
   
   #Plot
   ggplot(specific, aes(x=Ethnicity, y=Rate)) +
     theme(axis.title = axis_labels, axis.text.x = eth_labels, axis.text.y = rate_labels, plot.title = title_text) +
-    scale_fill_manual(values = Palette) +
     labs(title = nhs_region, x = "Ethnicity", y = "Rate per 100,000 population") +
     scale_y_continuous(limits = c(0, 10000)) +
-    geom_bar(stat = "identity", show.legend = FALSE, fill = c("#0000ff", "#00cc00", "#ffff00", "#ff9933", "#ff3399"))
+    geom_bar(stat = "identity", show.legend = FALSE, fill = c("#B0C4DE", "#87CEFA", "#1E90FF", "#0000CD", "#191970"))
 }
 
 #function for barchart of access by ethnicity for England
@@ -1174,13 +1173,13 @@ create_barchart_of_ethnicity_access_England <- function(ethnicity_England){
   axis_labels <- element_text(face = "bold", size = 20)
   rate_labels <- element_text(size = 14, hjust = 1, colour = "black")
   eth_labels <- element_text(size = 14, vjust = 0.2, hjust = 0.5)
-  title_text <- element_text(size = 24, hjust = 0.5, face = "bold")
+  title_text <- element_text(size = 24, hjust = 0.5, face = "bold", colour = "#0000CD")
   #Plot
   ggplot(ethnicity_England, aes(x=Ethnicity, y=Rate)) +
     theme(axis.title = axis_labels, axis.text.x = eth_labels, axis.text.y = rate_labels, plot.title = title_text) +
     labs(title = "England", x = "Ethnicity", y = "Rate per 100,000 population") +
     scale_y_continuous(limits = c(0, 10000)) +
-    geom_bar(stat = "identity", show.legend = FALSE, fill = c("#0000ff", "#00cc00", "#ffff00", "#ff9933", "#ff3399"))
+    geom_bar(stat = "identity", show.legend = FALSE, fill = c("#B0C4DE", "#87CEFA", "#1E90FF", "#0000CD", "#191970"))
 }
 
 #Run model
