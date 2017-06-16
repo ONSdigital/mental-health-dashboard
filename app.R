@@ -88,6 +88,21 @@ donut_tab <- function (title, header, region_no, donut1, donut2, narrative_no, m
            ))
 }
 
+ethnicity_tab <- function(title, header, region_no, region_chart, England_chart, narrative_no, metadata_url_no){
+  tabPanel(title, (tags$style(type='text/css', 
+                              ".nav-tabs {font-size: 20px} ")),
+           fluidRow(column(1), column( 10,h1(header)),column(1)), 
+           fluidRow(column(1), column( 10,sidebarPanel( 
+             tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+             selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
+           fluidRow (column(6, plotOutput(region_chart, width = "900")),
+                     (column(6, plotOutput(England_chart, width = "900")))),
+           fluidRow(column(1), column(10, h2(textOutput(narrative_no)))), column(1),
+           fluidRow(column(1), column(10, h3("For more information on this dataset click",
+                                             a("here", href= metadata_url_no, target="_blank"), "."),column(1))
+           ))
+}
+
 ui <- shinyUI(
   fluidPage(
     titlePanel("Mental Health Dashboard"),
@@ -190,15 +205,20 @@ ui <- shinyUI(
                          "donut1",
                          "donut2",
                          "narrative10",
-                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md")
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md"),
+               ethnicity_tab("Access to Services by Ethnicity",
+                             "Access to community mental health services by people from Black and Minority Ethnic (BME) groups, by NHS Region, \n in England, 2014/15",
+                             "region11",
+                             "region_chart",
+                             "England_chart",
+                             "narrative11",
+                             "metadata"
                
              )
              
       ),
       width = 12)
-  )
-  
-)
+  )))
 
 
 
@@ -281,7 +301,7 @@ server <- function(input, output) {
     create_barchart_of_improvement(model_outputs9[[2]], model_outputs9[[3]], input$region9)
   })
   output$narrative9 <- renderText({create_narrative9(model_outputs9, input$region9)
-    })
+  })
   output$donut1 <- renderPlot({
     create_donut_started_treatment(psychosis_started, input$region10)
   })
@@ -289,6 +309,12 @@ server <- function(input, output) {
     create_donut_not_started_treatment(psychosis_not_started, input$region10)
   })
   output$narrative10 <- renderText({create_narrative10(psychosis_started, psychosis_not_started, input$region10)
+  })
+  output$region_chart <- renderPlot({
+    create_barchart_of_ethnicity_access_region(ethnicity_regions, input$region11)
+  })
+  output$England_chart <- renderPlot({
+    create_barchart_of_ethnicity_access_England(ethnicity_England)
   })
 }
 
