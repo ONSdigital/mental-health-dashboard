@@ -13,8 +13,9 @@ library(rmarkdown)
 library(rprojroot)
 source("src/r/model.R")
 
-format_tab <- function(region_no, map_no, chart_no, narrative_no, metadata_url_no) {
+format_tab <- function(title_no, region_no, map_no, chart_no, narrative_no, metadata_url_no) {
   fluidRow(
+    box(h3(title_no), width=12),
     box(plotOutput(map_no, height = 400, width = 450), width=5, height=420),
     box(selectInput(region_no, "Please select a region",
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
@@ -26,15 +27,18 @@ format_tab <- function(region_no, map_no, chart_no, narrative_no, metadata_url_n
              )
 }
 
-CCG_tab <- function(region_no, ccgmap) {
-  fluidRow(box(selectInput(region_no, "Please select a CCG", 
+CCG_tab <- function(title_no,region_no, ccgmap) {
+  fluidRow(
+    box(h3(title_no), width=12),
+    box(selectInput(region_no, "Please select a CCG", 
                            choices = model_outputs6$Area.Name[order(model_outputs6$Area.Name)]),
                width = 4),
            box(plotOutput(ccgmap, height = 1000), width = 8))
 }
 
-timeseries_tab <- function(region_no, timeseries) {
+timeseries_tab <- function(title_no, region_no, timeseries) {
   fluidRow(
+    box(h3(title_no), width=12),
     box(selectInput(region_no, "Please select a region",
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
         , width=4),
@@ -64,10 +68,11 @@ comparison_tab <-function(title1, title2, title3, title4, region_no, chart1_no, 
 }
 
 
-donut_tab <- function(region_no, donut1, donut2, narrative_no, metadata_url_no) {
+donut_tab <- function(title_no,region_no, donut1, donut2, narrative_no, metadata_url_no) {
   fluidRow(
-    box(plotOutput(donut1, height = 400, width = 450), width=5, height=420),
-    box(plotOutput(donut2, height = 400, width = 450), width=5, height=420),
+    box(h3(title_no), width=12),
+    box(plotOutput(donut1, height = 400, width = 520), width=6, height=420),
+    box(plotOutput(donut2, height = 400, width = 520), width=6, height=420),
     box(textOutput(narrative_no), width = 5, height=200),
     box(selectInput(region_no, "Please select a region",
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
@@ -110,50 +115,84 @@ ui <- dashboardPage(
               fluidRow(box("In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population."))),
       
       tabItem(tabName = "CMHD_Prevalence",
-              
-              format_tab("region1", "map1", "chart1", "narrative1", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata1.md")),
+              format_tab("Prevalence of Common Mental Health Disorders among people aged 16 to 74, in England, by NHS Region, 2014/15", 
+                         "region1", 
+                         "map1", 
+                         "chart1", 
+                         "narrative1", 
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata1.md")),
       
       tabItem(tabName = "CCG_Prev",
-              
-              CCG_tab("region6", "ccgmap")),
+              CCG_tab("Prevalence of Common Mental Health Disorders among people aged 16 to 74, in England, by Clinical Commissioning Group, 2014/15", 
+                      "region6", 
+                      "ccgmap")),
       
       tabItem(tabName = "Depression_Prev",
-              
-              format_tab("region2", "map2", "chart2", "narrative2", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata2.md")),
+              format_tab("Percentage of patients on GP practice register, aged 18+, recorded as having depression, in England, by NHS Region, 2014/15", 
+                         "region2", 
+                         "map2", 
+                         "chart2", 
+                         "narrative2", 
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata2.md")),
       
       tabItem(tabName = "Depression_Foll",
-              
-              format_tab("region3", "map3", "chart3", "narrative3", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md")),
+              format_tab("Percentage of newly diagnosed patients with depression, aged 18+, who had a review 10-56 days after diagnosis, in England, by NHS Region, 2014/15",
+                         "region3", 
+                         "map3", 
+                         "chart3", 
+                         "narrative3", 
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md")),
       
       tabItem(tabName = "MH_Spend",
-              
-              format_tab("region5", "map5", "chart5", "narrative5", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata5.md")),
+              format_tab("Spending on mental health per 1,000 population, by NHS Region in England, 2013/14",
+                         "region5", 
+                         "map5", 
+                         "chart5", 
+                         "narrative5", 
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata5.md")),
       
       tabItem(tabName = "CAMHS_Spending",
-              
-              format_tab("region8", "map8", "chart8", "narrative8", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata8.md")),
+              format_tab("Percentage of mental health spend categorised under CAMHS, by NHS Region \n in England, 2012/13",
+                         "region8", 
+                         "map8", 
+                         "chart8", 
+                         "narrative8", 
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata8.md")),
       
       tabItem(tabName = "CAMHS_Improv",
-              
-              format_tab("region9", "map9", "chart9", "narrative9", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md")),
+              format_tab("Percentage of people who have completed IAPT treatment who achieved reliable improvement, by NHS Region \n in England, Q2 2016/17",
+                         "region9", 
+                         "map9", 
+                         "chart9", 
+                         "narrative9", 
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md")),
       
       tabItem(tabName = "Suicides",
-              
-              format_tab("region4", "map4", "chart4", "narrative4", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")),
+              format_tab("Age-standardised suicide rates per 100,000 population, by NHS Region in England, 2015 death registrations",
+                         "region4", 
+                         "map4", 
+                         "chart4", 
+                         "narrative4", 
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")),
       
       tabItem(tabName = "Suicide_Time",
-              
-              timeseries_tab("region7", "suicidestimeseries")),
+              timeseries_tab("Age-Standardised suicide rates per 100,000 population, by NHS Region in England 2006-2015 death registrations",
+                             "region7", 
+                             "suicidestimeseries")),
       
       tabItem(tabName = "Donut",
-              
-              donut_tab("region10", "donut1", "donut2", "narrative10", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata10.md")),
+              donut_tab("Waiting times for patients who have started treatment and those who are still waiting for treatment for Early Intervention Psychosis in England, April 2017",
+                        "region10", 
+                        "donut1", 
+                        "donut2", 
+                        "narrative10", 
+                        "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata10.md")),
       
       tabItem(tabName = "Comparisons",
 
               comparison_tab("CMHD Prevalence","Depression Prevalence", "Depression Follow-up", "MH Spending", 
-                             "regioncompare", "chartcompare1", "chartcompare2", "chartcompare3",
-                             "chartcompare4", "chartcompare5", "chartcompare6", "chartcompare7", "chartcompare8"))
+                             "regioncompare", "chartcompare1", "chartcompare2", "chartcompare3", "chartcompare4", 
+                             "chartcompare5", "chartcompare6", "chartcompare7", "chartcompare8"))
       
     )
   ) 
