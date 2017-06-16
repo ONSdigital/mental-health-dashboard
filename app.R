@@ -31,21 +31,25 @@ CCG_tab <- function(region_no, ccgmap) {
 }
 
 timeseries_tab <- function(region_no, timeseries) {
-  fluidRow(box(selectInput(region_no, "Please select a region",
-                           choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
-               , width=4))
-  fluidRow(box(plotOutput(timeseries, height = 400), width=12))
+  fluidRow(
+    box(selectInput(region_no, "Please select a region",
+                    choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
+        , width=4),
+    box(plotOutput(timeseries, height = 600, width = 1100), width = 12))
 }
 
-comparison_tab <- function (region_no, chart1_no, chart2_no, chart3_no, chart4_no) {
+
+comparison_tab <- function(region_no, chart1_no, chart2_no, chart3_no, chart4_no) {
   fluidRow(
-    box(selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])),
-    fluidRow((column(6, box(plotOutput(chart4_no, width = "700"), width=5),
-                     (column(6, box(plotOutput(chart1_no, width = "700"), width=5)))))),
-    fluidRow((column(6, box(plotOutput(chart2_no, width = "700"), width=5),
-                     (column(6, box(plotOutput(chart3_no, width = "700"), width=5))))))
-  )
+    box(selectInput(region_no, "Please select a region",
+                    choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)]),
+        width=4), 
+    box(plotOutput(chart4_no, width = "650"), width = 6),
+    box(plotOutput(chart1_no, width = "650"), width = 6),
+    box(plotOutput(chart2_no, width = "650"), width = 6),
+    box(plotOutput(chart3_no, width = "650"), width = 6))
 }
+
 
 donut_tab <- function(region_no, donut1, donut2, narrative_no) {
   fluidRow(
@@ -135,7 +139,7 @@ ui <- dashboardPage(
               comparison_tab("regioncompare", "chartcompare1", "chartcompare2", "chartcompare3",
                              "chartcompare4"))
       
-              )
+    )
   ) 
 )
 
