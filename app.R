@@ -110,7 +110,7 @@ ui <- dashboardPage(
     menuItem("Depression Prevalence", icon = icon("dashboard"), tabName = "Depression_Prev"),
     menuItem("Depression Follow-up", icon=icon("dashboard"), tabName="Depression_Foll"),
     menuItem("Mental Health Spending", icon=icon("dashboard"), tabName="MH_Spend"),
-    menuItem("CAMHS Reliable Improvement", icon=icon("dashboard"), tabName="CAMHS_Improv", badgeLabel = "new", badgeColor = "green"),
+    menuItem("IAPT Reliable Improvement", icon=icon("dashboard"), tabName="IAPT_Improv", badgeLabel = "new", badgeColor = "green"),
     menuItem("CAMHS Spending", icon=icon("dashboard"), tabName="CAMHS_Spending", badgeLabel = "new", badgeColor = "green"),
     menuItem("Suicide rate", icon=icon("dashboard"), tabName="Suicides"),
     menuItem("Suicide rate time series", icon=icon("dashboard"), tabName="Suicide_Time"),
@@ -176,7 +176,7 @@ ui <- dashboardPage(
                          "narrative8", 
                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata8.md")),
       
-      tabItem(tabName = "CAMHS_Improv",
+      tabItem(tabName = "IAPT_Improv",
               format_tab("Percentage of people who have completed IAPT treatment who achieved reliable improvement, by NHS Region \n in England, Q2 2016/17",
                          "region9", 
                          "map9", 
