@@ -101,21 +101,21 @@ ethnicity_tab <- function(title_no, region_no, region_chart, England_chart, meta
  )}
 
 ui <- dashboardPage(
-  dashboardHeader(title = "Mental Health Dashboard", titleWidth = 450),
+  dashboardHeader(title = "Mental Health Dashboard", titleWidth = 275),
   
-  dashboardSidebar(sidebarMenu(
+  dashboardSidebar(width = 275, sidebarMenu(
     menuItem("Homepage", icon = icon("home"), tabName = "Home"),
     menuItem("CMHD Prevalence", icon = icon("dashboard"), tabName = "CMHD_Prevalence"),
     menuItem("CCG CMHD Prevalence", icon=icon("dashboard"), tabName="CCG_Prev"),
     menuItem("Depression Prevalence", icon = icon("dashboard"), tabName = "Depression_Prev"),
     menuItem("Depression Follow-up", icon=icon("dashboard"), tabName="Depression_Foll"),
     menuItem("Mental Health Spending", icon=icon("dashboard"), tabName="MH_Spend"),
-    menuItem("CAMHS Reliable Improvement", icon=icon("dashboard"), tabName="CAMHS_Improv"),
-    menuItem("CAMHS Spending", icon=icon("dashboard"), tabName="CAMHS_Spending"),
+    menuItem("CAMHS Reliable Improvement", icon=icon("dashboard"), tabName="CAMHS_Improv", badgeLabel = "new", badgeColor = "green"),
+    menuItem("CAMHS Spending", icon=icon("dashboard"), tabName="CAMHS_Spending", badgeLabel = "new", badgeColor = "green"),
     menuItem("Suicide rate", icon=icon("dashboard"), tabName="Suicides"),
     menuItem("Suicide rate time series", icon=icon("dashboard"), tabName="Suicide_Time"),
-    menuItem("Psychosis Waiting Times", icon=icon("dashboard"), tabName="Donut"),
-    menuItem("Ethnicity", icon=icon("dashboard"), tabName="Ethnicity"),
+    menuItem("Psychosis Waiting Times", icon=icon("dashboard"), tabName="Donut", badgeLabel = "new", badgeColor = "green"),
+    menuItem("Ethnicity", icon=icon("dashboard"), tabName="Ethnicity", badgeLabel = "new", badgeColor = "green"),
     menuItem("Comparisons", icon=icon("window-restore"), tabName="Comparisons"))),
   
   dashboardBody(
