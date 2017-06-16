@@ -38,6 +38,11 @@ IAPT_improvement <- read.csv("src/r/data/IAPT-reliable-improvement.csv")
 psychosis_started <- read.csv("src/r/data/waiting_times_started.csv")
 #psychosis waited time NOT started treatment data
 psychosis_not_started <- read.csv("src/r/data/waiting_times_not_started.csv")
+#Regional ethnicity data
+ethnicity_regions <- read.csv("src/r/data/ethnicity_cmh_access_regions.csv")
+#England ethnicity data
+ethnicity_England <- read.csv("src/r/data/ethnicity_cmh_access_England.csv")
+
 
 
 ####Model
@@ -1138,7 +1143,44 @@ create_narrative10 <- function(psychosis_started, psychosis_not_started, nhs_reg
   return(narrative_text)
 }
 
+###Ethnicity access to community mental health services
 
+#function for barchart of access by ethnicity NHS region
+
+create_barchart_of_ethnicity_access_region <- function(ethnicity_regions, nhs_region){
+  #split to only one region
+  specific <- subset(ethnicity_regions, ethnicity_regions$NHSRLO17NM == nhs_region)
+  
+  #Create themes for formatting text size, colour etc
+  axis_labels <- element_text(face = "bold", size = 20)
+  rate_labels <- element_text(size = 14, hjust = 1, colour = "black")
+  eth_labels <- element_text(size = 14, vjust = 0.2, hjust = 0.5)
+  title_text <- element_text(size = 24, hjust = 0.5, face = "bold", colour = "#0000CD")
+  
+  #Plot
+  ggplot(specific, aes(x=Ethnicity, y=Rate)) +
+    theme(axis.title = axis_labels, axis.text.x = eth_labels, axis.text.y = rate_labels, plot.title = title_text) +
+    labs(title = nhs_region, x = "Ethnicity", y = "Rate per 100,000 population") +
+    scale_y_continuous(limits = c(0, 10000)) +
+    geom_bar(stat = "identity", show.legend = FALSE, fill = c("#B0C4DE", "#87CEFA", "#1E90FF", "#0000CD", "#191970"))
+}
+
+#function for barchart of access by ethnicity for England
+
+create_barchart_of_ethnicity_access_England <- function(ethnicity_England){
+  
+  #Create themes for formatting text size, colour etc
+  axis_labels <- element_text(face = "bold", size = 20)
+  rate_labels <- element_text(size = 14, hjust = 1, colour = "black")
+  eth_labels <- element_text(size = 14, vjust = 0.2, hjust = 0.5)
+  title_text <- element_text(size = 24, hjust = 0.5, face = "bold", colour = "#0000CD")
+  #Plot
+  ggplot(ethnicity_England, aes(x=Ethnicity, y=Rate)) +
+    theme(axis.title = axis_labels, axis.text.x = eth_labels, axis.text.y = rate_labels, plot.title = title_text) +
+    labs(title = "England", x = "Ethnicity", y = "Rate per 100,000 population") +
+    scale_y_continuous(limits = c(0, 10000)) +
+    geom_bar(stat = "identity", show.legend = FALSE, fill = c("#B0C4DE", "#87CEFA", "#1E90FF", "#0000CD", "#191970"))
+}
 
 #Run model
 model_outputs1 <- run_model(CCG_prevalence, region_shapefile, "metadata")
