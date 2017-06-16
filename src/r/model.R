@@ -39,9 +39,9 @@ psychosis_started <- read.csv("src/r/data/waiting_times_started.csv")
 #psychosis waited time NOT started treatment data
 psychosis_not_started <- read.csv("src/r/data/waiting_times_not_started.csv")
 #Regional ethnicity data
-ethnicity_regions <- read.csv("C:/Users/Danielle Cornish/Documents/GitHub/mental-health-dashboard/src/r/data/ethnicity_cmh_access_regions.csv")
+ethnicity_regions <- read.csv("src/r/data/ethnicity_cmh_access_regions.csv")
 #England ethnicity data
-ethnicity_England <- read.csv("C:/Users/Danielle Cornish/Documents/GitHub/mental-health-dashboard/src/r/data/ethnicity_cmh_access_England.csv")
+ethnicity_England <- read.csv("src/r/data/ethnicity_cmh_access_England.csv")
 
 
 
