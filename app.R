@@ -93,11 +93,11 @@ ethnicity_tab <- function(title_no, region_no, region_chart, England_chart, meta
          selectInput(region_no, h3("Please select a region"),
                      choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
          , width=4),
+     box(h3("For more information on this dataset click",
+            a("here", href= metadata_url_no, target="_blank"), ".")),
             box(plotOutput(region_chart, width = "900"), width = 10),
-            box(plotOutput(England_chart, width = "900"), width = 10),
-            box(h3("For more information on this dataset click",
-                                              a("here", href= metadata_url_no, target="_blank"), "."))
-            
+            box(plotOutput(England_chart, width = "900"), width = 10)
+
  )}
 
 ui <- dashboardPage(
