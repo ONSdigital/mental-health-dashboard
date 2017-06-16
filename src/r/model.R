@@ -1082,7 +1082,7 @@ create_donut_started_treatment <- function(psychosis_started, nhs_region){
     theme(axis.title.x = element_blank()) +
     theme(axis.title.y = element_blank()) +
     theme(legend.text = element_text(size=14)) +
-    theme(legend.title = element_text(size=14), legend.position = "bottom")+
+    theme(legend.title = element_text(size=14), legend.position = "right")+
     scale_fill_brewer(palette = "Set3")+ 
     geom_label_repel(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
     annotate("text", x = 0, y = 0, label = "Patients who have \n started treatment", size=7)
@@ -1105,7 +1105,7 @@ create_donut_not_started_treatment <- function(psychosis_not_started, nhs_region
     theme(axis.title.x = element_blank()) +
     theme(axis.title.y = element_blank()) +
     theme(legend.text = element_text(size=14)) +
-    theme(legend.title = element_text(size=14), legend.position = "bottom")+
+    theme(legend.title = element_text(size=14), legend.position = "right")+
     scale_fill_brewer(palette = "Set3")+ 
     geom_label_repel(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
     annotate("text", x = 0, y = 0, label = "Patients still waiting \n to start treatment", size=7)
