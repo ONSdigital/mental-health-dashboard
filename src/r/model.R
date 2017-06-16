@@ -815,6 +815,7 @@ create_suicide_time_series <- function (reshaped_suicide_data, nhs_region) {
     geom_line(size = 1.5, colour="navyblue") +
     expand_limits(y = 0) +
     theme(text = element_text(size=25)) +
+    ylim(0, 12) +
     xlab("Year") + ylab("Suicide rate per 100,000 population")
 }
 
