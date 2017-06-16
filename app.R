@@ -88,7 +88,7 @@ donut_tab <- function (title, header, region_no, donut1, donut2, narrative_no, m
            ))
 }
 
-ethnicity_tab <- function(title, header, region_no, region_chart, England_chart, narrative_no, metadata_url_no){
+ethnicity_tab <- function(title, header, region_no, region_chart, England_chart, metadata_url_no){
   tabPanel(title, (tags$style(type='text/css', 
                               ".nav-tabs {font-size: 20px} ")),
            fluidRow(column(1), column( 10,h1(header)),column(1)), 
@@ -97,7 +97,6 @@ ethnicity_tab <- function(title, header, region_no, region_chart, England_chart,
              selectInput(region_no, label = h3('Please select an NHS region'), model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])))),
            fluidRow (column(6, plotOutput(region_chart, width = "900")),
                      (column(6, plotOutput(England_chart, width = "900")))),
-           fluidRow(column(1), column(10, h2(textOutput(narrative_no)))), column(1),
            fluidRow(column(1), column(10, h3("For more information on this dataset click",
                                              a("here", href= metadata_url_no, target="_blank"), "."),column(1))
            ))
@@ -211,7 +210,6 @@ ui <- shinyUI(
                              "region11",
                              "region_chart",
                              "England_chart",
-                             "narrative11",
                              "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata11.md"
                
              )

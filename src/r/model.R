@@ -1162,6 +1162,7 @@ create_barchart_of_ethnicity_access_region <- function(ethnicity_regions, nhs_re
     theme(axis.title = axis_labels, axis.text.x = eth_labels, axis.text.y = rate_labels, plot.title = title_text) +
     scale_fill_manual(values = Palette) +
     labs(title = nhs_region, x = "Ethnicity", y = "Rate per 100,000 population") +
+    scale_y_continuous(limits = c(0, 10000)) +
     geom_bar(stat = "identity", show.legend = FALSE, fill = c("#0000ff", "#00cc00", "#ffff00", "#ff9933", "#ff3399"))
 }
 
@@ -1178,6 +1179,7 @@ create_barchart_of_ethnicity_access_England <- function(ethnicity_England){
   ggplot(ethnicity_England, aes(x=Ethnicity, y=Rate)) +
     theme(axis.title = axis_labels, axis.text.x = eth_labels, axis.text.y = rate_labels, plot.title = title_text) +
     labs(title = "England", x = "Ethnicity", y = "Rate per 100,000 population") +
+    scale_y_continuous(limits = c(0, 10000)) +
     geom_bar(stat = "identity", show.legend = FALSE, fill = c("#0000ff", "#00cc00", "#ffff00", "#ff9933", "#ff3399"))
 }
 
