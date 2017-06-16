@@ -193,7 +193,7 @@ ui <- dashboardPage(
                          "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")),
       
       tabItem(tabName = "Suicide_Time",
-              timeseries_tab("Age-Standardised suicide rates per 100,000 population, by NHS Region in England 2006-2015 death registrations",
+              timeseries_tab("Age-standardised suicide rates per 100,000 population, by NHS Region in England 2006-2015 death registrations",
                              "region7", 
                              "suicidestimeseries")),
       
