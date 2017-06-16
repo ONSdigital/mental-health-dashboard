@@ -137,7 +137,7 @@ create_barchart_of_MH_prevalence_by_region <- function(regional_prevalence_with_
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 15.75, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -168,7 +168,7 @@ create_barchart_of_depression_prevalence_by_region <- function(regional_prevalen
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 7.25, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 7.25, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -199,7 +199,7 @@ create_barchart_of_depression_review_by_region <- function(regional_prevalence_w
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 63.80, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 65, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -230,7 +230,7 @@ create_barchart_of_improvement <- function(regional_prevalence_with_ranks, engla
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 64.6, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 65.5, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -623,7 +623,7 @@ create_barchart_of_suicide_rates_by_region <- function(rates_data, England_rate,
     geom_bar(stat = "identity", colour="black", aes(fill=Region.name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_rate_line, aes(x=as.numeric(region_names), y=england_rate_rep), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 10, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 10, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -794,7 +794,7 @@ create_barchart_of_MH_spending_by_region <- function(spending_data, England_spen
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_spend_line, aes(x=as.numeric(region_names), y=england_spend_rep), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 155, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 148, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -988,7 +988,7 @@ create_barchart_of_CAMHS_spending_by_region <- function(regional_CAMHS_spending_
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_CAMHS_spending_line, aes(x=as.numeric(region_names), y=england_CAMHS_spending), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 6.3, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 6.3, label = "England", color = "navyblue", size  = 7)
   
 }
 
