@@ -1076,6 +1076,7 @@ create_donut_started_treatment <- function(psychosis_started, nhs_region){
     coord_polar(theta="y") +
     xlim(c(0, 4)) +
     theme(panel.grid=element_blank()) +
+    theme(panel.background = element_blank()) +
     theme(axis.text=element_blank()) +
     theme(axis.ticks=element_blank()) +
     theme(axis.title.x = element_blank()) +
@@ -1098,6 +1099,7 @@ create_donut_not_started_treatment <- function(psychosis_not_started, nhs_region
     coord_polar(theta="y") +
     xlim(c(0, 4)) +
     theme(panel.grid=element_blank()) +
+    theme(panel.background = element_blank()) +
     theme(axis.text=element_blank()) +
     theme(axis.ticks=element_blank()) +
     theme(axis.title.x = element_blank()) +
