@@ -67,7 +67,6 @@ comparison_tab <-function(title1, title2, title3, title4, region_no, chart1_no, 
   )
 }
 
-
 donut_tab <- function(title_no,region_no, donut1, donut2, narrative_no, metadata_url_no) {
   fluidRow(
     box(h3(title_no), width=12),
@@ -82,7 +81,18 @@ donut_tab <- function(title_no,region_no, donut1, donut2, narrative_no, metadata
     
   )}
 
-
+ethnicity_tab <- function(title_no, region_no, region_chart, England_chart, metadata_url_no){
+   fluidRow(
+     box(h3(title_no), width=12),
+     box(selectInput(region_no, "Please select a region",
+                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
+         , width=4),
+            box(plotOutput(region_chart, width = "900"), width = 10),
+            box(plotOutput(England_chart, width = "900"), width = 10),
+            box(h3("For more information on this dataset click",
+                                              a("here", href= metadata_url_no, target="_blank"), "."))
+            
+ )}
 
 ui <- dashboardPage(
   dashboardHeader(title = "Mental Health Dashboard", titleWidth = 450),
@@ -99,6 +109,7 @@ ui <- dashboardPage(
     menuItem("Suicide rate", icon=icon("dashboard"), tabName="Suicides"),
     menuItem("Suicide rate time series", icon=icon("dashboard"), tabName="Suicide_Time"),
     menuItem("Psychosis Waiting Times", icon=icon("dashboard"), tabName="Donut"),
+    menuItem("Ethnicity", icon=icon("dashboard"), tabName="Ethnicity"),
     menuItem("Comparisons", icon=icon("dashboard"), tabName="Comparisons"))),
   
   dashboardBody(
@@ -187,6 +198,14 @@ ui <- dashboardPage(
                         "donut2", 
                         "narrative10", 
                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata10.md")),
+      
+      tabItem(tabName = "Ethnicity",
+              ethnicity_tab("Access to community mental health services by ethnicity, in England, by NHS regions 2014/15",
+                           "region11",
+                           "region_chart",
+                           "England_chart",
+                           "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata11.md"
+                           )),
       
       tabItem(tabName = "Comparisons",
 
@@ -294,7 +313,10 @@ server <- function(input, output) {
     create_barchart_of_improvement(model_outputs9[[2]], model_outputs9[[3]], input$region9)
   })
   output$narrative9 <- renderText({create_narrative9(model_outputs9, input$region9)})
-  
+
+  output$narrative9 <- renderText({create_narrative9(model_outputs9, input$region9)
+  })
+
   output$donut1 <- renderPlot({
     create_donut_started_treatment(psychosis_started, input$region10)
   })
@@ -303,7 +325,13 @@ server <- function(input, output) {
   })
   output$narrative10 <- renderText({create_narrative10(psychosis_started, psychosis_not_started, input$region10)
   })
-  
+
+  output$region_chart <- renderPlot({
+    create_barchart_of_ethnicity_access_region(ethnicity_regions, input$region11)
+  })
+  output$England_chart <- renderPlot({
+    create_barchart_of_ethnicity_access_England(ethnicity_England)
+  })
 }
 
 
