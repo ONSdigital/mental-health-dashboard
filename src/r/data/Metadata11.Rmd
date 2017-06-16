@@ -1,0 +1,44 @@
+Metadata
+--------
+
+**Source:** The data used in this dashboard are taken from the NHS Digital Indicator Portal: <https://indicators.hscic.gov.uk/webview/> 
+
+**Indicator:** 2.9 Access to community mental health services by people from Black and Minority Ethnic (BME) groups. Unique Identifier: P01835.
+
+
+***Definitions:**
+Plain English description:
+CCG OIS 2.9 measures access levels to community mental health services by people from
+BME groups.
+Technical description:
+Access to community mental health services by people from BME groups, crude rates per
+100,000 population.
+
+**Numerator:** Mental Health and Learning Disabilities Data Set (MHLDDS): <http://www.hscic.gov.uk/mhldds>
+
+**Denominator:** Office for National Statistics (ONS) 2011 Census population statistics: <https://www.nomisweb.co.uk/census/2011/ks201ew>
+
+**Method:**This indicator shows the access levels for patients who have had contact with Mental Health
+services broken down by BME group. It is a rate per 100,000 population.A data period of 12 months is used to produce an annual output.
+The data fields supplied from the MHLDDS and ONS 2011 Census population are as
+follows:
+Note: All of the below fields, with the exception of ‘Population’, have been supplied by the
+HSCIC Community and Mental Health Team. The population field has been drawn from ONS
+2011 Census data.
+CCG Code
+Ethnicity Group
+ONS Population
+Number of People using adult and elderly NHS secondary mental health services
+
+
+Only contacts with mental health services that can be linked to a valid CCG have been
+extracted.
+
+The indicator is a rate per 100,000. This is calculated as a crude rate.
+
+Only higher level ethnicity categories have been used for the purposes of this dashboard. CCG level data has been aggregated up to NHS region level. 
+
+
+**Caveats:** Information on data quality is available here: <https://indicators.hscic.gov.uk/download/Clinical%20Commissioning%20Group%20Indicators/Specification/CCG_2.9_I00787_Q.pdf>
+
+For further information on this dataset see: <https://indicators.hscic.gov.uk/download/Clinical%20Commissioning%20Group%20Indicators/Specification/CCG_2.9_I00787_S.pdf>

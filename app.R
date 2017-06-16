@@ -212,7 +212,7 @@ ui <- shinyUI(
                              "region_chart",
                              "England_chart",
                              "narrative11",
-                             "metadata"
+                             "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata11.md"
                
              )
              
