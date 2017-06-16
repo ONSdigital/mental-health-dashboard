@@ -31,7 +31,7 @@ region_shapefile <- readShapePoly("src/r/data/NHS_Regions/NHS_Regions_Geography_
 #CCG Shapefile data
 CCG_shapefile <- readShapePoly("src/r/data/CCG_Shapefiles/Clinical_Commissioning_Groups_July_2015_Super_Generalised_Clipped_Boundaries_in_England.shp")
 #Suicides Time series Data
-Suicides_time_series_raw <- read.csv("src/r/data/REgion_Suicide_Time_Series.csv", check.names = F)
+Suicides_time_series_raw <- read.csv("src/r/data/Region_Suicide_Time_Series.csv", check.names = F)
 #CAMHS Spending data
 CAMHS_Spending <- read.csv("src/r/data/CAMHS_Spending.csv")
 #IAPT reliable improvement data
@@ -463,22 +463,16 @@ create_narrative1 <- function(model_outputs, nhs_region){
   Year <- "2014/15 "
   single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
   Region_Name<-single_region$Parent.Name
-  
-  a<-"In "
-  b<-" the prevalence of common mental health disorders in the "
-  c<-" NHS region was "
-  d<-single_region$prevalence
-  e<-"%. This was "
-  f<-ifelse(single_region$prevalence < Eng_Prev,"lower than ",
-            ifelse(single_region$prevalence > Eng_Prev, "higher than ",
-                   ifelse(single_region$prevalence <- Eng_Prev, "equal to ")))
-  g<-"the overall prevalence of "
-  h<- "% in England. In comparison to other NHS regions, "
-  i<-" was ranked "
-  j<-int_to_ranking(single_region$rank)
-  k<-" in England."
-  
-  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j,k, sep = "")
+  above_or_below<-ifelse(single_region$prevalence < Eng_Prev,"lower than ",
+                         ifelse(single_region$prevalence > Eng_Prev, "higher than ",
+                                ifelse(single_region$prevalence <- Eng_Prev, "equal to ")))
+  narrative_text<-paste("In ", Year, " the prevalence of common mental health disorders in the ",
+                        Region_Name," NHS region was ",
+                        single_region$prevalence,"%. This was ",
+                        above_or_below, "the overall proportion of ",
+                        Eng_Prev, "% in England. In comparison to other NHS regions, ",
+                        Region_Name," was ranked ", 
+                        int_to_ranking(single_region$rank), " in England.", sep = "")
   
   return(narrative_text)
 }
@@ -490,22 +484,16 @@ create_narrative2 <- function(model_outputs, nhs_region){
   Year <- "2014/15 "
   single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
   Region_Name<-single_region$Parent.Name
-  
-  a<-"In "
-  b<-" the percentage of patients on GP practice register recorded as having depression in the "
-  c<-" NHS region was "
-  d<-single_region$prevalence
-  e<-"%. This was "
-  f<-ifelse(single_region$prevalence < Eng_Prev,"lower than ",
-            ifelse(single_region$prevalence > Eng_Prev, "higher than ",
-                   ifelse(single_region$prevalence <- Eng_Prev, "equal to ")))
-  g<-"the overall prevalence of "
-  h<- "% in England. In comparison to other NHS regions, "
-  i<-" was ranked "
-  j<-int_to_ranking(single_region$rank)
-  k<-" in England."
-  
-  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j,k, sep = "")
+  above_or_below<-ifelse(single_region$prevalence < Eng_Prev,"lower than ",
+                         ifelse(single_region$prevalence > Eng_Prev, "higher than ",
+                                ifelse(single_region$prevalence <- Eng_Prev, "equal to ")))
+  narrative_text<-paste("In ", Year, " the percentage of patients on GP practice register recorded as having depression in the ",
+                        Region_Name," NHS region was ",
+                        single_region$prevalence,"%. This was ",
+                        above_or_below, "the overall proportion of ",
+                        Eng_Prev, "% in England. In comparison to other NHS regions, ",
+                        Region_Name," was ranked ", 
+                        int_to_ranking(single_region$rank), " in England.", sep = "")
   
   return(narrative_text)
 }
@@ -517,22 +505,16 @@ create_narrative3 <- function(model_outputs, nhs_region){
   Year <- "2014/15 "
   single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
   Region_Name<-single_region$Parent.Name
-  
-  a<-"In "
-  b<-" the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in the "
-  c<-" NHS region was "
-  d<-single_region$prevalence
-  e<-"%. This was "
-  f<-ifelse(single_region$prevalence < Eng_Prev,"lower than ",
-            ifelse(single_region$prevalence > Eng_Prev, "higher than ",
-                   ifelse(single_region$prevalence <- Eng_Prev, "equal to ")))
-  g<-"the overall proportion of "
-  h<- "% in England. In comparison to other NHS regions, "
-  i<-" was ranked "
-  j<-int_to_ranking(single_region$rank)
-  k<-" in England."
-  
-  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Prev,h,Region_Name,i,j,k, sep = "")
+  above_or_below<-ifelse(single_region$prevalence < Eng_Prev,"lower than ",
+                         ifelse(single_region$prevalence > Eng_Prev, "higher than ",
+                                ifelse(single_region$prevalence <- Eng_Prev, "equal to ")))
+  narrative_text<-paste("In ", Year, " the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in the ",
+                        Region_Name," NHS region was ",
+                        single_region$prevalence,"%. This was ",
+                        above_or_below, "the overall proportion of ",
+                        Eng_Prev, "% in England. In comparison to other NHS regions, ",
+                        Region_Name," was ranked ", 
+                        int_to_ranking(single_region$rank), " in England.", sep = "")
   
   return(narrative_text)
 }
@@ -674,22 +656,16 @@ create_narrative4 <- function(model_outputs, nhs_region){
   Year <- "2015"
   single_region <- subset(model_outputs[[1]]@data, Region.name == nhs_region)
   Region_Name<-single_region$Region.name
-  
-  a<-"In "
-  b<-" the age-standardised suicide rate in the "
-  c<-" NHS region was "
-  d<-single_region$Rate
-  e<-" per 100,000 population. This was "
-  f<-ifelse(single_region$Rate < Eng_Average,"lower than ",
-            ifelse(single_region$Rate > Eng_Average, "higher than ",
-                   ifelse(single_region$Rate <- Eng_Average, "equal to ")))
-  g<-"the average rate of "
-  h<- " per 100,000 population in England. In comparison to other NHS regions, "
-  i<-" was ranked "
-  j<-int_to_ranking(single_region$Rank)
-  k<-" in England."
-  
-  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Average,h,Region_Name,i,j,k, sep = "")
+  above_or_below<-ifelse(single_region$Rate < Eng_Average,"lower than ",
+                         ifelse(single_region$Rate > Eng_Average, "higher than ",
+                                ifelse(single_region$Rate <- Eng_Average, "equal to ")))
+  narrative_text<-paste("In ", Year, " the age-standardised suicide rate in the ",
+                        Region_Name," NHS region was ",
+                        single_region$Rate," deaths per 100,000 population. This was ",
+                        above_or_below, "the average rate of ",
+                        Eng_Average, " deaths per 100,000 population in England. In comparison to other NHS regions, ",
+                        Region_Name," was ranked ", 
+                        int_to_ranking(single_region$Rank), " in England.", sep = "")
   
   return(narrative_text)
 }
@@ -867,22 +843,16 @@ create_narrative5 <- function(model_outputs, nhs_region){
   Year <- "2013/14"
   single_region <- subset(model_outputs[[1]]@data, Parent.Name == nhs_region)
   Region_Name<-single_region$Parent.Name
-  
-  a<-"In "
-  b<-" the spending on mental health in the "
-  c<-" NHS region was £"
-  d<-single_region$CCG.spending.on.mental.health.per.capita
-  e<-"0 per 1,000 population. This was "
-  f<-ifelse(single_region$CCG.spending.on.mental.health.per.capita < Eng_Average,"lower than ",
-            ifelse(single_region$CCG.spending.on.mental.health.per.capita > Eng_Average, "higher than ",
-                   ifelse(single_region$CCG.spending.on.mental.health.per.capita <- Eng_Average, "equal to ")))
-  g<-"the average spending of £"
-  h<- "0 per 1,000 population in England. In comparison to other NHS regions, "
-  i<-" was ranked "
-  j<-int_to_ranking(single_region$rank)
-  k<-" in England."
-  
-  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,Eng_Average,h,Region_Name,i,j,k, sep = "")
+  above_or_below<-ifelse(single_region$CCG.spending.on.mental.health.per.capita < Eng_Average,"lower than ",
+                         ifelse(single_region$CCG.spending.on.mental.health.per.capita > Eng_Average, "higher than ",
+                                ifelse(single_region$CCG.spending.on.mental.health.per.capita <- Eng_Average, "equal to ")))
+  narrative_text<-paste("In ", Year, " the spending on mental health in the ",
+                        Region_Name," NHS region was £",
+                        single_region$CCG.spending.on.mental.health.per.capita,"0 per 1,000 population. This was ",
+                        above_or_below, "the average spend of £",
+                        Eng_Average, "0 per 1,000 population in England. In comparison to other NHS regions, ",
+                        Region_Name," was ranked ", 
+                        int_to_ranking(single_region$rank), " in England.", sep = "")
   
   return(narrative_text)
 }
@@ -1117,36 +1087,35 @@ create_narrative10 <- function(psychosis_started, psychosis_not_started, nhs_reg
   
   single_region_started <- subset(psychosis_started, Name == nhs_region)
   single_region_not_started <- subset(psychosis_not_started, Name == nhs_region)
-  Startedsubset <- subset(single_region_started, psychosis_started$Waiting_Times == "< 2 weeks")
+  Startedsubset <- subset(single_region_started, psychosis_started$Waiting_Times == "a. < 2 weeks")
   StartedsubsetNoNA <- Startedsubset[rowSums(is.na(Startedsubset)) !=ncol(Startedsubset),]
   StartedFraction <-round(StartedsubsetNoNA$Fraction*100, digits =1)
-  Notstartedsubset <- subset(single_region_not_started, psychosis_not_started$Waiting_Times == "< 2 weeks")
+  Notstartedsubset <- subset(single_region_not_started, psychosis_not_started$Waiting_Times == "a. < 2 weeks")
   NotStartedsubsetNoNA <- Notstartedsubset[rowSums(is.na(Notstartedsubset)) !=ncol(Notstartedsubset),]
   NotStartedFraction <- round(NotStartedsubsetNoNA$Fraction*100, digits=1)
+  NotStartedFraction1 <- 100 - NotStartedFraction
   
   Region_Name<-StartedsubsetNoNA$Name
   
-  a<-"In "
-  b<-" the proportion of patients started treatment that waited fewer than 2 weeks in the "
-  c<-" NHS region was "
-  d<-StartedFraction
-  e<-"%. This is "
-  f<-ifelse(StartedFraction< 50,"lower than ",
-            ifelse(StartedFraction > 50, "higher than ",
-                   ifelse(StartedFraction <- 50, "equal to ")))
-  g<-"the Early Intervention in Psychosis Access and Waiting Time standard that requires at least 50% of people with first episode psychosis to be treated within 2 weeks of referral."
-  h<-" The proportion of patients still waiting for treatment that had been waiting fewer than 2 weeks so far was  "
-  i<-NotStartedFraction
-  j<-"%. This is "
-  k<-ifelse(NotStartedFraction < 50,"lower than ",
-            ifelse(NotStartedFraction > 50, "higher than ",
-                   ifelse(NotStartedFraction <- 50, "equal to ")))
-  l<-" the standard."
-  
-  narrative_text<-paste(a,Year,b,Region_Name,c,d,e,f,g,h,i,j,k,l, sep = "")
+  above_or_below1<-ifelse(StartedFraction < 50 ,"worse than ",
+                         ifelse(StartedFraction > 50 , "better than ",
+                                ifelse(StartedFraction <- 50 , "equal to ")))
+  above_or_below2<-ifelse(NotStartedFraction1 < 50 ,"better than ",
+                          ifelse(NotStartedFraction1 > 50 , "worse than ",
+                                 ifelse(NotStartedFraction1 <- 50 , "equal to ")))
+  narrative_text<-paste("In ", Year, " the proportion of patients starting treatment that waited fewer than 2 weeks in the ",
+                        Region_Name," NHS region was ",
+                        StartedFraction,"%. This is ",
+                        above_or_below1, "the Early Intervention in Psychosis Access and Waiting Time standard that 
+                                        requires at least 50% of people with first episode psychosis to be treated 
+                                        within 2 weeks of referral. The proportion of patients still waiting for 
+                                        treatment that had been waiting longer than 2 weeks was ",
+                        NotStartedFraction1, "%. This is ",
+                        above_or_below2," the standard.", sep = "")
   
   return(narrative_text)
 }
+
 
 ###Ethnicity access to community mental health services
 
