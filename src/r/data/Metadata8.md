@@ -1,0 +1,32 @@
+Metadata
+--------
+
+**Source:** The data used in this dashboard are taken from the PHE
+fingertips tool:
+<https://fingertips.phe.org.uk/search/camhs#page/6/gid/1/pat/46/par/E39000030/ati/19/are/E38000010/iid/90897/age/173/sex/4>
+and then aggregated up to NHS region level.
+
+**Indicator:** % Spend on CAMHS: % of mental health spend categorised
+under CAMHS (mapped from PCT).
+
+**Rationale:** This indicator gives information on how much of mental
+health spending is spent on Child and Adolescent Mental Health Services
+
+**Numerator:** Total spend on CAMHS
+
+**Denominator:** Total spend on mental health
+
+**Caveats:** As this indicator uses data from prior to the introduction
+of CCGs, and for this time period programme budgeting data is only
+available at PCT level the rate of spend for the 'parent' PCT has been
+used. The 'parent' PCT is the PCT in which the majority of the CCG
+population are located based on GP practice lists. For example if a CCG
+has 60% of their registered popualtion within practices previously part
+of PCT A and 40% previously in PCT B the CCG has been allcoated data for
+PCT A. This indicator is sourced from programme budgeting data. All
+Child and Adolescent Mental Health Services (CAMHS) expenditure should
+be included within programme category 5d, ‘Mental Health Disorders -
+Child and Adolescent’. This relates to all child and adolescent mental
+health treatments including substance misuse and psychotic disorders.
+2012-13 Programme Budgeting Guidance can be accessed from
+<http://www.networks.nhs.uk/nhs-networks/health-investment-network>
