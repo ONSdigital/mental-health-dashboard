@@ -137,7 +137,7 @@ create_barchart_of_MH_prevalence_by_region <- function(regional_prevalence_with_
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 16.25, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 15.75, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -168,7 +168,7 @@ create_barchart_of_depression_prevalence_by_region <- function(regional_prevalen
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 7.25, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 7.25, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -199,7 +199,7 @@ create_barchart_of_depression_review_by_region <- function(regional_prevalence_w
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 63.80, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 65, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -230,7 +230,7 @@ create_barchart_of_improvement <- function(regional_prevalence_with_ranks, engla
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_prevalence_line, aes(x=as.numeric(region_names), y=england_prev), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 64.6, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 65.5, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -623,7 +623,7 @@ create_barchart_of_suicide_rates_by_region <- function(rates_data, England_rate,
     geom_bar(stat = "identity", colour="black", aes(fill=Region.name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_rate_line, aes(x=as.numeric(region_names), y=england_rate_rep), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 10, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 10, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -794,7 +794,7 @@ create_barchart_of_MH_spending_by_region <- function(spending_data, England_spen
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_spend_line, aes(x=as.numeric(region_names), y=england_spend_rep), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 155, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 148, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -815,6 +815,7 @@ create_suicide_time_series <- function (reshaped_suicide_data, nhs_region) {
     geom_line(size = 1.5, colour="navyblue") +
     expand_limits(y = 0) +
     theme(text = element_text(size=25)) +
+    ylim(0, 12) +
     xlab("Year") + ylab("Suicide rate per 100,000 population")
 }
 
@@ -987,7 +988,7 @@ create_barchart_of_CAMHS_spending_by_region <- function(regional_CAMHS_spending_
     geom_bar(stat = "identity", colour="black", aes(fill=Parent.Name==nhs_region), show.legend = FALSE) +
     
     geom_line(data = england_CAMHS_spending_line, aes(x=as.numeric(region_names), y=england_CAMHS_spending), color = "navyblue", size = 2) +
-    annotate("text", x=0.75, y= 6.3, label = "England average", color = "navyblue", size  = 7)
+    annotate("text", x=0.75, y= 6.3, label = "England", color = "navyblue", size  = 7)
   
 }
 
@@ -1075,12 +1076,13 @@ create_donut_started_treatment <- function(psychosis_started, nhs_region){
     coord_polar(theta="y") +
     xlim(c(0, 4)) +
     theme(panel.grid=element_blank()) +
+    theme(panel.background = element_blank()) +
     theme(axis.text=element_blank()) +
     theme(axis.ticks=element_blank()) +
     theme(axis.title.x = element_blank()) +
     theme(axis.title.y = element_blank()) +
     theme(legend.text = element_text(size=14)) +
-    theme(legend.title = element_text(size=14), legend.position = "bottom")+
+    theme(legend.title = element_text(size=14), legend.position = "right")+
     scale_fill_brewer(palette = "Set3")+ 
     geom_label_repel(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
     annotate("text", x = 0, y = 0, label = "Patients who have \n started treatment", size=7)
@@ -1097,12 +1099,13 @@ create_donut_not_started_treatment <- function(psychosis_not_started, nhs_region
     coord_polar(theta="y") +
     xlim(c(0, 4)) +
     theme(panel.grid=element_blank()) +
+    theme(panel.background = element_blank()) +
     theme(axis.text=element_blank()) +
     theme(axis.ticks=element_blank()) +
     theme(axis.title.x = element_blank()) +
     theme(axis.title.y = element_blank()) +
     theme(legend.text = element_text(size=14)) +
-    theme(legend.title = element_text(size=14), legend.position = "bottom")+
+    theme(legend.title = element_text(size=14), legend.position = "right")+
     scale_fill_brewer(palette = "Set3")+ 
     geom_label_repel(aes(label=paste(round((Fraction*100), digits =1), "%"),x=3.5,y=(ymin+ymax)/2), position = "dodge", show.legend = FALSE, size=6) +
     annotate("text", x = 0, y = 0, label = "Patients still waiting \n to start treatment", size=7)
@@ -1124,7 +1127,7 @@ create_narrative10 <- function(psychosis_started, psychosis_not_started, nhs_reg
   Region_Name<-StartedsubsetNoNA$Name
   
   a<-"In "
-  b<-" the proportion of patients started treatment that waited less than 2 weeks in the "
+  b<-" the proportion of patients started treatment that waited fewer than 2 weeks in the "
   c<-" NHS region was "
   d<-StartedFraction
   e<-"%. This is "
@@ -1132,7 +1135,7 @@ create_narrative10 <- function(psychosis_started, psychosis_not_started, nhs_reg
             ifelse(StartedFraction > 50, "higher than ",
                    ifelse(StartedFraction <- 50, "equal to ")))
   g<-"the Early Intervention in Psychosis Access and Waiting Time standard that requires at least 50% of people with first episode psychosis to be treated within 2 weeks of referral."
-  h<-" The proportion of patients still waiting for treatment that have waited less than 2 weeks so far was  "
+  h<-" The proportion of patients still waiting for treatment that had been waiting fewer than 2 weeks so far was  "
   i<-NotStartedFraction
   j<-"%. This is "
   k<-ifelse(NotStartedFraction < 50,"lower than ",
