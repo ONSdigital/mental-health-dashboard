@@ -657,12 +657,12 @@ create_choropleth_map_of_rate <- function(shapefile, nhs_region){
   # Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
-         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         inset=c(-0.16), # adds space to the right of legend so it doesn't overlap with map
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
          fill = rev(ColourSchemeRed), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
-         title = "Rate (per 100,000 population)"
+         title = "Rate (per \n100,000 population)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
@@ -849,12 +849,12 @@ create_choropleth_map_of_spending <- function(shapefile, nhs_region){
   # Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
-         inset=c(-0.07), # adds space to the right of legend so it doesn't overlap with map
+         inset=c(-0.13), # adds space to the right of legend so it doesn't overlap with map
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
          fill = rev(ColourSchemePink), # use the colour scheme created earlier
          bty = "n",
          cex = 1.8, #expansion factor - expands text to make larger
-         title = "Spending per 1,000 population (£)"
+         title = "Spending per 1,000 \n population (£)"
   )
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
