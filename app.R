@@ -38,16 +38,26 @@ timeseries_tab <- function(region_no, timeseries) {
     box(plotOutput(timeseries, height = 600, width = 1100), width = 12))
 }
 
-
-comparison_tab <- function(region_no, chart1_no, chart2_no, chart3_no, chart4_no) {
+comparison_tab <-function(title1, title2, title3, title4, region_no, chart1_no, chart2_no, chart3_no, chart4_no, chart5_no, chart6_no, chart7_no, chart8_no) {
   fluidRow(
     box(selectInput(region_no, "Please select a region",
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)]),
-        width=4), 
-    box(plotOutput(chart4_no, width = "650"), width = 6),
-    box(plotOutput(chart1_no, width = "650"), width = 6),
-    box(plotOutput(chart2_no, width = "650"), width = 6),
-    box(plotOutput(chart3_no, width = "650"), width = 6))
+        width=7),
+
+    tabBox(
+    side = "left",
+    tabPanel(title1, plotOutput(chart1_no)),
+    tabPanel(title2, plotOutput(chart2_no)),
+    tabPanel(title3, plotOutput(chart3_no)),
+    tabPanel(title4, plotOutput(chart4_no)), width = 11),
+
+  tabBox(
+    side = "left",
+    tabPanel(title1, plotOutput(chart5_no)),
+    tabPanel(title2, plotOutput(chart6_no)),
+    tabPanel(title3, plotOutput(chart7_no)),
+    tabPanel(title4, plotOutput(chart8_no)), width = 11)
+  )
 }
 
 
@@ -135,9 +145,10 @@ ui <- dashboardPage(
               donut_tab("region10", "donut1", "donut2", "narrative10")),
       
       tabItem(tabName = "Comparisons",
-              
-              comparison_tab("regioncompare", "chartcompare1", "chartcompare2", "chartcompare3",
-                             "chartcompare4"))
+
+              comparison_tab("CMHD Prevalence","Depression Prevalence", "Depression Follow-up", "MH Spending", 
+                             "regioncompare", "chartcompare1", "chartcompare2", "chartcompare3",
+                             "chartcompare4", "chartcompare5", "chartcompare6", "chartcompare7", "chartcompare8"))
       
     )
   ) 
@@ -176,6 +187,7 @@ server <- function(input, output) {
     create_barchart_of_depression_review_by_region(model_outputs3[[2]], model_outputs3[[3]], input$region3)
   })
   output$narrative3 <- renderText({create_narrative3(model_outputs3, input$region3)})
+  
   output$chartcompare1 <- renderPlot({
     create_barchart_of_MH_prevalence_by_region(model_outputs1[[2]], model_outputs1[[3]], input$regioncompare)
   })
@@ -187,6 +199,20 @@ server <- function(input, output) {
   })
   
   output$chartcompare4 <- renderPlot({
+    create_barchart_of_MH_spending_by_region(model_outputs5[[2]], model_outputs5[[3]], input$regioncompare)
+  })
+  
+  output$chartcompare5 <- renderPlot({
+    create_barchart_of_MH_prevalence_by_region(model_outputs1[[2]], model_outputs1[[3]], input$regioncompare)
+  })
+  output$chartcompare6 <- renderPlot({
+    create_barchart_of_depression_prevalence_by_region(model_outputs2[[2]], model_outputs2[[3]], input$regioncompare)
+  })
+  output$chartcompare7 <- renderPlot({
+    create_barchart_of_depression_review_by_region(model_outputs3[[2]], model_outputs3[[3]], input$regioncompare)
+  })
+  
+  output$chartcompare8 <- renderPlot({
     create_barchart_of_MH_spending_by_region(model_outputs5[[2]], model_outputs5[[3]], input$regioncompare)
   })
   
