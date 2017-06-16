@@ -13,14 +13,17 @@ library(rmarkdown)
 library(rprojroot)
 source("src/r/model.R")
 
-format_tab <- function(region_no, map_no, chart_no, narrative_no) {
+format_tab <- function(region_no, map_no, chart_no, narrative_no, metadata_url_no) {
   fluidRow(
     box(plotOutput(map_no, height = 400, width = 450), width=5, height=420),
     box(selectInput(region_no, "Please select a region",
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
         , width=4),
     box(textOutput(narrative_no), width = 4, height=150),
-    box(plotOutput(chart_no, height = 400, width = 1100), width=12))
+    box(plotOutput(chart_no, height = 400, width = 1100), width=12),
+    box(h3("For more information on this dataset click",
+                                      a("here", href= metadata_url_no, target="_blank"), "."))
+             )
 }
 
 CCG_tab <- function(region_no, ccgmap) {
@@ -61,14 +64,16 @@ comparison_tab <-function(title1, title2, title3, title4, region_no, chart1_no, 
 }
 
 
-donut_tab <- function(region_no, donut1, donut2, narrative_no) {
+donut_tab <- function(region_no, donut1, donut2, narrative_no, metadata_url_no) {
   fluidRow(
     box(plotOutput(donut1, height = 400, width = 450), width=5, height=420),
     box(plotOutput(donut2, height = 400, width = 450), width=5, height=420),
     box(textOutput(narrative_no), width = 5, height=200),
     box(selectInput(region_no, "Please select a region",
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
-        , width=4)
+        , width=4),
+    box(h3("For more information on this dataset click",
+           a("here", href= metadata_url_no, target="_blank"), "."))
     
   )}
 
@@ -106,7 +111,7 @@ ui <- dashboardPage(
       
       tabItem(tabName = "CMHD_Prevalence",
               
-              format_tab("region1", "map1", "chart1", "narrative1")),
+              format_tab("region1", "map1", "chart1", "narrative1", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata1.md")),
       
       tabItem(tabName = "CCG_Prev",
               
@@ -114,27 +119,27 @@ ui <- dashboardPage(
       
       tabItem(tabName = "Depression_Prev",
               
-              format_tab("region2", "map2", "chart2", "narrative2")),
+              format_tab("region2", "map2", "chart2", "narrative2", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata2.md")),
       
       tabItem(tabName = "Depression_Foll",
               
-              format_tab("region3", "map3", "chart3", "narrative3")),
+              format_tab("region3", "map3", "chart3", "narrative3", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata3.md")),
       
       tabItem(tabName = "MH_Spend",
               
-              format_tab("region5", "map5", "chart5", "narrative5")),
+              format_tab("region5", "map5", "chart5", "narrative5", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata5.md")),
       
       tabItem(tabName = "CAMHS_Spending",
               
-              format_tab("region8", "map8", "chart8", "narrative8")),
+              format_tab("region8", "map8", "chart8", "narrative8", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata8.md")),
       
       tabItem(tabName = "CAMHS_Improv",
               
-              format_tab("region9", "map9", "chart9", "narrative9")),
+              format_tab("region9", "map9", "chart9", "narrative9", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md")),
       
       tabItem(tabName = "Suicides",
               
-              format_tab("region4", "map4", "chart4", "narrative4")),
+              format_tab("region4", "map4", "chart4", "narrative4", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata4.md")),
       
       tabItem(tabName = "Suicide_Time",
               
@@ -142,7 +147,7 @@ ui <- dashboardPage(
       
       tabItem(tabName = "Donut",
               
-              donut_tab("region10", "donut1", "donut2", "narrative10")),
+              donut_tab("region10", "donut1", "donut2", "narrative10", "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata10.md")),
       
       tabItem(tabName = "Comparisons",
 
