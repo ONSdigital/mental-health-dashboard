@@ -204,7 +204,7 @@ ui <- shinyUI(
                          "donut1",
                          "donut2",
                          "narrative10",
-                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata9.md"),
+                         "https://github.com/ONSdigital/mental-health-dashboard/blob/master/src/r/data/Metadata10.md"),
                ethnicity_tab("Access to Services by Ethnicity",
                              "Access to community mental health services by people from Black and Minority Ethnic (BME) groups, by NHS Region, \n in England, 2014/15",
                              "region11",
