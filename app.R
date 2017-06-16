@@ -17,10 +17,11 @@ format_tab <- function(title_no, region_no, map_no, chart_no, narrative_no, meta
   fluidRow(
     box(h3(title_no), width=12),
     box(plotOutput(map_no, height = 400, width = 450), width=5, height=420),
-    box(selectInput(region_no, "Please select a region",
+    box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+        selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
         , width=4),
-    box(textOutput(narrative_no), width = 4, height=150),
+    box(h3(textOutput(narrative_no), width = 4, height=200)),
     box(plotOutput(chart_no, height = 400, width = 1100), width=12),
     box(h3("For more information on this dataset click",
                                       a("here", href= metadata_url_no, target="_blank"), "."))
@@ -30,7 +31,8 @@ format_tab <- function(title_no, region_no, map_no, chart_no, narrative_no, meta
 CCG_tab <- function(title_no,region_no, ccgmap) {
   fluidRow(
     box(h3(title_no), width=12),
-    box(selectInput(region_no, "Please select a CCG", 
+    box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+        selectInput(region_no, h3("Please select a CCG"), 
                            choices = model_outputs6$Area.Name[order(model_outputs6$Area.Name)]),
                width = 4),
            box(plotOutput(ccgmap, height = 1000), width = 8))
@@ -39,7 +41,8 @@ CCG_tab <- function(title_no,region_no, ccgmap) {
 timeseries_tab <- function(title_no, region_no, timeseries) {
   fluidRow(
     box(h3(title_no), width=12),
-    box(selectInput(region_no, "Please select a region",
+    box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+        selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
         , width=4),
     box(plotOutput(timeseries, height = 600, width = 1100), width = 12))
@@ -47,7 +50,8 @@ timeseries_tab <- function(title_no, region_no, timeseries) {
 
 comparison_tab <-function(title1, title2, title3, title4, region_no, chart1_no, chart2_no, chart3_no, chart4_no, chart5_no, chart6_no, chart7_no, chart8_no) {
   fluidRow(
-    box(selectInput(region_no, "Please select a region",
+    box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+        selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)]),
         width=7),
 
@@ -72,8 +76,9 @@ donut_tab <- function(title_no,region_no, donut1, donut2, narrative_no, metadata
     box(h3(title_no), width=12),
     box(plotOutput(donut1, height = 400, width = 520), width=6, height=420),
     box(plotOutput(donut2, height = 400, width = 520), width=6, height=420),
-    box(textOutput(narrative_no), width = 5, height=200),
-    box(selectInput(region_no, "Please select a region",
+    box(h3(textOutput(narrative_no), width = 5, height=200)),
+    box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+        selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
         , width=4),
     box(h3("For more information on this dataset click",
@@ -84,7 +89,8 @@ donut_tab <- function(title_no,region_no, donut1, donut2, narrative_no, metadata
 ethnicity_tab <- function(title_no, region_no, region_chart, England_chart, metadata_url_no){
    fluidRow(
      box(h3(title_no), width=12),
-     box(selectInput(region_no, "Please select a region",
+     box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
+         selectInput(region_no, h3("Please select a region"),
                      choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
          , width=4),
             box(plotOutput(region_chart, width = "900"), width = 10),
@@ -110,12 +116,12 @@ ui <- dashboardPage(
     menuItem("Suicide rate time series", icon=icon("dashboard"), tabName="Suicide_Time"),
     menuItem("Psychosis Waiting Times", icon=icon("dashboard"), tabName="Donut"),
     menuItem("Ethnicity", icon=icon("dashboard"), tabName="Ethnicity"),
-    menuItem("Comparisons", icon=icon("dashboard"), tabName="Comparisons"))),
+    menuItem("Comparisons", icon=icon("window-restore"), tabName="Comparisons"))),
   
   dashboardBody(
     tabItems(
       
-      tabItem(tabName = "Home",
+      tabItem(tabName = "Home", h3(
               
               fluidRow(box("This dashboard presents mental health data taken from Public Health England (PHE) Fingertips tool and the Office for National Statistics (ONS).
                            Read on to learn about England overall, or click the tabs on the left to explore regional breakdowns.")),
@@ -123,7 +129,7 @@ ui <- dashboardPage(
               fluidRow(box("In 2014/15 the overall prevalence of common mental disorders in England was 15.6%.")),               
               fluidRow(box("In 2014/15 the percentage of patients on GP practice register recorded as having depression in England was 7.3%.")),
               fluidRow(box("In 2014/15 the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in England was 63.8%.")),
-              fluidRow(box("In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population."))),
+              fluidRow(box("In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population.")))),
       
       tabItem(tabName = "CMHD_Prevalence",
               format_tab("Prevalence of Common Mental Health Disorders among people aged 16 to 74, in England, by NHS Region, 2014/15", 
