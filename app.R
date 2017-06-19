@@ -17,15 +17,15 @@ format_tab <- function(title_no, source_no, region_no, map_no, chart_no, narrati
   fluidRow(
     box(h3(title_no), background="light-blue", width=10),
     box(h3(source_no), background = "navy", width = 2),
-    box(plotOutput(map_no), width=5, height=420),
     box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
         selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
-        , width=4),
+        , width=7),
+    box(plotOutput(map_no), width=6, height=420),
     box(h3(textOutput(narrative_no), width = 4)),
-    box(plotOutput(chart_no), width=12),
     box(h3("For more information on this dataset click",
-                                      a("here", href= metadata_url_no, target="_blank"), "."))
+           a("here", href= metadata_url_no, target="_blank"), "."), width=4),
+    box(plotOutput(chart_no), width=12)
              )
 }
 
