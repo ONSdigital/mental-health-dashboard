@@ -13,24 +13,26 @@ library(rmarkdown)
 library(rprojroot)
 source("src/r/model.R")
 
-format_tab <- function(title_no, region_no, map_no, chart_no, narrative_no, metadata_url_no) {
+format_tab <- function(title_no, source_no, region_no, map_no, chart_no, narrative_no, metadata_url_no) {
   fluidRow(
-    box(h3(title_no), width=12),
+    box(h3(title_no), background="light-blue", width=10),
+    box(h3(source_no), background = "navy", width = 2),
     box(plotOutput(map_no), width=5, height=420),
     box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
         selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
         , width=4),
-    box(h3(textOutput(narrative_no), width = 4, height=200)),
+    box(h3(textOutput(narrative_no), width = 4)),
     box(plotOutput(chart_no), width=12),
     box(h3("For more information on this dataset click",
                                       a("here", href= metadata_url_no, target="_blank"), "."))
              )
 }
 
-CCG_tab <- function(title_no,region_no, ccgmap) {
+CCG_tab <- function(title_no, source_no, region_no, ccgmap) {
   fluidRow(
-    box(h3(title_no), width=12),
+    box(h3(title_no), background="light-blue", width=10),
+    box(h3(source_no), background = "navy", width = 2),
     box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
         selectInput(region_no, h3("Please select a CCG"), 
                            choices = model_outputs6$Area.Name[order(model_outputs6$Area.Name)]),
@@ -38,9 +40,10 @@ CCG_tab <- function(title_no,region_no, ccgmap) {
            box(plotOutput(ccgmap, height=600), width = 8))
 }
 
-timeseries_tab <- function(title_no, region_no, timeseries) {
+timeseries_tab <- function(title_no, source_no, region_no, timeseries) {
   fluidRow(
-    box(h3(title_no), width=12),
+    box(h3(title_no), background="light-blue", width=10),
+    box(h3(source_no), background = "navy", width = 2),
     box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
         selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
@@ -50,11 +53,11 @@ timeseries_tab <- function(title_no, region_no, timeseries) {
 
 comparison_tab <-function(title1, title2, title3, title4, title5, region_no, chart1_no, chart2_no, chart3_no, chart4_no, chart5_no, chart6_no, chart7_no, chart8_no, chart9_no, chart10_no) {
   fluidRow(
+    box(h3("Select a region on the left and then choose different tabs on the two charts below to see how that region compares across different indicators"), background="light-blue", width=12),
     box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
         selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)]),
         width=5),
-    box(h3("Select a region on the left and then choose different tabs on the two charts below to see how that region compares across different indicators"), background="green"),
 
     tabBox(
     side = "left",
@@ -74,9 +77,10 @@ comparison_tab <-function(title1, title2, title3, title4, title5, region_no, cha
   )
 }
 
-donut_tab <- function(title_no,region_no, donut1, donut2, narrative_no, metadata_url_no) {
+donut_tab <- function(title_no, source_no, region_no, donut1, donut2, narrative_no, metadata_url_no) {
   fluidRow(
-    box(h3(title_no), width=12),
+    box(h3(title_no), background="light-blue", width=10),
+    box(h3(source_no), background="navy", width=2),
     box(plotOutput(donut1, height = 400, width = 520), width=6, height=420),
     box(plotOutput(donut2, height = 400, width = 520), width=6, height=420),
     box(h3(textOutput(narrative_no), width = 5, height=200)),
@@ -89,9 +93,10 @@ donut_tab <- function(title_no,region_no, donut1, donut2, narrative_no, metadata
     
   )}
 
-ethnicity_tab <- function(title_no, region_no, region_chart, England_chart, metadata_url_no){
+ethnicity_tab <- function(title_no, source_no, region_no, region_chart, England_chart, metadata_url_no){
    fluidRow(
-     box(h3(title_no), width=12),
+     box(h3(title_no), background="light-blue", width=10),
+     box(h3(source_no), background="navy", width=2),
      box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
          selectInput(region_no, h3("Please select a region"),
                      choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
@@ -129,13 +134,15 @@ ui <- dashboardPage(
       
       tabItem(tabName = "Home", h3(
         fixedRow(box("This dashboard is a prototype and is subject to further developments.", background = "light-blue")),
-              fluidRow(box("The data used in this dashboard have been taken from Public Health England (PHE) Fingertips tool and the Office for National Statistics (ONS).", background = "light-blue")),
+              fluidRow(box("The data used in this dashboard have been taken from Public Health England (PHE) Fingertips tool and the Office for National Statistics (ONS). 
+                           The original source of the data is provided on each tab, along with metadata for each dataset.", background = "light-blue")),
               fluidRow(box("The datasets included in this dashboard are in response to specific user requirements and will be updated as more sources are identified.", background = "light-blue")))),
               #fluidRow(box("In 2014/15 the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in England was 63.8%.")),
               #fluidRow(box("In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population.")))),
       
       tabItem(tabName = "CMHD_Prevalence",
               format_tab("Prevalence of Common Mental Health Disorders among people aged 16 to 74, in England, by NHS Region, 2014/15", 
+                         "NHS England",
                          "region1", 
                          "map1", 
                          "chart1", 
@@ -144,11 +151,13 @@ ui <- dashboardPage(
       
       tabItem(tabName = "CCG_Prev",
               CCG_tab("Prevalence of Common Mental Health Disorders among people aged 16 to 74, in England, by Clinical Commissioning Group, 2014/15", 
+                      "NHS England",
                       "region6", 
                       "ccgmap")),
       
       tabItem(tabName = "Depression_Prev",
               format_tab("Percentage of patients on GP practice register, aged 18+, recorded as having depression, in England, by NHS Region, 2014/15", 
+                         "NHS Digital",
                          "region2", 
                          "map2", 
                          "chart2", 
@@ -157,6 +166,7 @@ ui <- dashboardPage(
       
       tabItem(tabName = "Depression_Foll",
               format_tab("Percentage of newly diagnosed patients with depression, aged 18+, who had a review 10-56 days after diagnosis, in England, by NHS Region, 2014/15",
+                         "NHS Digital",
                          "region3", 
                          "map3", 
                          "chart3", 
@@ -165,6 +175,7 @@ ui <- dashboardPage(
       
       tabItem(tabName = "MH_Spend",
               format_tab("Spending on mental health per 1,000 population, by NHS Region in England, 2013/14",
+                         "NHS England",
                          "region5", 
                          "map5", 
                          "chart5", 
@@ -173,6 +184,7 @@ ui <- dashboardPage(
       
       tabItem(tabName = "CAMHS_Spending",
               format_tab("Percentage of mental health spend categorised under CAMHS, by NHS Region \n in England, 2012/13",
+                         "NHS England",
                          "region8", 
                          "map8", 
                          "chart8", 
@@ -181,6 +193,7 @@ ui <- dashboardPage(
       
       tabItem(tabName = "IAPT_Improv",
               format_tab("Percentage of people who have completed IAPT treatment who achieved reliable improvement, by NHS Region \n in England, Q2 2016/17",
+                         "NHS Digital",
                          "region9", 
                          "map9", 
                          "chart9", 
@@ -189,6 +202,7 @@ ui <- dashboardPage(
       
       tabItem(tabName = "Suicides",
               format_tab("Age-standardised suicide rates per 100,000 population, by NHS Region in England, 2015 death registrations",
+                         "ONS",
                          "region4", 
                          "map4", 
                          "chart4", 
@@ -197,11 +211,13 @@ ui <- dashboardPage(
       
       tabItem(tabName = "Suicide_Time",
               timeseries_tab("Age-standardised suicide rates per 100,000 population, by NHS Region in England 2006-2015 death registrations",
+                             "ONS",
                              "region7", 
                              "suicidestimeseries")),
       
       tabItem(tabName = "Donut",
               donut_tab("Waiting times for patients who have started treatment and those who are still waiting for treatment for Early Intervention Psychosis in England, April 2017",
+                        "NHS England",
                         "region10", 
                         "donut1", 
                         "donut2", 
@@ -210,6 +226,7 @@ ui <- dashboardPage(
       
       tabItem(tabName = "Ethnicity",
               ethnicity_tab("Access to community mental health services by ethnicity, in England, by NHS regions 2014/15",
+                           "NHS Digital",
                            "region11",
                            "region_chart",
                            "England_chart",
@@ -224,7 +241,7 @@ ui <- dashboardPage(
       
       tabItem(tabName = "Glossary",
               
-              fluidRow(box(h3("Acronyms used within this dashboard"))),
+              fluidRow(box(h3("Acronyms used within this dashboard"), background="yellow")),
               fluidRow(box("CAMHS - Child and Adolescent Mental Health Services", background="light-blue")),
               fluidRow(box("CCG - Clinical Commissioning Group", background="light-blue")),
               fluidRow(box("CMHD - Common Mental Health Disorders", background="light-blue")),
