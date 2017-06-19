@@ -422,12 +422,14 @@ create_choropleth_map_CCG <- function(CCG_shapefile, CCG_region){
   # Create a legend
   par(xpd=TRUE) # disables clipping of the legend by the map extent
   legend("left", # sets where to place legend
+         inset = c(-0.07),
          legend = leglabs(breaks$brks, reverse = TRUE, between = "to"), # create the legend using the breaks created earlier
          fill = rev(ColourSchemeYlGnBu), # use the colour scheme created earlier
          bty = "n",
-         cex = 2.5, #expansion factor - expands text to make larger
+         cex = 1.8, #expansion factor - expands text to make larger
          title = "Percentage (%)"
   )
+  
   par(xpd=FALSE)# disables clipping of the legend by the map extent
 }
 
