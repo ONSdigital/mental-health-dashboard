@@ -35,7 +35,7 @@ CCG_tab <- function(title_no,region_no, ccgmap) {
         selectInput(region_no, h3("Please select a CCG"), 
                            choices = model_outputs6$Area.Name[order(model_outputs6$Area.Name)]),
                width = 4),
-           box(plotOutput(ccgmap, height = 1000), width = 8))
+           box(plotOutput(ccgmap, height=600), width = 8))
 }
 
 timeseries_tab <- function(title_no, region_no, timeseries) {
