@@ -16,13 +16,13 @@ source("src/r/model.R")
 format_tab <- function(title_no, region_no, map_no, chart_no, narrative_no, metadata_url_no) {
   fluidRow(
     box(h3(title_no), width=12),
-    box(plotOutput(map_no, height = 400, width = 450), width=5, height=420),
+    box(plotOutput(map_no), width=5, height=420),
     box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
         selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
         , width=4),
     box(h3(textOutput(narrative_no), width = 4, height=200)),
-    box(plotOutput(chart_no, height = 400, width = 1100), width=12),
+    box(plotOutput(chart_no), width=12),
     box(h3("For more information on this dataset click",
                                       a("here", href= metadata_url_no, target="_blank"), "."))
              )
@@ -45,29 +45,32 @@ timeseries_tab <- function(title_no, region_no, timeseries) {
         selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)])
         , width=4),
-    box(plotOutput(timeseries, height = 600, width = 1100), width = 12))
+    box(plotOutput(timeseries), width = 12))
 }
 
-comparison_tab <-function(title1, title2, title3, title4, region_no, chart1_no, chart2_no, chart3_no, chart4_no, chart5_no, chart6_no, chart7_no, chart8_no) {
+comparison_tab <-function(title1, title2, title3, title4, title5, region_no, chart1_no, chart2_no, chart3_no, chart4_no, chart5_no, chart6_no, chart7_no, chart8_no, chart9_no, chart10_no) {
   fluidRow(
     box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
         selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)]),
-        width=7),
+        width=5),
+    box(h3("Select a region on the left and then choose different tabs on the two charts below to see how that region compares across different indicators"), background="green"),
 
     tabBox(
     side = "left",
-    tabPanel(title1, plotOutput(chart1_no)),
-    tabPanel(title2, plotOutput(chart2_no)),
-    tabPanel(title3, plotOutput(chart3_no)),
-    tabPanel(title4, plotOutput(chart4_no)), width = 11),
+    tabPanel(h4(title1), plotOutput(chart1_no)),
+    tabPanel(h4(title2), plotOutput(chart2_no)),
+    tabPanel(h4(title3), plotOutput(chart3_no)),
+    tabPanel(h4(title4), plotOutput(chart4_no)), 
+    tabPanel(h4(title5), plotOutput(chart5_no)), width = 11),
 
   tabBox(
     side = "left",
-    tabPanel(title1, plotOutput(chart5_no)),
-    tabPanel(title2, plotOutput(chart6_no)),
-    tabPanel(title3, plotOutput(chart7_no)),
-    tabPanel(title4, plotOutput(chart8_no)), width = 11)
+    tabPanel(h4(title1), plotOutput(chart6_no)),
+    tabPanel(h4(title2), plotOutput(chart7_no)),
+    tabPanel(h4(title3), plotOutput(chart8_no)),
+    tabPanel(h4(title4), plotOutput(chart9_no)), 
+    tabPanel(h4(title5), plotOutput(chart10_no)), width = 11)
   )
 }
 
@@ -101,7 +104,7 @@ ethnicity_tab <- function(title_no, region_no, region_chart, England_chart, meta
  )}
 
 ui <- dashboardPage(
-  dashboardHeader(title = "Mental Health Dashboard", titleWidth = 275),
+  dashboardHeader(title = "Mental Health Dashboard for England", titleWidth = 375),
   
   dashboardSidebar(width = 275, sidebarMenu(
     menuItem("Homepage", icon = icon("home"), tabName = "Home"),
@@ -116,20 +119,20 @@ ui <- dashboardPage(
     menuItem("Suicide rate time series", icon=icon("dashboard"), tabName="Suicide_Time"),
     menuItem("Psychosis Waiting Times", icon=icon("dashboard"), tabName="Donut", badgeLabel = "new", badgeColor = "green"),
     menuItem("Ethnicity", icon=icon("dashboard"), tabName="Ethnicity", badgeLabel = "new", badgeColor = "green"),
-    menuItem("Comparisons", icon=icon("window-restore"), tabName="Comparisons"))),
+    menuItem("Comparisons", icon=icon("window-restore"), tabName="Comparisons"),
+    menuItem("Glossary", icon=icon("font", lib ="glyphicon"), tabName="Glossary")
+    
+    )),
   
   dashboardBody(
     tabItems(
       
       tabItem(tabName = "Home", h3(
-              
-              fluidRow(box("This dashboard presents mental health data taken from Public Health England (PHE) Fingertips tool and the Office for National Statistics (ONS).
-                           Read on to learn about England overall, or click the tabs on the left to explore regional breakdowns.")),
-              fluidRow(box("In 2013/14 the spending on mental health in England was £145.80 per 1,000 population.")),               
-              fluidRow(box("In 2014/15 the overall prevalence of common mental disorders in England was 15.6%.")),               
-              fluidRow(box("In 2014/15 the percentage of patients on GP practice register recorded as having depression in England was 7.3%.")),
-              fluidRow(box("In 2014/15 the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in England was 63.8%.")),
-              fluidRow(box("In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population.")))),
+        fixedRow(box("This dashboard is a prototype and is subject to further developments.", background = "light-blue")),
+              fluidRow(box("The data used in this dashboard have been taken from Public Health England (PHE) Fingertips tool and the Office for National Statistics (ONS).", background = "light-blue")),
+              fluidRow(box("The datasets included in this dashboard are in response to specific user requirements and will be updated as more sources are identified.", background = "light-blue")))),
+              #fluidRow(box("In 2014/15 the percentage of newly diagnosed patients with depression who had a review 10-56 days after diagnosis in England was 63.8%.")),
+              #fluidRow(box("In 2015 the age-standardised suicide-rate in England was 10.1 per 100,000 population.")))),
       
       tabItem(tabName = "CMHD_Prevalence",
               format_tab("Prevalence of Common Mental Health Disorders among people aged 16 to 74, in England, by NHS Region, 2014/15", 
@@ -215,13 +218,23 @@ ui <- dashboardPage(
       
       tabItem(tabName = "Comparisons",
 
-              comparison_tab("CMHD Prevalence","Depression Prevalence", "Depression Follow-up", "MH Spending", 
-                             "regioncompare", "chartcompare1", "chartcompare2", "chartcompare3", "chartcompare4", 
-                             "chartcompare5", "chartcompare6", "chartcompare7", "chartcompare8"))
+              comparison_tab("CMHD Prevalence","Depression Prevalence", "Depression Follow-up", "MH Spending", "CAMHS Spending",
+                             "regioncompare", "chartcompare1", "chartcompare2", "chartcompare3", "chartcompare4", "chartcompare9",
+                             "chartcompare5", "chartcompare6", "chartcompare7", "chartcompare8", "chartcompare10")),
+      
+      tabItem(tabName = "Glossary",
+              
+              fluidRow(box(h3("Acronyms used within this dashboard"))),
+              fluidRow(box("CAMHS - Child and Adolescent Mental Health Services", background="light-blue")),
+              fluidRow(box("CCG - Clinical Commissioning Group", background="light-blue")),
+              fluidRow(box("CMHD - Common Mental Health Disorders", background="light-blue")),
+              fluidRow(box("IAPT - Improving Access to Psychological Therapies", background="light-blue"))
+              
       
     )
   ) 
-)
+))
+
 
 
 
@@ -283,6 +296,14 @@ server <- function(input, output) {
   
   output$chartcompare8 <- renderPlot({
     create_barchart_of_MH_spending_by_region(model_outputs5[[2]], model_outputs5[[3]], input$regioncompare)
+  })
+  
+  output$chartcompare9 <- renderPlot({
+    create_barchart_of_CAMHS_spending_by_region(model_outputs8[[2]], model_outputs8[[3]], input$regioncompare)
+  })
+
+  output$chartcompare10 <- renderPlot({
+    create_barchart_of_CAMHS_spending_by_region(model_outputs8[[2]], model_outputs8[[3]], input$regioncompare)
   })
   
   output$map4 <- renderPlot( {
