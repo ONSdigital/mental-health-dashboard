@@ -57,7 +57,7 @@ comparison_tab <-function(title1, title2, title3, title4, title5, region_no, cha
            For example, one region may spend a higher percentage on CAMHS than another, but their overall spending on mental health may be lower, 
            resulting in a lower overall spend on CAMHS."), background = "light-blue", width=12),
     box(h3("To see how a region performs across indicators, select the region from the drop down menu and select the indicators from the tabs to display the indicators you want to compare."), 
-        background="green", width=12),
+        background="light-blue", width=12),
     box(tags$style(type='text/css', ".selectize-input { font-size: 20px;} .selectize-dropdown { font-size: 20px;}"),
         selectInput(region_no, h3("Please select a region"),
                     choices = model_outputs1[[2]]$Parent.Name[order(model_outputs1[[2]]$Parent.Name)]),
@@ -138,13 +138,13 @@ ui <- dashboardPage(
       
       tabItem(tabName = "Home", h3(
         fixedRow(box("This dashboard is a prototype and is subject to further developments.", background = "yellow", width=12)),
-        fluidRow(box("The dashboard is not designed to be hold every dataset available on mental health, but does provide a high-level overview of some key indicators.", background="light-blue"),
-                 box("The datasets included in this dashboard are in response to specific user requirements and will be updated as more sources are identified.", background = "light-blue")), 
-        fluidRow(box("All data comes from published sources. The original source of the data is provided on each tab, along with metadata for each dataset.", background = "light-blue"),
-                 box("The majority of the data included in this dashbaord was downloaded from the Public Health England (PHE) Fingertips tool.", background="light-blue")),
+        fluidRow(box("The dashboard is not designed to be hold every dataset available on mental health, but does provide a high-level overview of some key indicators."),
+                 box("The datasets included in this dashboard are in response to specific user requirements and will be updated as more sources are identified.")), 
+        fluidRow(box("All data comes from published sources. The original source of the data is provided on each tab, along with metadata for each dataset."),
+                 box("The majority of the data included in this dashbaord were downloaded from the ", 
+                     a("Public Health England (PHE) Fingertips tool", href= "https://fingertips.phe.org.uk/profile-group/mental-health", target="_blank", color="white"), "."), width=4),
         fluidRow(box("We welcome feedback on this dashboard. Contact Rosie Amery: GSS.Health@ons.gov.uk", background="navy", width=12))
         )),
-      
       tabItem(tabName = "CMHD_Prevalence",
               format_tab("Prevalence of Common Mental Health Disorders among people aged 16 to 74, in England, by NHS Region, 2014/15", 
                          "NHS England",
