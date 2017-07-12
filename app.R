@@ -115,7 +115,9 @@ ethnicity_tab <- function(title_no, source_no, region_no, region_chart, England_
 ui <- dashboardPage(
   dashboardHeader(title = "Mental Health Dashboard for England", titleWidth = 375),
   
-  dashboardSidebar(width = 275, sidebarMenu(
+  dashboardSidebar(width = 275, (tags$style(type='text/css', 
+                                            ".sidebar {font-size: 20px} ")),
+    sidebarMenu(
     menuItem("Homepage", icon = icon("home"), tabName = "Home"),
     menuItem("CMHD Prevalence", icon = icon("dashboard"), tabName = "CMHD_Prevalence"),
     menuItem("CCG CMHD Prevalence", icon=icon("dashboard"), tabName="CCG_Prev"),
